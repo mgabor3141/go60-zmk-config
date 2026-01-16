@@ -187,18 +187,18 @@
 
 /* Input Listeners */
 &cirque_lh_listener {
-    input-processors = <&zip_xy_scaler 3 4>, <&zip_xy_to_scroll_mapper>, <&zip_click_to_right_click_mapper>, <&zip_temp_layer 4 500>, <&zip_scroll_scaler 1 8>;
+    input-processors = <&zip_xy_scaler 7 11>, <&zip_xy_to_scroll_mapper>, <&zip_click_to_right_click_mapper>, <&zip_temp_layer 4 500>, <&zip_scroll_scaler 1 8>;
     layer_5 {
         layers = <LAYER_MouseFast>;
-        input-processors = <&zip_xy_scaler 5 4>, <&zip_xy_to_scroll_mapper>, <&zip_click_to_right_click_mapper>, <&zip_temp_layer 4 500>, <&zip_scroll_scaler 1 8>;
+        input-processors = <&zip_xy_scaler 1 1>, <&zip_xy_to_scroll_mapper>, <&zip_click_to_right_click_mapper>, <&zip_temp_layer 4 500>, <&zip_scroll_scaler 1 8>;
     };
 };
 
 &cirque_rh_listener {
-    input-processors = <&zip_temp_layer 4 500>;
+    input-processors = <&zip_xy_scaler 3 2>, <&zip_temp_layer 4 500>;
     layer_5 {
         layers = <LAYER_MouseFast>;
-        input-processors = <&zip_xy_scaler 5 1>, <&zip_temp_layer 4 500>;
+        input-processors = <&zip_xy_scaler 6 1>, <&zip_temp_layer 4 500>;
     };
 };
 
@@ -840,23 +840,23 @@
 
         layer_Nav {
             bindings = <
-            &kp N0                 &kp F1     &kp F2     &kp F3     &kp F4     &kp F5                                                       &kp F6     &kp F7     &kp F8        &kp F9          &kp F10     &kp F11
- &ctrl_hold_kp TAB  &ctrl_hold_kp LS(TAB)   &kp HOME     &kp UP    &kp END  &kp PG_UP                                                    &kp KP_N7  &kp KP_N8  &kp KP_N9  &kp KP_MINUS     &kp KP_SLASH     &kp F12
- &TH_mod LCTRL ESC              &kp LC(Z)   &kp LEFT   &kp DOWN  &kp RIGHT  &kp PG_DN                                                    &kp KP_N4  &kp KP_N5  &kp KP_N6   &kp KP_PLUS  &kp KP_MULTIPLY  &kp KP_NUM
-         &kp LC(Y)          &kp LC(LS(Z))  &kp LC(X)  &kp LC(C)  &kp LC(V)  &kp SPACE                                                    &kp KP_N1  &kp KP_N2  &kp KP_N3  &kp KP_ENTER        &kp EQUAL   &kp RCTRL
-                                              &trans     &trans     &trans                                                                           &mkp MB5  &kp KP_N0    &kp KP_DOT
-                                                                                        &none  &trans  &trans  &trans  &trans  &mkp MB4
+            &kp N0                 &kp F1     &kp F2     &kp F3     &kp F4     &kp F5                                                          &kp F6     &kp F7     &kp F8        &kp F9          &kp F10     &kp F11
+ &ctrl_hold_kp TAB  &ctrl_hold_kp LS(TAB)   &kp HOME     &kp UP    &kp END  &kp PG_UP                                                       &kp KP_N7  &kp KP_N8  &kp KP_N9  &kp KP_MINUS     &kp KP_SLASH     &kp F12
+ &TH_mod LCTRL ESC              &kp LC(Z)   &kp LEFT   &kp DOWN  &kp RIGHT  &kp PG_DN                                                       &kp KP_N4  &kp KP_N5  &kp KP_N6   &kp KP_PLUS  &kp KP_MULTIPLY  &kp KP_NUM
+         &kp LC(Y)          &kp LC(LS(Z))  &kp LC(X)  &kp LC(C)  &kp LC(V)  &kp SPACE                                                       &kp KP_N1  &kp KP_N2  &kp KP_N3  &kp KP_ENTER        &kp EQUAL   &kp RCTRL
+                                              &trans     &trans     &trans                                                                              &mkp MB5  &kp KP_N0    &kp KP_DOT
+                                                                                        &none  &trans  &trans   &none  &kp RSHFT  &mkp MB4
             >;
         };
 
         layer_Gaming {
             bindings = <
- &TH_magic_long MACRO_PLACEHOLDER GRAVE  &trans  &trans   &trans                         &trans  &trans                                                           &trans    &trans    &trans         &trans       &trans       &trans
-                                &kp TAB   &kp T   &kp Q    &kp W                          &kp E   &kp R                                                           &trans    &trans    &trans         &trans       &trans       &trans
-                              &kp LSHFT   &kp G   &kp A    &kp S                          &kp D   &kp F                                                           &trans    &trans    &trans         &trans       &trans       &trans
-                              &kp LCTRL   &kp B   &kp Z    &kp X                          &kp C   &kp V                                                           &trans    &trans    &kp UP  &kp LS(COMMA)  &kp LS(DOT)  &kp RS(F12)
-                                                 &trans  &kp ESC  &to_space_overide_gaming LGUI                                                                           &kp LEFT  &kp DOWN      &kp RIGHT
-                                                                                                         &kp LALT  &kp SPACE  &kp RET  &kp BSPC  &trans  &kp DEL
+ &TH_magic_long MACRO_PLACEHOLDER ESC  &trans  &trans   &trans                         &trans  &trans                                                           &trans    &trans    &trans         &trans       &trans    &kp GRAVE
+                              &kp TAB   &kp T   &kp Q    &kp W                          &kp E   &kp R                                                           &trans    &trans    &trans         &trans       &trans       &trans
+                            &kp LSHFT   &kp G   &kp A    &kp S                          &kp D   &kp F                                                           &trans    &trans    &trans         &trans       &trans       &trans
+                            &kp LCTRL   &kp B   &kp Z    &kp X                          &kp C   &kp V                                                           &trans    &trans    &kp UP  &kp LS(COMMA)  &kp LS(DOT)  &kp RS(F12)
+                                               &trans  &kp RET  &to_space_overide_gaming LGUI                                                                           &kp LEFT  &kp DOWN      &kp RIGHT
+                                                                                                       &kp LALT  &kp SPACE   &none  &kp BSPC  &kp RET  &kp DEL
             >;
         };
 
