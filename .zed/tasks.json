@@ -1,0 +1,6 @@
+[
+  {
+    "label": "build",
+    "command": "./build.sh",
+  },
+]
