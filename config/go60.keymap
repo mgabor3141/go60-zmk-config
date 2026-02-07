@@ -156,12 +156,12 @@
 
 /* Automatically generated layer name defines */
 #define LAYER_Base 0
-#define LAYER_Symbol 1
+#define LAYER_WM 1
 #define LAYER_Nav 2
-#define LAYER_Gaming 3
-#define LAYER_Mouse 4
-#define LAYER_MouseFast 5
-#define LAYER_SpaceOverride 6
+#define LAYER_Symbol 3
+#define LAYER_Gaming 4
+#define LAYER_Mouse 5
+#define LAYER_MouseFast 6
 #define LAYER_CtrlHeld 7
 #define LAYER_Magic 8
 
@@ -187,18 +187,18 @@
 
 /* Input Listeners */
 &cirque_lh_listener {
-    input-processors = <&zip_xy_scaler 7 11>, <&zip_xy_to_scroll_mapper>, <&zip_click_to_right_click_mapper>, <&zip_temp_layer 4 500>, <&zip_scroll_scaler 1 8>;
+    input-processors = <&zip_xy_scaler 7 11>, <&zip_xy_to_scroll_mapper>, <&zip_click_to_right_click_mapper>, <&zip_temp_layer 5 500>, <&zip_scroll_scaler 1 8>;
     layer_5 {
         layers = <LAYER_MouseFast>;
-        input-processors = <&zip_xy_scaler 1 1>, <&zip_xy_to_scroll_mapper>, <&zip_click_to_right_click_mapper>, <&zip_temp_layer 4 500>, <&zip_scroll_scaler 1 8>;
+        input-processors = <&zip_xy_scaler 1 1>, <&zip_xy_to_scroll_mapper>, <&zip_click_to_right_click_mapper>, <&zip_temp_layer 5 500>, <&zip_scroll_scaler 1 8>;
     };
 };
 
 &cirque_rh_listener {
-    input-processors = <&zip_xy_scaler 3 2>, <&zip_temp_layer 4 500>;
+    input-processors = <&zip_xy_scaler 3 2>, <&zip_temp_layer 5 500>;
     layer_5 {
         layers = <LAYER_MouseFast>;
-        input-processors = <&zip_xy_scaler 6 1>, <&zip_temp_layer 4 500>;
+        input-processors = <&zip_xy_scaler 6 1>, <&zip_temp_layer 5 500>;
     };
 };
 
@@ -496,42 +496,6 @@
                 , <&rgb_ug RGB_OFF>;
         };
 
-        to_space_overide: to_space_overide {
-            label = "&TO_SPACE_OVERIDE";
-            compatible = "zmk,behavior-macro-one-param";
-            #binding-cells = <1>;
-            tap-ms = <0>;
-            wait-ms = <0>;
-            bindings = <&to LAYER_SpaceOverride>
-                , <&macro_press>
-                , <&macro_param_1to1>
-                , <&kp MACRO_PLACEHOLDER>
-                , <&macro_pause_for_release>
-                , <&macro_release>
-                , <&macro_param_1to1>
-                , <&kp MACRO_PLACEHOLDER>
-                , <&macro_tap>
-                , <&to 0>;
-        };
-
-        to_space_overide_gaming: to_space_overide_gaming {
-            label = "&TO_SPACE_OVERIDE_GAMING";
-            compatible = "zmk,behavior-macro-one-param";
-            #binding-cells = <1>;
-            tap-ms = <0>;
-            wait-ms = <0>;
-            bindings = <&to LAYER_SpaceOverride>
-                , <&macro_press>
-                , <&macro_param_1to1>
-                , <&kp MACRO_PLACEHOLDER>
-                , <&macro_pause_for_release>
-                , <&macro_release>
-                , <&macro_param_1to1>
-                , <&kp MACRO_PLACEHOLDER>
-                , <&macro_tap>
-                , <&to LAYER_Gaming>;
-        };
-
         rgb_preset: rgb_preset {
             label = "&RGB_PRESET";
             compatible = "zmk,behavior-macro";
@@ -571,6 +535,21 @@
                 , <&macro_release>
                 , <&mo LAYER_Nav>;
         };
+
+        wm_layer: wm_layer {
+            label = "&WM_LAYER";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            tap-ms = <0>;
+            wait-ms = <0>;
+            bindings = <&macro_press>
+                , <&kp RGUI>
+                , <&mo LAYER_WM>
+                , <&macro_pause_for_release>
+                , <&macro_release>
+                , <&mo LAYER_WM>
+                , <&kp RGUI>;
+        };
     };
 };
 
@@ -578,6 +557,9 @@
 / {
     behaviors {
 
+        // Layer tap dance behaviors
+
+        ZMK_TD_LAYER(td_LAYER_Nav, 2)
 
         // AutoShift Helper - &AS main macro is chained to &AS_HT hold tap and &AS_Shifted macro. For faster typists, it is recommended to decrease the tapping-term-ms value. A suggested value is 135 ms.
         // More: https://github.com/nickcoutsos/keymap-editor/wiki/Autoshift-using-ZMK-behaviors
@@ -752,7 +734,7 @@
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             tapping-term-ms = <200>;
-            bindings = <&to_space_overide>, <&kp>;
+            bindings = <&kp>, <&kp>;
             hold-while-undecided;
             hold-while-undecided-linger;
         };
@@ -771,7 +753,7 @@
             #binding-cells = <2>;
             tapping-term-ms = <200>;
             bindings = <&nav_ctrl_off>, <&kp>;
-            quick-tap-ms = <150>;
+            quick-tap-ms = <300>;
         };
 
         TH_space: TH_space {
@@ -784,6 +766,15 @@
             retro-tap;
             hold-while-undecided;
         };
+
+        TH_wm_layer: TH_wm_layer {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            bindings = <&wm_layer>, <&kp>;
+            hold-while-undecided;
+            hold-while-undecided-linger;
+        };
     };
 };
 
@@ -792,20 +783,25 @@
     combos {
         compatible = "zmk,combos";
 
-        // Activate gaming layer
-        combo_to_gaming {
-            timeout-ms = <50>;
-            key-positions = <POS_LH_C6R1 POS_LH_T2>;
-            bindings = <&to_gaming>;
-            layers = <LAYER_Base LAYER_Mouse LAYER_MouseFast LAYER_Magic>;
-        };
-
         // Activate base layer
         combo_to_base {
             timeout-ms = <50>;
             key-positions = <POS_LH_C6R1 POS_LH_T3>;
             bindings = <&to_base>;
             require-prior-idle-ms = <200>;
+        };
+
+        // Activate gaming layer
+        combo_to_gaming {
+            timeout-ms = <50>;
+            key-positions = <POS_LH_C6R1 POS_LH_T2>;
+            bindings = <&to_gaming>;
+            layers = <LAYER_Base LAYER_Mouse LAYER_MouseFast LAYER_Magic LAYER_Gaming>;
+        };
+
+        combo_mute {
+            key-positions = <POS_LH_C4R5 POS_LH_C3R5>;
+            bindings = <&kp F13>;
         };
     };
 };
@@ -818,45 +814,56 @@
 
         layer_Base {
             bindings = <
- &TH_magic MACRO_PLACEHOLDER GRAVE  &kp N1   &kp N2   &kp N3                       &kp N4  &kp N5                                                                                                                &kp N6     &kp N7     &kp N8    &kp N9    &kp N0  &kp MINUS
-                           &kp TAB   &kp Q    &kp W    &kp E                        &kp R   &kp T                                                                                                                 &kp Y      &kp U      &kp I     &kp O     &kp P   &kp BSLH
-                 &TH_mod LCTRL ESC   &kp A    &kp S    &kp D                        &kp F   &kp G                                                                                                                 &kp H      &kp J      &kp K     &kp L  &kp SEMI    &kp SQT
-                          &kp LALT   &kp Z    &kp X    &kp C                        &kp V   &kp B                                                                                                                 &kp N      &kp M  &kp COMMA   &kp DOT  &kp FSLH  &kp EQUAL
-                                            &kp F13  &kp DEL  &TH_space_override LGUI F20                                                                                                                                &kp RIGHT     &kp UP  &kp DOWN
-                                                                                                   &TH_nav_ctrl_off MACRO_PLACEHOLDER BSPC  &TH_mod LCTRL RET  &sk LSHFT  &sl LAYER_Symbol  &kp SPACE  &kp LEFT
+ &TH_magic MACRO_PLACEHOLDER ESC  &kp N1     &kp N2   &kp N3    &kp N4  &kp N5                                                                                                               &kp N6     &kp N7     &kp N8    &kp N9    &kp N0  &kp MINUS
+                         &kp TAB   &kp Q      &kp W    &kp E     &kp R   &kp T                                                                                                                &kp Y      &kp U      &kp I     &kp O     &kp P   &kp BSLH
+                       &sk LSHFT   &kp A      &kp S    &kp D     &kp F   &kp G                                                                                                                &kp H      &kp J      &kp K     &kp L  &kp SEMI    &kp SQT
+                        &sk LALT   &kp Z      &kp X    &kp C     &kp V   &kp B                                                                                                                &kp N      &kp M  &kp COMMA   &kp DOT  &kp FSLH  &kp EQUAL
+                                          &kp GRAVE  &kp DEL  &kp BSPC                                                                                                                               &kp RIGHT     &kp UP  &kp DOWN
+                                                                                &TH_wm_layer MACRO_PLACEHOLDER F20  &TH_mod LCTRL RET  &td_LAYER_Nav  &sl LAYER_Symbol  &kp SPACE  &kp LEFT
             >;
         };
 
-        layer_Symbol {
+        layer_WM {
             bindings = <
- &triple_backtick       &kp FSLH    &kp LS(N9)            &kp LS(N0)       &kp BSLH      &kp SEMI                                                                                 &none    &kp DEL  &kp LS(TAB)              &kp INS   &kp ESC   &none
-       &kp LS(N1)       &kp LBKT  &kp LS(LBKT)          &kp LS(RBKT)       &kp RBKT  &kp LS(FSLH)                                                                             &kp GRAVE   &kp BSPC      &kp TAB            &kp SPACE   &kp RET   &none
-       &kp LS(N3)     &kp LS(N6)     &kp EQUAL         &kp LS(MINUS)     &kp LS(N4)    &kp LS(N8)                                                                  &kp LS(SINGLE_QUOTE)  &sk LSHFT    &sk LCTRL             &sk LALT  &sk LGUI   &none
-    &kp LS(GRAVE)  &kp LS(COMMA)  &kp LS(BSLH)             &kp MINUS    &kp LS(DOT)    &kp LS(N7)                                                                               &kp SQT      &none        &none  &symb_dotdot_v1_TKZ     &none   &none
-                                       &kp SQT  &kp LS(SINGLE_QUOTE)  &kp LS(EQUAL)                                                                                                        &kp END    &kp PG_UP            &kp PG_DN
-                                                                                                   &kp LS(N5)  &kp LS(SEMI)  &kp LS(N2)   &none  &trans  &kp HOME
+  &trans       &trans  &trans  &trans  &trans     &trans                                                  &trans  &trans  &trans  &trans  &trans  &trans
+ &kp TAB  &kp LS(TAB)  &trans  &trans  &trans     &trans                                                  &trans  &trans  &trans  &trans  &trans  &trans
+  &trans       &trans  &trans  &trans  &trans  &kp SPACE                                                  &trans  &trans  &trans  &trans  &trans  &trans
+  &trans       &trans  &trans  &trans  &trans     &trans                                                  &trans  &trans  &trans  &trans  &trans  &trans
+                       &trans  &trans  &trans                                                                     &trans  &trans  &trans
+                                                           &none  &trans  &trans  &trans  &trans  &trans
             >;
         };
 
         layer_Nav {
             bindings = <
-            &kp N0                 &kp F1     &kp F2     &kp F3     &kp F4     &kp F5                                                          &kp F6     &kp F7     &kp F8        &kp F9          &kp F10     &kp F11
- &ctrl_hold_kp TAB  &ctrl_hold_kp LS(TAB)   &kp HOME     &kp UP    &kp END  &kp PG_UP                                                       &kp KP_N7  &kp KP_N8  &kp KP_N9  &kp KP_MINUS     &kp KP_SLASH     &kp F12
- &TH_mod LCTRL ESC              &kp LC(Z)   &kp LEFT   &kp DOWN  &kp RIGHT  &kp PG_DN                                                       &kp KP_N4  &kp KP_N5  &kp KP_N6   &kp KP_PLUS  &kp KP_MULTIPLY  &kp KP_NUM
-         &kp LC(Y)          &kp LC(LS(Z))  &kp LC(X)  &kp LC(C)  &kp LC(V)  &kp SPACE                                                       &kp KP_N1  &kp KP_N2  &kp KP_N3  &kp KP_ENTER        &kp EQUAL   &kp RCTRL
-                                              &trans     &trans     &trans                                                                              &mkp MB5  &kp KP_N0    &kp KP_DOT
-                                                                                        &none  &trans  &trans   &none  &kp RSHFT  &mkp MB4
+            &kp N0                 &kp F1        &kp F2         &kp F3         &kp F4     &kp F5                                                          &kp F6     &kp F7     &kp F8        &kp F9          &kp F10     &kp F11
+ &ctrl_hold_kp TAB  &ctrl_hold_kp LS(TAB)      &kp HOME         &kp UP        &kp END  &kp PG_UP                                                       &kp KP_N7  &kp KP_N8  &kp KP_N9  &kp KP_MINUS     &kp KP_SLASH     &kp F12
+            &trans              &kp LC(Z)      &kp LEFT       &kp DOWN      &kp RIGHT  &kp PG_DN                                                       &kp KP_N4  &kp KP_N5  &kp KP_N6   &kp KP_PLUS  &kp KP_MULTIPLY  &kp KP_NUM
+            &trans          &kp LC(LS(Z))  &kp LC(LEFT)  &kp LC(LS(C))  &kp LC(RIGHT)  &kp SPACE                                                       &kp KP_N1  &kp KP_N2  &kp KP_N3  &kp KP_ENTER        &kp EQUAL   &kp RCTRL
+                                                 &trans         &trans         &trans                                                                              &mkp MB5  &kp KP_N0    &kp KP_DOT
+                                                                                                  &trans  &trans  &trans   &none  &kp RSHFT  &mkp MB4
+            >;
+        };
+
+        layer_Symbol {
+            bindings = <
+ &triple_backtick       &kp FSLH    &kp LS(N9)            &kp LS(N0)       &kp BSLH    &kp RA(N4)                                                                  &trans     &trans     &trans       &trans    &kp RA(N0)  &kp RA(MINUS)
+       &kp LS(N1)       &kp LBKT  &kp LS(LBKT)          &kp LS(RBKT)       &kp RBKT  &kp LS(FSLH)                                                                  &trans  &kp RA(U)  &kp RA(I)    &kp RA(O)  &kp RA(LBKT)   &kp RA(BSLH)
+       &kp LS(N3)     &kp LS(N6)     &kp EQUAL         &kp LS(MINUS)     &kp LS(N4)    &kp LS(N8)                                                                  &trans     &trans     &trans       &trans     &kp RA(E)      &kp RA(A)
+    &kp LS(GRAVE)  &kp LS(COMMA)  &kp LS(BSLH)             &kp MINUS    &kp LS(DOT)    &kp LS(N7)                                                                  &trans  &kp RA(M)  &kp RA(D)  &kp RA(DOT)        &trans         &trans
+                                       &kp SQT  &kp LS(SINGLE_QUOTE)  &kp LS(EQUAL)                                                                                          &kp END  &kp PG_UP    &kp PG_DN
+                                                                                                   &kp LS(N5)  &kp LS(SEMI)  &kp LS(N2)   &none  &trans  &kp HOME
             >;
         };
 
         layer_Gaming {
             bindings = <
- &TH_magic_long MACRO_PLACEHOLDER ESC  &trans  &trans   &trans                         &trans  &trans                                                           &trans    &trans    &trans         &trans       &trans    &kp GRAVE
-                              &kp TAB   &kp T   &kp Q    &kp W                          &kp E   &kp R                                                           &trans    &trans    &trans         &trans       &trans       &trans
-                            &kp LSHFT   &kp G   &kp A    &kp S                          &kp D   &kp F                                                           &trans    &trans    &trans         &trans       &trans       &trans
-                            &kp LCTRL   &kp B   &kp Z    &kp X                          &kp C   &kp V                                                           &trans    &trans    &kp UP  &kp LS(COMMA)  &kp LS(DOT)  &kp RS(F12)
-                                               &trans  &kp RET  &to_space_overide_gaming LGUI                                                                           &kp LEFT  &kp DOWN      &kp RIGHT
-                                                                                                       &kp LALT  &kp SPACE   &none  &kp BSPC  &kp RET  &kp DEL
+ &TH_magic_long MACRO_PLACEHOLDER ESC  &trans  &trans   &trans     &trans  &trans                                                           &trans    &trans    &trans         &trans       &trans    &kp GRAVE
+                              &kp TAB   &kp T   &kp Q    &kp W      &kp E   &kp R                                                           &trans    &trans    &trans         &trans       &trans       &trans
+                            &kp LSHFT   &kp G   &kp A    &kp S      &kp D   &kp F                                                           &trans    &trans    &trans         &trans       &trans       &trans
+                            &kp LCTRL   &kp B   &kp Z    &kp X      &kp C   &kp V                                                           &trans    &trans    &kp UP  &kp LS(COMMA)  &kp LS(DOT)  &kp RS(F12)
+                                               &trans  &kp RET  &wm_layer                                                                           &kp LEFT  &kp DOWN      &kp RIGHT
+                                                                                   &kp LALT  &kp SPACE   &none  &kp BSPC  &kp RET  &kp DEL
             >;
         };
 
@@ -879,17 +886,6 @@
  &trans  &trans  &trans  &trans  &trans  &trans                                                             &trans    &trans  &trans  &trans  &trans  &trans
                  &trans  &trans  &trans                                                                             &mkp MB5  &trans  &trans
                                                  &trans  &mkp LCLK  &mkp RCLK   &none  &mkp MCLK  &mkp MB4
-            >;
-        };
-
-        layer_SpaceOverride {
-            bindings = <
- &trans  &trans  &trans  &trans    &trans  &trans                                                     &trans  &trans  &trans  &trans  &trans  &trans
- &trans  &trans  &trans  &trans    &trans  &trans                                                     &trans  &trans  &trans  &trans  &trans  &trans
- &trans  &trans  &trans  &trans    &trans  &trans                                                     &trans  &trans  &trans  &trans  &trans  &trans
- &trans  &trans  &trans  &trans    &trans  &trans                                                     &trans  &trans  &trans  &trans  &trans  &trans
-                 &trans  &trans  &kp LGUI                                                                     &trans  &trans  &trans
-                                                   &trans  &kp SPACE  &trans  &trans  &trans  &trans
             >;
         };
 
