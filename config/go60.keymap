@@ -788,11 +788,11 @@
 
         layer_Base {
             bindings = <
- &TH_magic MACRO_PLACEHOLDER MACRO_PLACEHOLDER  &kp N1    &kp N2  &kp N3   &kp N4  &kp N5                                                                                                               &kp N6    &kp N7     &kp N8     &kp N9    &kp N0       &none
-                                       &kp TAB   &kp Q     &kp W   &kp E    &kp R   &kp T                                                                                                                &kp Y     &kp U      &kp I      &kp O     &kp P    &kp BSLH
-                              &TH_mod LALT ESC   &kp A     &kp S   &kp D    &kp F   &kp G                                                                                                                &kp H     &kp J      &kp K      &kp L  &kp SEMI     &kp SQT
-                                     &sk LSHFT   &kp Z     &kp X   &kp C    &kp V   &kp B                                                                                                                &kp N     &kp M  &kp COMMA    &kp DOT  &kp FSLH  &caps_word
-                                                        &kp DOWN  &kp UP  &kp DEL                                                                                                                               &kp LEFT  &kp RIGHT  &sk RSHFT
+ &TH_magic MACRO_PLACEHOLDER MACRO_PLACEHOLDER  &kp N1  &kp N2    &kp N3   &kp N4  &kp N5                                                                                                               &kp N6    &kp N7     &kp N8     &kp N9    &kp N0       &none
+                                       &kp TAB   &kp Q   &kp W     &kp E    &kp R   &kp T                                                                                                                &kp Y     &kp U      &kp I      &kp O     &kp P    &kp BSLH
+                                     &sk LSHFT   &kp A   &kp S     &kp D    &kp F   &kp G                                                                                                                &kp H     &kp J      &kp K      &kp L  &kp SEMI     &kp SQT
+                              &TH_mod LALT ESC   &kp Z   &kp X     &kp C    &kp V   &kp B                                                                                                                &kp N     &kp M  &kp COMMA    &kp DOT  &kp FSLH  &caps_word
+                                                        &kp UP  &kp DOWN  &kp DEL                                                                                                                               &kp LEFT  &kp RIGHT  &sk RSHFT
                                                                                            &TH_wm_layer MACRO_PLACEHOLDER F20  &TH_mod LCTRL RET  &td_LAYER_Nav  &sl LAYER_Symbol  &kp SPACE  &kp BSPC
             >;
         };
@@ -821,12 +821,12 @@
 
         layer_WM {
             bindings = <
-  &trans       &trans    &trans    &trans     &trans     &trans                                                  &trans  &trans  &trans  &trans  &trans  &trans
- &kp TAB  &kp LS(TAB)    &trans    &kp UP     &trans     &trans                                                  &trans  &trans  &trans  &trans  &trans  &trans
-  &trans       &trans  &kp LEFT  &kp DOWN  &kp RIGHT  &kp SPACE                                                  &trans  &trans  &trans  &trans  &trans  &trans
-  &trans       &trans    &trans    &trans     &trans     &trans                                                  &trans  &trans  &trans  &trans  &trans  &trans
-                         &trans    &trans     &trans                                                                     &trans  &trans  &trans
-                                                                  &none  &trans  &trans  &trans  &trans  &trans
+  &trans       &trans  &trans  &trans  &trans     &trans                                                  &trans  &trans  &trans  &trans  &trans  &trans
+ &kp TAB  &kp LS(TAB)  &trans  &trans  &trans     &trans                                                  &trans  &trans  &trans  &trans  &trans  &trans
+  &trans       &trans  &trans  &trans  &trans  &kp SPACE                                                  &trans  &trans  &trans  &trans  &trans  &trans
+  &trans       &trans  &trans  &trans  &trans     &trans                                                  &trans  &trans  &trans  &trans  &trans  &trans
+                       &trans  &trans  &trans                                                                     &trans  &trans  &trans
+                                                           &none  &trans  &trans  &trans  &trans  &trans
             >;
         };
 
