@@ -525,6 +525,14 @@
             tap-ms = <30>;
             bindings = <&kp ESC>;
         };
+
+        back_to_desktop: back_to_desktop {
+            label = "&BACK_TO_DESKTOP";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&to 0>
+                , <&kp RG(F20)>;
+        };
     };
 };
 
@@ -552,112 +560,6 @@
             #binding-cells = <2>;
             tapping-term-ms = <200>;
             bindings = <&kp>, <&caps_word>;
-        };
-
-        // Homerow Mod for the left index finger - TailorKey.
-        // For advanced tuning of HRM values, see: https://docs.google.com/spreadsheets/d/1ESgObQelyz4lnKlfwLYsmofLJulOMK5RdGBsopLe2o8
-        HRM_left_index_v1_TKZ: HRM_left_index_v1_TKZ {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            tapping-term-ms = <190>;
-            bindings = <&kp>, <&kp>;
-            flavor = "tap-preferred";
-            quick-tap-ms = <300>;
-            require-prior-idle-ms = <100>;
-            hold-trigger-key-positions = <POS_RH_T3 POS_RH_T2 POS_RH_T1 POS_RH_C1R1 POS_RH_C2R1 POS_RH_C3R1 POS_RH_C4R1 POS_RH_C5R1 POS_RH_C1R2 POS_RH_C2R2 POS_RH_C3R2 POS_RH_C4R2 POS_RH_C5R2 POS_RH_C1R3 POS_RH_C2R3 POS_RH_C3R3 POS_RH_C4R3 POS_RH_C5R3 POS_RH_C1R4 POS_RH_C2R4 POS_RH_C3R4 POS_RH_C4R4 POS_RH_C5R4 POS_RH_C2R5 POS_RH_C3R5 POS_RH_C4R5 POS_RH_C6R1 POS_RH_C6R2 POS_RH_C6R3 POS_RH_C6R4 POS_LH_T2 POS_LH_T3 POS_LH_T1>;
-            hold-trigger-on-release;
-        };
-
-        // Homerow Mod for the left middle finger - TailorKey
-        HRM_left_middy_v1_TKZ: HRM_left_middy_v1_TKZ {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            tapping-term-ms = <210>;
-            bindings = <&kp>, <&kp>;
-            flavor = "tap-preferred";
-            quick-tap-ms = <300>;
-            require-prior-idle-ms = <150>;
-            hold-trigger-key-positions = <POS_RH_T3 POS_RH_T2 POS_RH_T1 POS_RH_C1R1 POS_RH_C2R1 POS_RH_C3R1 POS_RH_C4R1 POS_RH_C5R1 POS_RH_C1R2 POS_RH_C2R2 POS_RH_C3R2 POS_RH_C4R2 POS_RH_C5R2 POS_RH_C1R3 POS_RH_C2R3 POS_RH_C3R3 POS_RH_C4R3 POS_RH_C5R3 POS_RH_C1R4 POS_RH_C2R4 POS_RH_C3R4 POS_RH_C4R4 POS_RH_C5R4 POS_RH_C2R5 POS_RH_C3R5 POS_RH_C4R5 POS_RH_C6R1 POS_RH_C6R2 POS_RH_C6R3 POS_RH_C6R4 POS_LH_T1 POS_LH_T2 POS_LH_T3>;
-            hold-trigger-on-release;
-        };
-
-        // Homerow Mod for the left pinky - TailorKey
-        HRM_left_pinky_v1_TKZ: HRM_left_pinky_v1_TKZ {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            tapping-term-ms = <280>;
-            bindings = <&kp>, <&kp>;
-            flavor = "tap-preferred";
-            quick-tap-ms = <300>;
-            require-prior-idle-ms = <150>;
-            hold-trigger-key-positions = <POS_RH_T3 POS_RH_T2 POS_RH_T1 POS_RH_C1R1 POS_RH_C2R1 POS_RH_C3R1 POS_RH_C4R1 POS_RH_C5R1 POS_RH_C6R1 POS_RH_C2R2 POS_RH_C3R2 POS_RH_C4R2 POS_RH_C5R2 POS_RH_C6R2 POS_RH_C3R3 POS_RH_C4R3 POS_RH_C5R3 POS_RH_C6R3 POS_RH_C3R4 POS_RH_C4R4 POS_RH_C5R4 POS_RH_C6R4 POS_RH_C1R2 POS_RH_C1R3 POS_RH_C2R3 POS_RH_C1R4 POS_RH_C2R4 POS_RH_C2R5 POS_RH_C3R5 POS_RH_C4R5 POS_LH_T1 POS_LH_T2 POS_LH_T3>;
-            hold-trigger-on-release;
-        };
-
-        // Homerow Mod for the left ring finger 1 - TailorKey
-        HRM_left_ring_v1_TKZ: HRM_left_ring_v1_TKZ {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            tapping-term-ms = <240>;
-            bindings = <&kp>, <&kp>;
-            flavor = "tap-preferred";
-            quick-tap-ms = <300>;
-            require-prior-idle-ms = <150>;
-            hold-trigger-key-positions = <POS_RH_T3 POS_RH_T2 POS_RH_T1 POS_RH_C1R1 POS_RH_C2R1 POS_RH_C3R1 POS_RH_C4R1 POS_RH_C5R1 POS_RH_C1R2 POS_RH_C2R2 POS_RH_C3R2 POS_RH_C4R2 POS_RH_C5R2 POS_RH_C1R3 POS_RH_C2R3 POS_RH_C3R3 POS_RH_C4R3 POS_RH_C5R3 POS_RH_C1R4 POS_RH_C2R4 POS_RH_C3R4 POS_RH_C4R4 POS_RH_C5R4 POS_RH_C2R5 POS_RH_C3R5 POS_RH_C4R5 POS_RH_C6R1 POS_RH_C6R2 POS_RH_C6R3 POS_RH_C6R4 POS_LH_T1 POS_LH_T2 POS_LH_T3>;
-            hold-trigger-on-release;
-        };
-
-        // Homerow Mod for the right index finger - TailorKey
-        HRM_right_index_v1_TKZ: HRM_right_index_v1_TKZ {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            tapping-term-ms = <190>;
-            bindings = <&kp>, <&kp>;
-            flavor = "tap-preferred";
-            quick-tap-ms = <300>;
-            require-prior-idle-ms = <100>;
-            hold-trigger-key-positions = <POS_LH_T3 POS_LH_T2 POS_LH_T1 POS_LH_C6R1 POS_LH_C5R1 POS_LH_C4R1 POS_LH_C3R1 POS_LH_C2R1 POS_LH_C6R2 POS_LH_C5R2 POS_LH_C4R2 POS_LH_C3R2 POS_LH_C2R2 POS_LH_C1R2 POS_LH_C6R3 POS_LH_C5R3 POS_LH_C4R3 POS_LH_C3R3 POS_LH_C2R3 POS_LH_C1R3 POS_LH_C6R4 POS_LH_C5R4 POS_LH_C4R4 POS_LH_C3R4 POS_LH_C2R4 POS_LH_C1R4 POS_LH_C4R5 POS_LH_C3R5 POS_LH_C2R5 POS_LH_C1R1 POS_RH_T3 POS_RH_T2 POS_RH_T1>;
-            hold-trigger-on-release;
-        };
-
-        // Homerow Mod for the right middle finger - TailorKey
-        HRM_right_middy_v1_TKZ: HRM_right_middy_v1_TKZ {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            tapping-term-ms = <210>;
-            bindings = <&kp>, <&kp>;
-            flavor = "tap-preferred";
-            quick-tap-ms = <300>;
-            require-prior-idle-ms = <150>;
-            hold-trigger-key-positions = <POS_LH_T3 POS_LH_T2 POS_LH_T1 POS_LH_C6R1 POS_LH_C5R1 POS_LH_C4R1 POS_LH_C3R1 POS_LH_C2R1 POS_LH_C6R2 POS_LH_C5R2 POS_LH_C4R2 POS_LH_C3R2 POS_LH_C2R2 POS_LH_C1R2 POS_LH_C6R3 POS_LH_C5R3 POS_LH_C4R3 POS_LH_C3R3 POS_LH_C2R3 POS_LH_C1R3 POS_LH_C6R4 POS_LH_C5R4 POS_LH_C4R4 POS_LH_C3R4 POS_LH_C2R4 POS_LH_C1R4 POS_LH_C4R5 POS_LH_C3R5 POS_LH_C2R5 POS_LH_C1R1 POS_RH_T3 POS_RH_T2 POS_RH_T1>;
-            hold-trigger-on-release;
-        };
-
-        // Homerow Mod for the right pinky - TailorKey
-        HRM_right_pinky_v1_TKZ: HRM_right_pinky_v1_TKZ {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            tapping-term-ms = <280>;
-            bindings = <&kp>, <&kp>;
-            flavor = "tap-preferred";
-            quick-tap-ms = <300>;
-            require-prior-idle-ms = <150>;
-            hold-trigger-key-positions = <POS_LH_T3 POS_LH_T2 POS_LH_T1 POS_LH_C6R1 POS_LH_C5R1 POS_LH_C4R1 POS_LH_C3R1 POS_LH_C2R1 POS_LH_C6R2 POS_LH_C5R2 POS_LH_C4R2 POS_LH_C3R2 POS_LH_C2R2 POS_LH_C1R2 POS_LH_C6R3 POS_LH_C5R3 POS_LH_C4R3 POS_LH_C3R3 POS_LH_C2R3 POS_LH_C1R3 POS_LH_C6R4 POS_LH_C5R4 POS_LH_C4R4 POS_LH_C3R4 POS_LH_C2R4 POS_LH_C1R4 POS_LH_C4R5 POS_LH_C3R5 POS_LH_C2R5 POS_LH_C1R1 POS_RH_T3 POS_RH_T2 POS_RH_T1>;
-            hold-trigger-on-release;
-        };
-
-        // Homerow Mod for the right ring 1 - TailorKey
-        //
-        HRM_right_ring_v1_TKZ: HRM_right_ring_v1_TKZ {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            tapping-term-ms = <240>;
-            bindings = <&kp>, <&kp>;
-            flavor = "tap-preferred";
-            quick-tap-ms = <300>;
-            require-prior-idle-ms = <150>;
-            hold-trigger-key-positions = <POS_LH_T3 POS_LH_T2 POS_LH_T1 POS_LH_C6R1 POS_LH_C5R1 POS_LH_C4R1 POS_LH_C3R1 POS_LH_C2R1 POS_LH_C6R2 POS_LH_C5R2 POS_LH_C4R2 POS_LH_C3R2 POS_LH_C2R2 POS_LH_C1R2 POS_LH_C6R3 POS_LH_C5R3 POS_LH_C4R3 POS_LH_C3R3 POS_LH_C2R3 POS_LH_C1R3 POS_LH_C6R4 POS_LH_C5R4 POS_LH_C4R4 POS_LH_C3R4 POS_LH_C2R4 POS_LH_C1R4 POS_LH_C4R5 POS_LH_C3R5 POS_LH_C2R5 POS_LH_C1R1 POS_RH_T3 POS_RH_T2 POS_RH_T1>;
-            hold-trigger-on-release;
         };
 
         TH_layer_click: TH_layer_click {
@@ -788,23 +690,23 @@
 
         layer_Base {
             bindings = <
- &TH_magic MACRO_PLACEHOLDER MACRO_PLACEHOLDER  &kp N1  &kp N2    &kp N3   &kp N4  &kp N5                                                                                                               &kp N6    &kp N7     &kp N8     &kp N9    &kp N0       &none
-                                       &kp TAB   &kp Q   &kp W     &kp E    &kp R   &kp T                                                                                                                &kp Y     &kp U      &kp I      &kp O     &kp P    &kp BSLH
-                                     &sk LSHFT   &kp A   &kp S     &kp D    &kp F   &kp G                                                                                                                &kp H     &kp J      &kp K      &kp L  &kp SEMI     &kp SQT
-                              &TH_mod LALT ESC   &kp Z   &kp X     &kp C    &kp V   &kp B                                                                                                                &kp N     &kp M  &kp COMMA    &kp DOT  &kp FSLH  &caps_word
-                                                        &kp UP  &kp DOWN  &kp DEL                                                                                                                               &kp LEFT  &kp RIGHT  &sk RSHFT
-                                                                                           &TH_wm_layer MACRO_PLACEHOLDER F20  &TH_mod LCTRL RET  &td_LAYER_Nav  &sl LAYER_Symbol  &kp SPACE  &kp BSPC
+ &TH_magic MACRO_PLACEHOLDER MACRO_PLACEHOLDER  &kp N1    &kp N2    &kp N3   &kp N4  &kp N5                                                                                                               &kp N6    &kp N7     &kp N8     &kp N9    &kp N0       &none
+                                       &kp TAB   &kp Q     &kp W     &kp E    &kp R   &kp T                                                                                                                &kp Y     &kp U      &kp I      &kp O     &kp P    &kp BSLH
+                                     &sk LSHFT   &kp A     &kp S     &kp D    &kp F   &kp G                                                                                                                &kp H     &kp J      &kp K      &kp L  &kp SEMI     &kp SQT
+                              &TH_mod LALT ESC   &kp Z     &kp X     &kp C    &kp V   &kp B                                                                                                                &kp N     &kp M  &kp COMMA    &kp DOT  &kp FSLH  &caps_word
+                                                        &mkp MB5  &mkp MB4  &kp DEL                                                                                                                               &kp LEFT  &kp RIGHT  &sk RSHFT
+                                                                                             &TH_wm_layer MACRO_PLACEHOLDER F20  &TH_mod LCTRL RET  &td_LAYER_Nav  &sl LAYER_Symbol  &kp SPACE  &kp BSPC
             >;
         };
 
         layer_Nav {
             bindings = <
- &trans         &kp F1        &kp F2         &kp F3         &kp F4     &kp F5                                                              &kp F6     &kp F7     &kp F8      &kp F9       &kp F10      &kp F11
- &trans  &kp LC(GRAVE)      &kp HOME         &kp UP        &kp END  &kp PG_UP                                                     &kp KP_MULTIPLY  &kp KP_N7  &kp KP_N8   &kp KP_N9  &kp KP_MINUS      &kp F12
- &trans    &kp LS(ESC)      &kp LEFT       &kp DOWN      &kp RIGHT  &kp PG_DN                                                        &kp KP_SLASH  &kp KP_N4  &kp KP_N5   &kp KP_N6   &kp KP_PLUS  &kp LS(TAB)
- &trans  &kp LC(LS(Z))  &kp LC(LEFT)  &kp LC(LS(C))  &kp LC(RIGHT)  &kp SPACE                                                             &kp TAB  &kp KP_N1  &kp KP_N2   &kp KP_N3  &kp KP_ENTER    &kp RSHFT
-                         &kp LC(END)   &kp LC(HOME)       &kp BSPC                                                                                  &mkp MB4   &mkp MB5  &kp KP_DOT
-                                                                               &trans  &trans  &trans  &trans  &trans  &kp KP_N0
+ &trans         &kp F1        &kp F2         &kp F3         &kp F4     &kp F5                                                                             &kp F6     &kp F7     &kp F8      &kp F9       &kp F10      &kp F11
+ &trans  &kp LC(GRAVE)      &kp HOME         &kp UP        &kp END  &kp PG_UP                                                                    &kp KP_MULTIPLY  &kp KP_N7  &kp KP_N8   &kp KP_N9  &kp KP_MINUS      &kp F12
+ &trans    &kp LS(ESC)      &kp LEFT       &kp DOWN      &kp RIGHT  &kp PG_DN                                                                       &kp KP_SLASH  &kp KP_N4  &kp KP_N5   &kp KP_N6   &kp KP_PLUS  &kp LS(TAB)
+ &trans  &kp LC(LS(Z))  &kp LC(LEFT)  &kp LC(LS(C))  &kp LC(RIGHT)  &kp SPACE                                                                            &kp TAB  &kp KP_N1  &kp KP_N2   &kp KP_N3  &kp KP_ENTER    &kp RSHFT
+                               &none   &kp LC(BSPC)       &kp BSPC                                                                                                 &mkp MB4   &mkp MB5  &kp KP_DOT
+                                                                               &kp LA(LC(LS(LG(D))))  &trans  &trans  &trans  &trans  &kp KP_N0
             >;
         };
 
@@ -832,34 +734,34 @@
 
         layer_Gaming {
             bindings = <
- &TH_magic_long MACRO_PLACEHOLDER MACRO_PLACEHOLDER  &trans    &trans     &trans   &trans  &trans                                                             &trans    &trans    &trans         &trans       &trans    &kp GRAVE
-                                            &kp TAB   &kp T     &kp Q      &kp W    &kp E   &kp R                                                             &trans    &trans    &trans         &trans       &trans       &trans
-                                          &kp LSHFT   &kp G     &kp A      &kp S    &kp D   &kp F                                                             &trans    &trans    &trans         &trans       &trans       &trans
-                                          &kp LCTRL   &kp B     &kp Z      &kp X    &kp C   &kp V                                                             &trans    &trans    &kp UP  &kp LS(COMMA)  &kp LS(DOT)  &kp RS(F12)
-                                                             &kp LALT  &kp GRAVE  &kp ESC                                                                             &kp LEFT  &kp DOWN      &kp RIGHT
-                                                                                                   &wm_layer  &kp SPACE  &kp RET  &kp BSPC  &kp RET  &kp DEL
+ &TH_magic_long MACRO_PLACEHOLDER MACRO_PLACEHOLDER  &trans            &trans  &trans     &trans  &trans                                                         &trans  &trans  &trans  &trans  &trans  &kp RS(F12)
+                                            &kp TAB  &trans            &trans  &trans     &trans  &trans                                                         &trans  &trans  &trans  &trans  &trans       &trans
+                                          &kp LSHFT  &trans            &trans  &trans     &trans  &trans                                                         &trans  &trans  &trans  &trans  &trans       &trans
+                                          &kp LCTRL  &trans            &trans  &trans     &trans  &trans                                                         &trans  &trans  &trans  &trans  &trans       &trans
+                                                             &back_to_desktop   &none  &kp GRAVE                                                                         &trans  &trans  &trans
+                                                                                                          &kp LALT  &kp SPACE  &kp RET  &kp DEL  &trans  &trans
             >;
         };
 
         layer_Mouse {
             bindings = <
- &trans  &trans  &trans  &trans  &trans  &trans                                                                                           &trans    &trans  &trans  &trans  &trans  &trans
- &trans  &trans  &trans  &trans  &trans  &trans                                                                                           &trans    &trans  &trans  &trans  &trans  &trans
- &trans  &trans  &trans  &trans  &trans  &trans                                                                                           &trans    &trans  &trans  &trans  &trans  &trans
- &trans  &trans  &trans  &trans  &trans  &trans                                                                                           &trans    &trans  &trans  &trans  &trans  &trans
-                 &trans  &trans  &trans                                                                                                           &mkp MB5  &trans  &trans
-                                                 &trans  &mkp LCLK  &mkp RCLK  &TH_layer_click LAYER_MouseFast RCLK  &mkp MCLK  &mkp MB4
+ &trans  &trans  &trans  &trans  &trans  &trans                                                                                         &trans  &trans  &trans  &trans  &trans  &trans
+ &trans  &trans  &trans  &trans  &trans  &trans                                                                                         &trans  &trans  &trans  &trans  &trans  &trans
+ &trans  &trans  &trans  &trans  &trans  &trans                                                                                         &trans  &trans  &trans  &trans  &trans  &trans
+ &trans  &trans  &trans  &trans  &trans  &trans                                                                                         &trans  &trans  &trans  &trans  &trans  &trans
+                 &trans  &trans  &trans                                                                                                         &trans  &trans  &trans
+                                                 &trans  &trans  &mkp LCLK  &TH_layer_click LAYER_MouseFast LCLK  &mkp MCLK  &mkp RCLK
             >;
         };
 
         layer_MouseFast {
             bindings = <
- &trans  &trans  &trans  &trans  &trans  &trans                                                             &trans    &trans  &trans  &trans  &trans  &trans
- &trans  &trans  &trans  &trans  &trans  &trans                                                             &trans    &trans  &trans  &trans  &trans  &trans
- &trans  &trans  &trans  &trans  &trans  &trans                                                             &trans    &trans  &trans  &trans  &trans  &trans
- &trans  &trans  &trans  &trans  &trans  &trans                                                             &trans    &trans  &trans  &trans  &trans  &trans
-                 &trans  &trans  &trans                                                                             &mkp MB5  &trans  &trans
-                                                 &trans  &mkp LCLK  &mkp RCLK   &none  &mkp MCLK  &mkp MB4
+ &trans  &trans  &trans  &trans  &trans  &trans                                                           &trans  &trans  &trans  &trans  &trans  &trans
+ &trans  &trans  &trans  &trans  &trans  &trans                                                           &trans  &trans  &trans  &trans  &trans  &trans
+ &trans  &trans  &trans  &trans  &trans  &trans                                                           &trans  &trans  &trans  &trans  &trans  &trans
+ &trans  &trans  &trans  &trans  &trans  &trans                                                           &trans  &trans  &trans  &trans  &trans  &trans
+                 &trans  &trans  &trans                                                                           &trans  &trans  &trans
+                                                 &trans  &trans  &mkp LCLK   &none  &mkp MCLK  &mkp RCLK
             >;
         };
 
