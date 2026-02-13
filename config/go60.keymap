@@ -186,18 +186,18 @@
 
 /* Input Listeners */
 &cirque_lh_listener {
-    input-processors = <&zip_xy_scaler 7 11>, <&zip_xy_to_scroll_mapper>, <&zip_click_to_right_click_mapper>, <&zip_temp_layer 5 500>, <&zip_scroll_scaler 1 8>;
-    layer_5 {
+    input-processors = <&zip_xy_to_scroll_mapper>, <&zip_click_to_right_click_mapper>, <&zip_temp_layer 5 500>, <&zip_scroll_scaler 1 8>;
+    layer_6 {
         layers = <LAYER_MouseFast>;
-        input-processors = <&zip_xy_scaler 1 1>, <&zip_xy_to_scroll_mapper>, <&zip_click_to_right_click_mapper>, <&zip_temp_layer 5 500>, <&zip_scroll_scaler 1 8>;
+        input-processors = <&zip_xy_scaler 2 1>, <&zip_xy_to_scroll_mapper>, <&zip_click_to_right_click_mapper>, <&zip_temp_layer 6 500>, <&zip_scroll_scaler 1 8>;
     };
 };
 
 &cirque_rh_listener {
-    input-processors = <&zip_xy_scaler 3 2>, <&zip_temp_layer 5 500>;
-    layer_5 {
+    input-processors = <&zip_temp_layer 5 500>;
+    layer_6 {
         layers = <LAYER_MouseFast>;
-        input-processors = <&zip_xy_scaler 6 1>, <&zip_temp_layer 5 500>;
+        input-processors = <&zip_xy_scaler 3 1>, <&zip_temp_layer 6 500>;
     };
 };
 
@@ -340,99 +340,19 @@
 
 /* Custom Defined Behaviors */
 / {
-
+behaviors {
+  semi_colon_swap: semi_colon_swap {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&kp COLON>, <&kp SEMI>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+  };
+};
 };
 
 /* Automatically generated macro definitions */
 / {
     macros {
-
-        // AutoShift Helper- &AS main macro is chained to &AS_HT hold tap and &AS_Shifted macro - TailorKey
-        AS_Shifted_v1_TKZ: AS_Shifted_v1_TKZ {
-            label = "&AS_SHIFTED_V1_TKZ";
-            compatible = "zmk,behavior-macro-one-param";
-            #binding-cells = <1>;
-            bindings = <&macro_press>
-                , <&kp LSHFT>
-                , <&macro_tap>
-                , <&macro_param_1to1>
-                , <&kp N1>
-                , <&macro_release>
-                , <&kp LSHFT>;
-        };
-
-        // AutoShift (Assign &AS to a Key) - &AS main macro is chained to &AS_HT hold tap and &AS_Shifted macro - TailorKey
-        AS_v1_TKZ: AS_v1_TKZ {
-            label = "&AS_V1_TKZ";
-            compatible = "zmk,behavior-macro-one-param";
-            #binding-cells = <1>;
-            tap-ms = <10>;
-            wait-ms = <10>;
-            bindings = <&macro_press>
-                , <&macro_param_1to1>
-                , <&macro_param_1to2>
-                , <&AS_HT_v2_TKZ A A>
-                , <&macro_pause_for_release>
-                , <&macro_release>
-                , <&macro_param_1to1>
-                , <&macro_param_1to2>
-                , <&AS_HT_v2_TKZ A A>;
-        };
-
-        // Cursor Layer - Extent Line (seq) - TailorKey
-        cur_EXTEND_LINE_v1_TKZ: cur_EXTEND_LINE_v1_TKZ {
-            label = "&CUR_EXTEND_LINE_V1_TKZ";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            tap-ms = <1>;
-            wait-ms = <1>;
-            bindings = <&kp LS(END)>;
-        };
-
-        // Cursor Layer - Extend Word (seq) - TailorKey
-        cur_EXTEND_WORD_v1_TKZ: cur_EXTEND_WORD_v1_TKZ {
-            label = "&CUR_EXTEND_WORD_V1_TKZ";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            tap-ms = <1>;
-            wait-ms = <1>;
-            bindings = <&kp LC(LS(RIGHT))>;
-        };
-
-        // Cursor Layer - Select Line (seq) - TailorKey
-        cur_SELECT_LINE_v1_TKZ: cur_SELECT_LINE_v1_TKZ {
-            label = "&CUR_SELECT_LINE_V1_TKZ";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            tap-ms = <1>;
-            wait-ms = <1>;
-            bindings = <&kp HOME>
-                , <&kp LS(END)>;
-        };
-
-        // Cursor Layer - Select None (seq) - TailorKey
-        cur_SELECT_NONE_v1_TKZ: cur_SELECT_NONE_v1_TKZ {
-            label = "&CUR_SELECT_NONE_V1_TKZ";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            tap-ms = <1>;
-            wait-ms = <1>;
-            bindings = <&kp DOWN>
-                , <&kp UP>
-                , <&kp RIGHT>
-                , <&kp LEFT>;
-        };
-
-        // Cursor Layer - Select Word (seq) - TailorKey
-        cur_SELECT_WORD_v1_TKZ: cur_SELECT_WORD_v1_TKZ {
-            label = "&CUR_SELECT_WORD_V1_TKZ";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            tap-ms = <1>;
-            wait-ms = <1>;
-            bindings = <&kp LC(LEFT)>
-                , <&kp LC(LS(RIGHT))>;
-        };
 
         // Symbol layer dot dot
         symb_dotdot_v1_TKZ: symb_dotdot_v1_TKZ {
@@ -539,7 +459,20 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp C_SLEEP>
-                , <&kp LC(LG(LS(Q)))>;
+                , <&kp F21>;
+        };
+
+        ctrl_click: ctrl_click {
+            label = "&CTRL_CLICK";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_press>
+                , <&kp LCTRL>
+                , <&macro_tap>
+                , <&mkp LCLK>
+                , <&macro_pause_for_release>
+                , <&macro_release>
+                , <&kp LCTRL>;
         };
     };
 };
@@ -551,24 +484,6 @@
         // Layer tap dance behaviors
 
         ZMK_TD_LAYER(td_LAYER_Nav, 1)
-
-        // AutoShift Helper - &AS main macro is chained to &AS_HT hold tap and &AS_Shifted macro. For faster typists, it is recommended to decrease the tapping-term-ms value. A suggested value is 135 ms.
-        // More: https://github.com/nickcoutsos/keymap-editor/wiki/Autoshift-using-ZMK-behaviors
-        AS_HT_v2_TKZ: AS_HT_v2_TKZ {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            tapping-term-ms = <190>;
-            bindings = <&AS_Shifted_v1_TKZ>, <&kp>;
-            flavor = "tap-preferred";
-        };
-
-        // Capsword helper - tap for caps_word - hold for key press
-        CAPSWord_v1_TKZ: CAPSWord_v1_TKZ {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            tapping-term-ms = <200>;
-            bindings = <&kp>, <&caps_word>;
-        };
 
         TH_layer_click: TH_layer_click {
             compatible = "zmk,behavior-hold-tap";
@@ -698,10 +613,10 @@
 
         layer_Base {
             bindings = <
- &TH_magic MACRO_PLACEHOLDER MACRO_PLACEHOLDER  &kp N1    &kp N2    &kp N3   &kp N4  &kp N5                                                                                                               &kp N6    &kp N7     &kp N8     &kp N9    &kp N0       &none
-                                       &kp TAB   &kp Q     &kp W     &kp E    &kp R   &kp T                                                                                                                &kp Y     &kp U      &kp I      &kp O     &kp P    &kp BSLH
-                                     &sk LSHFT   &kp A     &kp S     &kp D    &kp F   &kp G                                                                                                                &kp H     &kp J      &kp K      &kp L  &kp SEMI     &kp SQT
-                              &TH_mod LALT ESC   &kp Z     &kp X     &kp C    &kp V   &kp B                                                                                                                &kp N     &kp M  &kp COMMA    &kp DOT  &kp FSLH  &caps_word
+ &TH_magic MACRO_PLACEHOLDER MACRO_PLACEHOLDER  &kp N1    &kp N2    &kp N3   &kp N4  &kp N5                                                                                                               &kp N6    &kp N7     &kp N8     &kp N9            &kp N0       &none
+                                       &kp TAB   &kp Q     &kp W     &kp E    &kp R   &kp T                                                                                                                &kp Y     &kp U      &kp I      &kp O             &kp P    &kp BSLH
+                                     &sk LSHFT   &kp A     &kp S     &kp D    &kp F   &kp G                                                                                                                &kp H     &kp J      &kp K      &kp L  &semi_colon_swap     &kp SQT
+                              &TH_mod LALT ESC   &kp Z     &kp X     &kp C    &kp V   &kp B                                                                                                                &kp N     &kp M  &kp COMMA    &kp DOT          &kp FSLH  &caps_word
                                                         &mkp MB5  &mkp MB4  &kp DEL                                                                                                                               &kp LEFT  &kp RIGHT  &sk RSHFT
                                                                                              &TH_wm_layer MACRO_PLACEHOLDER F20  &TH_mod LCTRL RET  &td_LAYER_Nav  &sl LAYER_Symbol  &kp SPACE  &kp BSPC
             >;
@@ -709,67 +624,67 @@
 
         layer_Nav {
             bindings = <
- &trans         &kp F1        &kp F2         &kp F3         &kp F4     &kp F5                                                                         &kp F6     &kp F7     &kp F8      &kp F9       &kp F10      &kp F11
- &trans  &kp LC(GRAVE)      &kp HOME         &kp UP        &kp END  &kp PG_UP                                                                &kp KP_MULTIPLY  &kp KP_N7  &kp KP_N8   &kp KP_N9  &kp KP_MINUS      &kp F12
- &trans    &kp LS(ESC)      &kp LEFT       &kp DOWN      &kp RIGHT  &kp PG_DN                                                                   &kp KP_SLASH  &kp KP_N4  &kp KP_N5   &kp KP_N6   &kp KP_PLUS  &kp LS(TAB)
- &trans  &kp LC(LS(Z))  &kp LC(LEFT)  &kp LC(LS(C))  &kp LC(RIGHT)  &kp SPACE                                                                        &kp TAB  &kp KP_N1  &kp KP_N2   &kp KP_N3  &kp KP_ENTER    &kp RSHFT
-                               &none   &kp LC(BSPC)       &kp BSPC                                                                                             &mkp MB4   &mkp MB5  &kp KP_DOT
-                                                                               &kp LA(LC(LG(D)))  &trans  &trans  &trans  &trans  &kp KP_N0
+ &kp ESC         &kp F1        &kp F2             &kp F3         &kp F4     &kp F5                                                                         &kp F6     &kp F7     &kp F8      &kp F9       &kp F10      &kp F11
+  &trans  &kp LC(GRAVE)      &kp HOME             &kp UP        &kp END  &kp PG_UP                                                                &kp KP_MULTIPLY  &kp KP_N7  &kp KP_N8   &kp KP_N9  &kp KP_MINUS      &kp F12
+  &trans    &kp LS(ESC)      &kp LEFT           &kp DOWN      &kp RIGHT  &kp PG_DN                                                                   &kp KP_SLASH  &kp KP_N4  &kp KP_N5   &kp KP_N6   &kp KP_PLUS  &kp LS(TAB)
+  &trans  &kp LC(LS(Z))  &kp LC(LEFT)  &kp LC(LS(LA(C)))  &kp LC(RIGHT)  &kp SPACE                                                                        &kp TAB  &kp KP_N1  &kp KP_N2   &kp KP_N3  &kp KP_ENTER    &kp RSHFT
+                          &kp LC(RET)       &kp LC(BSPC)       &kp BSPC                                                                                            &kp KP_N0  &kp KP_N0  &kp KP_DOT
+                                                                                    &kp LG(LA(D))  &trans  &td_LAYER_Nav  &trans  &trans  &trans
             >;
         };
 
         layer_Symbol {
             bindings = <
- &triple_backtick       &kp FSLH    &kp LS(N9)     &kp LS(N0)     &kp BSLH  &kp LS(SINGLE_QUOTE)                                                                 &kp RA(N4)   &kp RA(M)   &kp RA(D)  &kp RA(DOT)    &kp RA(N0)  &kp RA(MINUS)
-        &kp GRAVE       &kp LBKT  &kp LS(LBKT)   &kp LS(RBKT)     &kp RBKT            &kp LS(N1)                                                                     &trans   &kp RA(U)   &kp RA(I)    &kp RA(O)  &kp RA(LBKT)   &kp RA(BSLH)
-       &kp LS(N3)     &kp LS(N6)     &kp EQUAL      &kp MINUS   &kp LS(N4)            &kp LS(N8)                                                                     &trans  &kp LS(N9)  &kp LS(N0)       &trans     &kp RA(E)      &kp RA(A)
-    &kp LS(GRAVE)  &kp LS(COMMA)  &kp LS(BSLH)  &kp LS(MINUS)  &kp LS(DOT)            &kp LS(N7)                                                                     &trans    &kp FSLH    &kp BSLH       &trans        &trans         &trans
-                                        &trans         &trans     &kp BSPC                                                                                                     &kp HOME     &kp END       &trans
-                                                                                                  &kp LS(N5)  &kp LS(N2)  &kp LS(EQUAL)   &none  &trans  &trans
+ &triple_backtick       &kp FSLH    &kp LS(N9)     &kp LS(N0)     &kp BSLH    &kp LS(N3)                                                                           &kp RA(N4)   &kp RA(M)   &kp RA(D)  &kp RA(DOT)  &kp RA(LBKT)   &kp RA(BSLH)
+        &kp GRAVE       &kp LBKT  &kp LS(LBKT)   &kp LS(RBKT)     &kp RBKT  &kp LS(FSLH)                                                                           &kp LS(N1)   &kp RA(U)   &kp RA(I)    &kp RA(O)    &kp RA(N0)  &kp RA(MINUS)
+           &trans     &kp LS(N6)     &kp EQUAL      &kp MINUS   &kp LS(N4)    &kp LS(N8)                                                                              &kp SQT  &kp LS(N9)  &kp LS(N0)       &trans     &kp RA(E)      &kp RA(A)
+    &kp LS(GRAVE)  &kp LS(COMMA)  &kp LS(BSLH)  &kp LS(MINUS)  &kp LS(DOT)    &kp LS(N7)                                                                 &kp LS(SINGLE_QUOTE)    &kp FSLH    &kp BSLH       &trans        &trans         &trans
+                                        &trans         &trans       &trans                                                                                                       &kp HOME     &kp END       &trans
+                                                                                          &kp LS(N5)  &kp LS(N2)  &kp LS(EQUAL)   &none  &trans  &trans
             >;
         };
 
         layer_WM {
             bindings = <
-  &trans  &trans  &trans  &trans  &trans     &trans                                                  &trans  &trans  &trans  &trans  &trans  &trans
- &kp TAB  &trans  &trans  &trans  &trans     &trans                                                  &trans  &trans  &trans  &trans  &trans  &trans
-  &trans  &trans  &trans  &trans  &trans  &kp SPACE                                                  &trans  &trans  &trans  &trans  &trans  &trans
-  &trans  &trans  &trans  &trans  &trans     &trans                                                  &trans  &trans  &trans  &trans  &trans  &trans
-                  &trans  &trans  &trans                                                                     &trans  &trans  &trans
-                                                      &none  &trans  &trans  &trans  &trans  &trans
+ &kp ESC  &trans  &trans  &trans  &trans  &trans                                                  &trans  &trans  &trans  &trans  &trans  &trans
+  &trans  &trans  &trans  &trans  &trans  &trans                                                  &trans  &trans  &trans  &trans  &trans  &trans
+  &trans  &trans  &trans  &trans  &trans  &trans                                                  &trans  &trans  &trans  &trans  &trans  &trans
+  &trans  &trans  &trans  &trans  &trans  &trans                                                  &trans  &trans  &trans  &trans  &trans  &trans
+                  &trans  &trans  &trans                                                                  &trans  &trans  &trans
+                                                   &none  &trans  &trans  &trans  &trans  &trans
             >;
         };
 
         layer_Gaming {
             bindings = <
- &TH_magic_long MACRO_PLACEHOLDER MACRO_PLACEHOLDER  &trans            &trans  &trans     &trans  &trans                                                         &trans  &trans  &trans  &trans  &trans  &kp RS(F12)
-                                            &kp TAB  &trans            &trans  &trans     &trans  &trans                                                         &trans  &trans  &trans  &trans  &trans       &trans
-                                          &kp LSHFT  &trans            &trans  &trans     &trans  &trans                                                         &trans  &trans  &trans  &trans  &trans       &trans
-                                          &kp LCTRL  &trans            &trans  &trans     &trans  &trans                                                         &trans  &trans  &trans  &trans  &trans       &trans
-                                                             &back_to_desktop   &none  &kp GRAVE                                                                         &trans  &trans  &trans
+ &TH_magic_long MACRO_PLACEHOLDER MACRO_PLACEHOLDER  &trans            &trans  &trans     &trans  &trans                                                         &trans  &trans  &trans     &trans  &trans       &trans
+                                            &kp TAB  &trans            &trans  &trans     &trans  &trans                                                         &trans  &trans  &trans     &trans  &trans       &trans
+                                          &kp LSHFT  &trans            &trans  &trans     &trans  &trans                                                         &trans  &trans  &trans     &trans  &trans       &trans
+                                          &kp LCTRL  &trans            &trans  &trans     &trans  &trans                                                         &trans  &trans  &trans     &trans  &trans  &kp RS(F12)
+                                                             &back_to_desktop  &kp F1  &kp GRAVE                                                                         &trans  &trans  &kp RSHFT
                                                                                                           &kp LALT  &kp SPACE  &kp RET  &kp DEL  &trans  &trans
             >;
         };
 
         layer_Mouse {
             bindings = <
- &trans  &trans  &trans  &trans  &trans  &trans                                                                                         &trans  &trans  &trans  &trans  &trans  &trans
- &trans  &trans  &trans  &trans  &trans  &trans                                                                                         &trans  &trans  &trans  &trans  &trans  &trans
- &trans  &trans  &trans  &trans  &trans  &trans                                                                                         &trans  &trans  &trans  &trans  &trans  &trans
- &trans  &trans  &trans  &trans  &trans  &trans                                                                                         &trans  &trans  &trans  &trans  &trans  &trans
-                 &trans  &trans  &trans                                                                                                         &trans  &trans  &trans
-                                                 &trans  &trans  &mkp LCLK  &TH_layer_click LAYER_MouseFast LCLK  &mkp MCLK  &mkp RCLK
+ &trans  &trans  &trans  &trans  &trans  &trans                                                                                              &trans  &trans  &trans  &trans  &trans  &trans
+ &trans  &trans  &trans  &trans  &trans  &trans                                                                                              &trans  &trans  &trans  &trans  &trans  &trans
+ &trans  &trans  &trans  &trans  &trans  &trans                                                                                              &trans  &trans  &trans  &trans  &trans  &trans
+ &trans  &trans  &trans  &trans  &trans  &trans                                                                                              &trans  &trans  &trans  &trans  &trans  &trans
+                 &trans  &trans  &trans                                                                                                              &trans  &trans  &trans
+                                                 &trans  &ctrl_click  &mkp LCLK  &TH_layer_click LAYER_MouseFast LCLK  &mkp MCLK  &mkp RCLK
             >;
         };
 
         layer_MouseFast {
             bindings = <
- &trans  &trans  &trans  &trans  &trans  &trans                                                           &trans  &trans  &trans  &trans  &trans  &trans
- &trans  &trans  &trans  &trans  &trans  &trans                                                           &trans  &trans  &trans  &trans  &trans  &trans
- &trans  &trans  &trans  &trans  &trans  &trans                                                           &trans  &trans  &trans  &trans  &trans  &trans
- &trans  &trans  &trans  &trans  &trans  &trans                                                           &trans  &trans  &trans  &trans  &trans  &trans
-                 &trans  &trans  &trans                                                                           &trans  &trans  &trans
-                                                 &trans  &trans  &mkp LCLK   &none  &mkp MCLK  &mkp RCLK
+ &trans  &trans  &trans  &trans  &trans  &trans                                                                &trans  &trans  &trans  &trans  &trans  &trans
+ &trans  &trans  &trans  &trans  &trans  &trans                                                                &trans  &trans  &trans  &trans  &trans  &trans
+ &trans  &trans  &trans  &trans  &trans  &trans                                                                &trans  &trans  &trans  &trans  &trans  &trans
+ &trans  &trans  &trans  &trans  &trans  &trans                                                                &trans  &trans  &trans  &trans  &trans  &trans
+                 &trans  &trans  &trans                                                                                &trans  &trans  &trans
+                                                 &trans  &ctrl_click  &mkp LCLK   &none  &mkp MCLK  &mkp RCLK
             >;
         };
 

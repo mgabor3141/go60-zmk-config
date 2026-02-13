@@ -1,37 +1,55 @@
-# MoErgo Go60 Custom Configuration for ZMK
+# === mgabor's layout ===
 
-![MoErgo Logo](moergo_logo.png)
+I designed this layout - and decided to learn this keyboard - with a few goals in mind.
 
-This repo is the official ZMK configuration of the MoErgo Go60 wireless split keyboard. Use it to develop your own keymap and easily build your own ZMK firmware to run on your Go60.
+In order of priority:
+  1. Comfortable symbol layout for programming
+  2. Reduce needing to move right hand from mouse when not typing (eg. only to press enter)
+  3. No significant departure from row staggered: switching to laptop keyboard should be effortless (when necessary)
+  4. Standardize hotkey muscle memory across MacOS and Linux
+  5. Eliminate needing to switch keyboard layouts to type non-English characters
+    
+I'm happy to say I think I managed to achieve most of these goals as of v4 of this layout.
 
-**NOTE: You can also customize the layout of your Go60 keyboard with the Go60 Layout Editor webapp. For most users Go60 Layout Editor is the recommended and simpler option. More information is available at the official MoErgo Go60 Support site (see resources below).**
+A few notes on some of the key decisions I made, and how the goals above affected them.
 
-These steps will get you using your keymap on your keyboard in the fastest time possible. It uses the GitHub Actions feature to build your firmware online.
+## No home row modifiers
 
-If you are looking to dig deeper into ZMK and develop new functionality, it is recommended to follow the steps of installing ZMK as found on the official ZMK documentation site (linked below).
+Home row mods are great for mostly keyboard workflows, where you can always press modifiers with the opposite hand to the key being modified. For workflows with significant mouse usage, HRMs don't make sense IMO.
 
-## Resources
-- The [official MoErgo Go60 Support](https://moergo.com/go60-support) web site. Go60 documentation and other technical resources.
-- The [official MoErgo Discord Server](https://moergo.com/discord). Instant conversations with other Go60 users.
+## Ctrl and Cmd
 
-- The [official ZMK Documentation](https://zmk.dev/docs) web site. Find the answers to many of your questions about ZMK Firmware.
-- The [official ZMK Discord Server](https://discord.gg/8cfMkQksSB). Instant conversations with other ZMK developers and users. Great technical resource!
+I will be using Linux naming throughout the rest of this text. When I write "Ctrl" I mean the "secondary" modifier: Ctrl on Linux, Command on Mac.
 
-- The [official MoErgo ZMK Distribution](https://github.com/moergo-sc/zmk). Repository for ZMK firmware customized for Go60 and Glove80.
+While making the two equivalent is not quite as simple as swapping them based on the OS, I don't want to go into too much detail on this topic here. You can check my dotfiles repo for more information here:
 
-## Instructions
-1. Log into, or sign up for, your personal GitHub account.
-2. Create your own repository using this repository as a template ([instructions](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)) and check it out on your local computer.
-3. Edit the keymap file(s) to suit your needs
-4. Commit and push your changes to your personal repo. Upon pushing it, GitHub Actions will start building a new version of your firmware with the updated keymap.
+https://github.com/mgabor3141/dots/blob/main/.docs/keyboard-remapping.md
 
-## Firmware Files
-To locate your firmware files and reflash your Go60...
-1. log into GitHub and navigate to your personal config repository you just uploaded your keymap changes to.
-2. Click "Actions" in the main navigation, and in the left navigation click the "Build" link.
-3. Select the desired workflow run in the centre area of the page (based on date and time of the build you wish to use). You can also start a new build from this page by clicking the "Run workflow" button.
-4. After clicking the desired workflow run, you should be presented with a section at the bottom of the page called "Artifacts". This section contains the results of your build, in a file called "go60.uf2"
-5. Download the go60.uf2
-6. Flash the firmware to Go60 according to the user documentation on the official Go60 Support website (linked above)
+## Left hand can hotkey (almost) everything
 
-Your keyboard is now ready to use.
+With the placement of Ctrl and Shift, the most common hotkeys can all be typed with just the left hand. Alt is also on the left side, even though it is not used as frequently.
+
+This is complements the Nav layer, which is activated from a thumb key. All this makes the left keyboard half a very powerful hotkey system.
+
+## The vim-shaped elephant in the room
+
+Vim can do all this and more. This layout does have the advantage that these keybinds work in any appliation, but in truth it's just a different philosophy.
+
+## Window management
+
+The window manager button (Super on Linux, Ctrl on Mac) is also positioned in a way so that it can take maximum advantage of the left half of the keyboard. I use WM+ESDF for directional window switching (workspaces up/down, scrolling windows left/right). When adding the very conveniently placed pinky Shift to any of the keybinds, the action becomes a window move instead of a focus.
+
+The remaining buttons are a mix between resizing, floating toggle, and direct workspace activation. I use Niri and Aerospace for the workspaces, see their respective configs for details:
+
+https://github.com/mgabor3141/dots/tree/main/dot_config/aerospace
+https://github.com/mgabor3141/dots/blob/main/dot_config/niri/config.kdl
+
+## More goodies
+
+- The Nav layer is so left-hand focused, the right half can fit an entire numpad. Why not.
+- Symbol layer fits locale-specific keys on the right hand side, no layout switching needed.
+- Gaming layer is pretty much stock, but the tap-holds are removed for consistent behavior. Alpha layer remains unmodified, which helps when needing to switch applications briefly or having a friendly discussion in allchat. WASD games need to be rebound to use ESDF instead.
+- Everyone should have a caps word key!
+- Semicolon and colon are swapped because I don't program in languages that mandate semi usage.
+- Switching to and from the Gaming layer gives visual feedback.
+- Mouse 4 and 5 are so useful that I added an additional pair to the out of reach keys on base layer. They get used occasionally. Comboing both is my global mic mute.
