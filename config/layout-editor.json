@@ -3,17 +3,17 @@
   "firmware_api_version": "1",
   "locale": "en-US",
   "uuid": "",
-  "parent_uuid": "7c099498-c248-4f06-b2f2-68643dfff0a9",
+  "parent_uuid": "77526c3a-6df5-439f-b277-b4a1a28161f7",
   "unlisted": false,
-  "date": 1771064625,
+  "date": 1771069129,
   "creator": "mgabor",
-  "title": "mgabor's layout v4.2",
-  "notes": "=== mgabor's layout ===\n\nI designed this layout - and decided to learn this keyboard - with a few goals in mind.\n\nIn order of priority:\n  1. Comfortable symbol layout for programming\n  2. Reduce needing to move right hand from mouse when not typing (eg. only to press enter)\n  3. No significant departure from row staggered: switching to laptop keyboard should be effortless (when necessary)\n  4. Standardize hotkey muscle memory across MacOS and Linux\n  5. Eliminate needing to switch keyboard layouts to type non-English characters\n    \nI'm happy to say I think I managed to achieve most of these goals as of v4 of this layout.\n\nA few notes on some of the key decisions I made, and how the goals above affected them.\n\n## No home row modifiers\n\nHome row mods are great for mostly keyboard workflows, where you can always press modifiers with the opposite hand to the key being modified. For workflows with significant mouse usage, HRMs don't make sense IMO.\n\n## Ctrl and Cmd\n\nI will be using Linux naming throughout the rest of this text. When I write \"Ctrl\" I mean the \"secondary\" modifier: Ctrl on Linux, Command on Mac.\n\nWhile making the two equivalent is not quite as simple as swapping them based on the OS, I don't want to go into too much detail on this topic here. You can check my dotfiles repo for more information here:\n\nhttps://github.com/mgabor3141/dots/blob/main/.docs/keyboard-remapping.md\n\n## Left hand can hotkey (almost) everything\n\nWith the placement of Ctrl and Shift, the most common hotkeys can all be typed with just the left hand. Alt is also on the left side, even though it is not used as frequently.\n\nThis is complements the Nav layer, which is activated from a thumb key. All this makes the left keyboard half a very powerful hotkey system.\n\n## The vim-shaped elephant in the room\n\nVim can do all this and more. This layout does have the advantage that these keybinds work in any appliation, but in truth it's just a different philosophy.\n\n## Window management\n\nThe window manager button (Super on Linux, Ctrl on Mac) is also positioned in a way so that it can take maximum advantage of the left half of the keyboard. I use WM+ESDF for directional window switching (workspaces up/down, scrolling windows left/right). When adding the very conveniently placed pinky Shift to any of the keybinds, the action becomes a window move instead of a focus.\n\nThe remaining buttons are a mix between resizing, floating toggle, and direct workspace activation. I use Niri and Aerospace for the workspaces, see their respective configs for details:\n\nhttps://github.com/mgabor3141/dots/tree/main/dot_config/aerospace\nhttps://github.com/mgabor3141/dots/blob/main/dot_config/niri/config.kdl\n\n## More goodies\n\n- The Nav layer is so left-hand focused, the right half can fit an entire numpad. Why not.\n- Symbol layer fits locale-specific keys on the right hand side, no layout switching needed.\n- Gaming layer is pretty much stock, but the tap-holds are removed for consistent behavior. Alpha layer remains unmodified, which helps when needing to switch applications briefly or having a friendly discussion in allchat. WASD games need to be rebound to use ESDF instead.\n- Everyone should have a caps word key!\n- Semicolon and colon are swapped because I don't program in languages that mandate semi usage.\n- Switching to and from the Gaming layer gives visual feedback.\n- Mouse 4 and 5 are so useful that I added an additional pair to the out of reach keys on base layer. They get used occasionally. Comboing both is my global mic mute.",
+  "title": "mgabor's layout v4.3",
+  "notes": "=== mgabor's layout ===\n\nI designed this layout - and decided to learn this keyboard - with a few goals in mind.\n\nIn order of priority:\n  1. Comfortable symbol layout for programming\n  2. Reduce needing to move right hand from mouse when not typing (eg. only to press enter)\n  3. No significant departure from row staggered: switching to laptop keyboard should be effortless (when necessary)\n  4. Standardize hotkey muscle memory across MacOS and Linux\n  5. Eliminate needing to switch keyboard layouts to type non-English characters\n    \nI'm happy to say I think I managed to achieve most of these goals as of v4 of this layout.\n\nA few notes on some of the key decisions I made, and how the goals above affected them.\n\n## No home row modifiers\n\nHome row mods are great for mostly keyboard workflows, where you can always press modifiers with the opposite hand to the key being modified. For workflows with significant mouse usage, HRMs don't make sense IMO.\n\n## Ctrl and Cmd\n\nI will be using Linux naming throughout the rest of this text. When I write \"Ctrl\" I mean the \"secondary\" modifier: Ctrl on Linux, Command on Mac.\n\nWhile making the two equivalent is not quite as simple as swapping them based on the OS, I don't want to go into too much detail on this topic here. You can check my dotfiles repo for more information here:\n\nhttps://github.com/mgabor3141/dots/blob/main/.docs/keyboard-remapping.md\n\n## Left hand can hotkey (almost) everything\n\nWith the placement of Ctrl and Shift, the most common hotkeys can all be typed with just the left hand. Alt is also on the left side, even though it is not used as frequently.\n\nThis is complements the Nav layer, which is activated from a thumb key. All this makes the left keyboard half a very powerful hotkey system.\n\n## The vim-shaped elephant in the room\n\nVim can do all this and more. This layout does have the advantage that these keybinds work in any appliation, but in truth it's just a different philosophy.\n\n## Window management\n\nThe window manager button (Super on Linux, Ctrl on Mac) is also positioned in a way so that it can take maximum advantage of the left half of the keyboard. I use WM+ESDF for directional window switching (workspaces up/down, scrolling windows left/right). When adding the very conveniently placed pinky Shift to any of the keybinds, the action becomes a window move instead of a focus.\n\nThe remaining buttons are a mix between resizing, floating toggle, and direct workspace activation. I use Niri and Aerospace for the workspaces, see their respective configs for details:\n\nhttps://github.com/mgabor3141/dots/tree/main/dot_config/aerospace\nhttps://github.com/mgabor3141/dots/blob/main/dot_config/niri/config.kdl\n\n## More goodies\n\n- The Nav layer is so left-hand focused, the right half can fit an entire numpad. Why not.\n- Symbol layer fits locale-specific keys on the right hand side, no layout switching needed.\n- Gaming layer is pretty much stock, but the tap-holds are removed for consistent behavior. Alpha layer remains unmodified, which helps when needing to switch applications briefly or having a friendly discussion in allchat. WASD games need to be rebound to use ESDF instead.\n- Everyone should have a caps word key!\n- Switching to and from the Gaming layer gives visual feedback.\n- Mouse 4 and 5 are so useful that I added an additional pair to the out of reach keys on base layer. They get used occasionally. Comboing both is my global mic mute.",
   "tags": [
     "qwerty",
     "multi-language"
   ],
-  "custom_defined_behaviors": "behaviors {\n  semi_colon_swap: semi_colon_swap {\n    compatible = \"zmk,behavior-mod-morph\";\n    #binding-cells = <0>;\n    bindings = <&kp COLON>, <&kp SEMI>;\n    mods = <(MOD_LSFT|MOD_RSFT)>;\n  };\n};",
+  "custom_defined_behaviors": "",
   "custom_devicetree": "",
   "config_parameters": [
     {
@@ -330,16 +330,12 @@
         ]
       },
       {
-        "value": "Custom",
+        "value": "&kp",
         "params": [
           {
-            "value": "&semi_colon_swap"
+            "value": "SEMI"
           }
-        ],
-        "decoration": {
-          "label": ":",
-          "background": "#d0daedff"
-        }
+        ]
       },
       {
         "value": "&kp",
@@ -1797,7 +1793,17 @@
         "value": "&trans"
       },
       {
-        "value": "&trans"
+        "value": "&kp",
+        "params": [
+          {
+            "value": "LC",
+            "params": [
+              {
+                "value": "RET"
+              }
+            ]
+          }
+        ]
       },
       {
         "value": "&kp",
