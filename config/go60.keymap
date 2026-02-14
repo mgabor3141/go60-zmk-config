@@ -635,12 +635,12 @@ behaviors {
 
         layer_Symbol {
             bindings = <
- &triple_backtick       &kp FSLH    &kp LS(N9)     &kp LS(N0)     &kp BSLH    &kp LS(N3)                                                                           &kp RA(N4)   &kp RA(M)   &kp RA(D)  &kp RA(DOT)  &kp RA(LBKT)   &kp RA(BSLH)
-        &kp GRAVE       &kp LBKT  &kp LS(LBKT)   &kp LS(RBKT)     &kp RBKT  &kp LS(FSLH)                                                                           &kp LS(N1)   &kp RA(U)   &kp RA(I)    &kp RA(O)    &kp RA(N0)  &kp RA(MINUS)
-           &trans     &kp LS(N6)     &kp EQUAL      &kp MINUS   &kp LS(N4)    &kp LS(N8)                                                                              &kp SQT  &kp LS(N9)  &kp LS(N0)       &trans     &kp RA(E)      &kp RA(A)
-    &kp LS(GRAVE)  &kp LS(COMMA)  &kp LS(BSLH)  &kp LS(MINUS)  &kp LS(DOT)    &kp LS(N7)                                                                 &kp LS(SINGLE_QUOTE)    &kp FSLH    &kp BSLH       &trans        &trans         &trans
-                                        &trans         &trans       &trans                                                                                                       &kp HOME     &kp END       &trans
-                                                                                          &kp LS(N5)  &kp LS(N2)  &kp LS(EQUAL)   &none  &trans  &trans
+ &triple_backtick       &kp FSLH    &kp LS(N9)     &kp LS(N0)     &kp BSLH       &kp SQT                                                                &kp RA(N4)      &kp RA(M)   &kp RA(D)  &kp RA(DOT)  &kp RA(LBKT)   &kp RA(BSLH)
+        &kp GRAVE       &kp LBKT  &kp LS(LBKT)   &kp LS(RBKT)     &kp RBKT  &kp LS(FSLH)                                                                  &kp FSLH       &kp BSLH   &kp RA(I)    &kp RA(O)    &kp RA(N0)  &kp RA(MINUS)
+           &trans     &kp LS(N6)     &kp EQUAL      &kp MINUS   &kp LS(N4)    &kp LS(N1)                                                      &kp LS(SINGLE_QUOTE)     &kp LS(N9)  &kp LS(N0)   &kp LS(N3)     &kp RA(E)      &kp RA(A)
+    &kp LS(GRAVE)  &kp LS(COMMA)  &kp LS(BSLH)  &kp LS(MINUS)  &kp LS(DOT)    &kp LS(N8)                                                                &kp LS(N5)  &kp LS(EQUAL)  &kp LS(N7)       &trans     &kp RA(U)         &trans
+                                        &trans         &trans       &trans                                                                                               &kp HOME     &kp END       &trans
+                                                                                          &trans  &trans  &kp LS(N2)   &none  &trans  &trans
             >;
         };
 
@@ -657,10 +657,10 @@ behaviors {
 
         layer_Gaming {
             bindings = <
- &TH_magic_long MACRO_PLACEHOLDER MACRO_PLACEHOLDER  &trans            &trans  &trans     &trans  &trans                                                         &trans  &trans  &trans     &trans  &trans       &trans
+ &TH_magic_long MACRO_PLACEHOLDER MACRO_PLACEHOLDER  &trans            &trans  &trans     &trans  &trans                                                         &trans  &trans  &trans     &trans  &trans  &kp RS(F12)
                                             &kp TAB  &trans            &trans  &trans     &trans  &trans                                                         &trans  &trans  &trans     &trans  &trans       &trans
                                           &kp LSHFT  &trans            &trans  &trans     &trans  &trans                                                         &trans  &trans  &trans     &trans  &trans       &trans
-                                          &kp LCTRL  &trans            &trans  &trans     &trans  &trans                                                         &trans  &trans  &trans     &trans  &trans  &kp RS(F12)
+                                          &kp LCTRL  &trans            &trans  &trans     &trans  &trans                                                         &trans  &trans  &trans     &trans  &trans        &none
                                                              &back_to_desktop  &kp F1  &kp GRAVE                                                                         &trans  &trans  &kp RSHFT
                                                                                                           &kp LALT  &kp SPACE  &kp RET  &kp DEL  &trans  &trans
             >;
