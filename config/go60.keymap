@@ -597,34 +597,34 @@
 
         layer_Nav {
             bindings = <
-          &kp LS(TAB)        &kp DOT  &TH_key LBKT LS(LBKT)         &kp LS(N9)      &kp COMMA     &TH_key LS(SQT) SQT                                                                         &kp F6            &kp F7            &kp F8            &kp F9       &kp F10      &kp F11
-               &trans  &kp LC(GRAVE)           &kp LC(LEFT)             &kp UP  &kp LC(RIGHT)  &TH_key LC(HOME) PG_UP                                                                &kp KP_MULTIPLY  &TH_key F7 KP_N7  &TH_key F8 KP_N8  &TH_key F9 KP_N9  &kp KP_MINUS      &kp F12
-               &trans    &kp LS(ESC)               &kp LEFT           &kp DOWN      &kp RIGHT               &kp SPACE                                                                   &kp KP_SLASH  &TH_key F4 KP_N4  &TH_key F5 KP_N5  &TH_key F6 KP_N1   &kp KP_PLUS  &kp LS(TAB)
- &TH_mod LALT LS(ESC)  &kp LC(LS(Z))               &kp HOME  &kp LC(LS(LA(C)))        &kp END   &TH_key LC(END) PG_DN                                                                        &kp TAB  &TH_key F1 KP_N1  &TH_key F2 KP_N2  &TH_key F3 KP_N3  &kp KP_ENTER    &kp RSHFT
-                                                   &mkp MB5       &kp LC(BSPC)    &kp LC(DEL)                                                                                                                &kp KP_N0         &kp KP_N0        &kp KP_DOT
-                                                                                                                       &kp LG(LA(D))  &trans  &td_LAYER_Nav  &trans  &trans  &trans
+          &kp LS(TAB)        &kp DOT  &TH_key LBKT LS(LBKT)         &kp LS(N9)      &kp COMMA     &TH_key LS(SQT) SQT                                                                   &kp F6            &kp F7            &kp F8            &kp F9       &kp F10      &kp F11
+               &trans  &kp LC(GRAVE)           &kp LC(LEFT)             &kp UP  &kp LC(RIGHT)  &TH_key LC(HOME) PG_UP                                                          &kp KP_MULTIPLY  &TH_key F7 KP_N7  &TH_key F8 KP_N8  &TH_key F9 KP_N9  &kp KP_MINUS      &kp F12
+               &trans    &kp LS(ESC)               &kp LEFT           &kp DOWN      &kp RIGHT               &kp SPACE                                                             &kp KP_SLASH  &TH_key F4 KP_N4  &TH_key F5 KP_N5  &TH_key F6 KP_N1   &kp KP_PLUS  &kp LS(TAB)
+ &TH_mod LALT LS(ESC)  &kp LC(LS(Z))               &kp HOME  &kp LC(LS(LA(C)))        &kp END   &TH_key LC(END) PG_DN                                                                  &kp TAB  &TH_key F1 KP_N1  &TH_key F2 KP_N2  &TH_key F3 KP_N3  &kp KP_ENTER    &kp RSHFT
+                                                   &mkp MB5       &kp LC(BSPC)    &kp LC(DEL)                                                                                                          &kp KP_N0         &kp KP_N0        &kp KP_DOT
+                                                                                                                       &kp F14  &trans  &td_LAYER_Nav  &trans  &trans  &trans
             >;
         };
 
         layer_Symbol {
             bindings = <
- &triple_backtick       &kp FSLH    &kp LS(N9)     &kp LS(N0)     &kp BSLH   &kp RA(DOT)                                                                     &kp RA(N4)      &kp RA(M)   &kp RA(D)   &kp RA(T)  &kp RA(LBKT)   &kp RA(BSLH)
-        &kp GRAVE       &kp LBKT  &kp LS(LBKT)   &kp LS(RBKT)     &kp RBKT  &kp LS(FSLH)                                                                        &kp SQT      &kp RA(U)   &kp RA(I)   &kp RA(O)    &kp RA(N0)  &kp RA(MINUS)
-           &trans     &kp LS(N6)     &kp EQUAL      &kp MINUS   &kp LS(N4)    &kp LS(N1)                                                           &kp LS(SINGLE_QUOTE)     &kp LS(N9)  &kp LS(N0)  &kp LS(N5)     &kp RA(E)      &kp RA(A)
-    &kp LS(GRAVE)  &kp LS(COMMA)  &kp LS(BSLH)  &kp LS(MINUS)  &kp LS(DOT)    &kp LS(N8)                                                                     &kp LS(N3)  &kp LS(EQUAL)  &kp LS(N7)      &trans        &trans         &trans
-                                        &trans         &trans       &trans                                                                                                    &kp HOME     &kp END      &trans
-                                                                                          &trans  &kp LC(RET)  &kp LS(N2)  &trans  &trans  &trans
+         &none       &kp FSLH    &kp LS(N9)     &kp LS(N0)     &kp BSLH  &triple_backtick                                                                         &kp RA(BSLH)  &kp RA(MINUS)  &kp RA(LBKT)  &kp RA(N0)        &none       &none
+     &kp GRAVE       &kp LBKT  &kp LS(LBKT)   &kp LS(RBKT)     &kp RBKT        &kp LS(N1)                                                                              &kp SQT      &kp RA(U)     &kp RA(I)   &kp RA(O)  &kp RA(DOT)  &kp RA(N4)
+        &trans     &kp LS(N6)     &kp EQUAL      &kp MINUS   &kp LS(N4)      &kp LS(FSLH)                                                                 &kp LS(SINGLE_QUOTE)     &kp LS(N9)    &kp LS(N0)  &kp LS(N3)    &kp RA(E)   &kp RA(A)
+ &kp LS(GRAVE)  &kp LS(COMMA)  &kp LS(BSLH)  &kp LS(MINUS)  &kp LS(DOT)        &kp LS(N8)                                                                           &kp LS(N7)  &kp LS(EQUAL)    &kp LS(N5)   &kp RA(T)    &kp RA(D)   &kp RA(M)
+                                     &trans         &trans       &trans                                                                                                                &trans        &trans      &trans
+                                                                                           &kp LS(SEMI)  &kp LC(RET)  &kp LS(N2)  &trans  &trans  &trans
             >;
         };
 
         layer_WM {
             bindings = <
- &kp LS(TAB)  &trans  &trans  &trans  &trans  &trans                                                         &trans  &trans  &trans  &trans  &trans  &trans
-      &trans  &trans  &trans  &trans  &trans  &trans                                                         &trans  &trans  &trans  &trans  &trans  &trans
-      &trans  &trans  &trans  &trans  &trans  &trans                                                         &trans  &trans  &trans  &trans  &trans  &trans
-      &trans  &trans  &trans  &trans  &trans  &trans                                                         &trans  &trans  &trans  &trans  &trans  &trans
-                      &trans  &trans  &trans                                                                         &trans  &trans  &trans
-                                                      &trans  &trans  &kp LG(LA(D))  &trans  &trans  &trans
+ &kp LS(TAB)  &trans  &trans  &trans  &trans  &trans                                                   &trans  &trans  &trans  &trans  &trans  &trans
+      &trans  &trans  &trans  &trans  &trans  &trans                                                   &trans  &trans  &trans  &trans  &trans  &trans
+      &trans  &trans  &trans  &trans  &trans  &trans                                                   &trans  &trans  &trans  &trans  &trans  &trans
+      &trans  &trans  &trans  &trans  &trans  &trans                                                   &trans  &trans  &trans  &trans  &trans  &trans
+                      &trans  &trans  &trans                                                                   &trans  &trans  &trans
+                                                      &trans  &trans  &kp F14  &trans  &trans  &trans
             >;
         };
 
