@@ -3,7 +3,7 @@
   "firmware_api_version": "1",
   "locale": "en-US",
   "uuid": "",
-  "parent_uuid": "a91f9b67-1d77-4731-80bd-25c6bfe14579",
+  "parent_uuid": "a744c684-a302-4a1d-8953-a13a48b04ff0",
   "unlisted": false,
   "date": 1771761894,
   "creator": "mgabor",
@@ -151,7 +151,23 @@
         ]
       },
       {
-        "value": "&none"
+        "value": "&kp",
+        "params": [
+          {
+            "value": "RS",
+            "params": [
+              {
+                "value": "F12"
+              }
+            ]
+          }
+        ],
+        "decoration": {
+          "label": "FPS",
+          "icon": "tb-device-analytics",
+          "background": "#9ae1edff",
+          "description": "Mangohud performance overlay"
+        }
       },
       {
         "value": "&kp",
@@ -848,12 +864,7 @@
         "value": "&kp",
         "params": [
           {
-            "value": "LS",
-            "params": [
-              {
-                "value": "ESC"
-              }
-            ]
+            "value": "HOME"
           }
         ]
       },
@@ -894,7 +905,7 @@
         "value": "&kp",
         "params": [
           {
-            "value": "SPACE"
+            "value": "END"
           }
         ]
       },
@@ -1010,7 +1021,7 @@
         "value": "&kp",
         "params": [
           {
-            "value": "HOME"
+            "value": "SPACE"
           }
         ]
       },
@@ -1041,7 +1052,22 @@
         "value": "&kp",
         "params": [
           {
-            "value": "END"
+            "value": "LS",
+            "params": [
+              {
+                "value": "LC",
+                "params": [
+                  {
+                    "value": "LA",
+                    "params": [
+                      {
+                        "value": "V"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
@@ -1853,7 +1879,17 @@
         "value": "&trans"
       },
       {
-        "value": "&trans"
+        "value": "&kp",
+        "params": [
+          {
+            "value": "LC",
+            "params": [
+              {
+                "value": "RET"
+              }
+            ]
+          }
+        ]
       },
       {
         "value": "&kp",
@@ -1869,17 +1905,7 @@
         ]
       },
       {
-        "value": "&kp",
-        "params": [
-          {
-            "value": "LC",
-            "params": [
-              {
-                "value": "RET"
-              }
-            ]
-          }
-        ]
+        "value": "&trans"
       },
       {
         "value": "&kp",
@@ -2149,23 +2175,7 @@
         "value": "&trans"
       },
       {
-        "value": "&kp",
-        "params": [
-          {
-            "value": "RS",
-            "params": [
-              {
-                "value": "F12"
-              }
-            ]
-          }
-        ],
-        "decoration": {
-          "label": "FPS",
-          "icon": "tb-device-analytics",
-          "background": "#9ae1edff",
-          "description": "Mangohud performance overlay"
-        }
+        "value": "&trans"
       },
       {
         "value": "&kp",
@@ -3404,7 +3414,7 @@
               "value": "RG",
               "params": [
                 {
-                  "value": "F20"
+                  "value": "TAB"
                 }
               ]
             }
