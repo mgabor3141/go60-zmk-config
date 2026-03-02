@@ -597,12 +597,12 @@
 
         layer_Nav {
             bindings = <
-          &kp LS(TAB)        &kp DOT  &TH_key LBKT LS(LBKT)         &kp LS(N9)          &kp COMMA     &TH_key LS(SQT) SQT                                                                   &kp F6            &kp F7            &kp F8            &kp F9       &kp F10      &kp F11
-               &trans  &kp LC(GRAVE)           &kp LC(LEFT)             &kp UP      &kp LC(RIGHT)  &TH_key LC(HOME) PG_UP                                                          &kp KP_MULTIPLY  &TH_key F7 KP_N7  &TH_key F8 KP_N8  &TH_key F9 KP_N9  &kp KP_MINUS      &kp F12
-               &trans       &kp HOME               &kp LEFT           &kp DOWN          &kp RIGHT                 &kp END                                                             &kp KP_SLASH  &TH_key F4 KP_N4  &TH_key F5 KP_N5  &TH_key F6 KP_N1   &kp KP_PLUS  &kp LS(TAB)
- &TH_mod LALT LS(ESC)  &kp LC(LS(Z))              &kp SPACE  &kp LC(LS(LA(C)))  &kp LS(LC(LA(V)))   &TH_key LC(END) PG_DN                                                                  &kp TAB  &TH_key F1 KP_N1  &TH_key F2 KP_N2  &TH_key F3 KP_N3  &kp KP_ENTER    &kp RSHFT
-                                                   &mkp MB5       &kp LC(BSPC)        &kp LC(DEL)                                                                                                          &kp KP_N0         &kp KP_N0        &kp KP_DOT
-                                                                                                                           &kp F14  &trans  &td_LAYER_Nav  &trans  &trans  &trans
+          &kp LS(TAB)       &kp LBKT  &kp LS(LBKT)         &kp LS(N9)          &kp COMMA                 &kp DOT                                                                   &kp F6            &kp F7            &kp F8            &kp F9       &kp F10      &kp F11
+        &kp LC(GRAVE)      &kp LC(P)  &kp LC(LEFT)             &kp UP      &kp LC(RIGHT)  &TH_key LC(HOME) PG_UP                                                          &kp KP_MULTIPLY  &TH_key F7 KP_N7  &TH_key F8 KP_N8  &TH_key F9 KP_N9  &kp KP_MINUS      &kp F12
+               &trans       &kp HOME      &kp LEFT           &kp DOWN          &kp RIGHT                 &kp END                                                             &kp KP_SLASH  &TH_key F4 KP_N4  &TH_key F5 KP_N5  &TH_key F6 KP_N1   &kp KP_PLUS  &kp LS(TAB)
+ &TH_mod LALT LS(ESC)  &kp LC(LS(Z))     &kp SPACE  &kp LC(LS(LA(C)))  &kp LS(LC(LA(V)))   &TH_key LC(END) PG_DN                                                                  &kp TAB  &TH_key F1 KP_N1  &TH_key F2 KP_N2  &TH_key F3 KP_N3  &kp KP_ENTER    &kp RSHFT
+                                          &mkp MB5       &kp LC(BSPC)        &kp LC(DEL)                                                                                                          &kp KP_N0         &kp KP_N0        &kp KP_DOT
+                                                                                                                  &kp F14  &trans  &td_LAYER_Nav  &trans  &trans  &trans
             >;
         };
 
@@ -630,12 +630,12 @@
 
         layer_Gaming {
             bindings = <
- &TH_magic_long 0 0  &trans            &trans  &trans     &trans  &trans                                                         &trans  &trans  &trans     &trans  &trans  &trans
-            &kp TAB  &trans            &trans  &trans     &trans  &trans                                                         &trans  &trans  &trans     &trans  &trans  &trans
-          &kp LSHFT  &trans            &trans  &trans     &trans  &trans                                                         &trans  &trans  &trans     &trans  &trans  &trans
-          &kp LCTRL  &trans            &trans  &trans     &trans  &trans                                                         &trans  &trans  &trans     &trans  &trans   &none
-                             &back_to_desktop  &kp F1  &kp GRAVE                                                                         &trans  &trans  &kp RSHFT
-                                                                          &kp LALT  &kp SPACE  &kp RET  &kp DEL  &trans  &trans
+ &TH_magic_long 0 0  &trans            &trans     &trans   &trans  &trans                                                         &trans  &trans  &trans     &trans  &trans  &trans
+            &kp TAB  &trans            &trans     &trans   &trans  &trans                                                         &trans  &trans  &trans     &trans  &trans  &trans
+          &kp LSHFT  &trans            &trans     &trans   &trans  &trans                                                         &trans  &trans  &trans     &trans  &trans  &trans
+          &kp LCTRL  &trans            &trans     &trans   &trans  &trans                                                         &trans  &trans  &trans     &trans  &trans   &none
+                             &back_to_desktop  &kp GRAVE  &kp RET                                                                         &trans  &trans  &kp RSHFT
+                                                                           &kp LALT  &kp SPACE  &kp DOT  &kp DEL  &trans  &trans
             >;
         };
 
