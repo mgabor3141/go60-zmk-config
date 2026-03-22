@@ -566,25 +566,25 @@
     combos {
         compatible = "zmk,combos";
 
-        // Activate base layer
-        combo_to_base {
-            timeout-ms = <50>;
-            key-positions = <POS_LH_C6R1 POS_LH_T3>;
-            bindings = <&to_base>;
-            require-prior-idle-ms = <200>;
+        combo_F13 {
+            key-positions = <POS_LH_C4R5 POS_LH_C3R5>;
+            bindings = <&kp F13>;
         };
 
         // Activate gaming layer
         combo_to_gaming {
             timeout-ms = <50>;
-            key-positions = <POS_LH_C6R1 POS_LH_T2>;
+            key-positions = <POS_LH_C6R1 POS_LH_T3>;
             bindings = <&to_gaming>;
             layers = <LAYER_Base LAYER_Mouse LAYER_MouseFast LAYER_Magic LAYER_Gaming>;
         };
 
-        combo_F13 {
-            key-positions = <POS_LH_C4R5 POS_LH_C3R5>;
-            bindings = <&kp F13>;
+        // Activate base layer
+        combo_to_base {
+            timeout-ms = <50>;
+            key-positions = <POS_LH_C6R1 POS_LH_T2>;
+            bindings = <&to_base>;
+            require-prior-idle-ms = <200>;
         };
     };
 };
