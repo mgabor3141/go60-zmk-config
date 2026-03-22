@@ -641,12 +641,12 @@
 
         layer_Gaming {
             bindings = <
- &TH_magic_long 0 0    &trans    &trans   &trans            &trans  &trans                                                      &trans  &trans  &trans  &trans  &trans  &trans
-            &kp TAB    &trans    &trans   &trans            &trans  &trans                                                      &trans  &trans  &trans  &trans  &trans  &trans
-          &kp LSHFT    &trans    &trans   &trans            &trans  &trans                                                      &trans  &trans  &trans  &trans  &trans  &trans
-          &kp LCTRL  &kp LALT    &trans   &trans            &trans  &trans                                                      &trans  &trans  &trans  &trans  &trans  &trans
-                               &kp LBKT  &kp RET  &back_to_desktop                                                                      &trans  &trans  &trans
-                                                                             &kp Z  &kp SPACE  &kp DOT  &trans  &trans  &trans
+ &TH_magic_long 0 0  &trans    &trans   &trans            &trans  &trans                                                        &trans  &trans  &trans  &trans  &trans  &trans
+            &kp TAB  &trans    &trans   &trans            &trans  &trans                                                        &trans  &trans  &trans  &trans  &trans  &trans
+          &kp LSHFT  &trans    &trans   &trans            &trans  &trans                                                        &trans  &trans  &trans  &trans  &trans  &trans
+          &kp LCTRL  &trans    &trans   &trans            &trans  &trans                                                        &trans  &trans  &trans  &trans  &trans  &trans
+                             &kp LALT  &kp RET  &back_to_desktop                                                                        &trans  &trans  &trans
+                                                                          &kp SEMI  &kp SPACE  &kp DOT  &trans  &trans  &trans
             >;
         };
 
