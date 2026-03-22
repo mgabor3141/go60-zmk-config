@@ -1,55 +1,88 @@
-# === mgabor's layout ===
+# go60-zmk-config
 
-I designed this layout - and decided to learn this keyboard - with a few goals in mind.
+ZMK firmware configuration for the MoErgo Go60 split keyboard.
 
-In order of priority:
-  1. Comfortable symbol layout for programming
-  2. Reduce needing to move right hand from mouse when not typing (eg. only to press enter)
-  3. No significant departure from row staggered: switching to laptop keyboard should be effortless (when necessary)
-  4. Standardize hotkey muscle memory across MacOS and Linux
-  5. Eliminate needing to switch keyboard layouts to type non-English characters
-    
-I'm happy to say I think I managed to achieve most of these goals as of v4 of this layout.
+## Building and Flashing
 
-A few notes on some of the key decisions I made, and how the goals above affected them.
+### Quick start
 
-## No home row modifiers
+```bash
+./flash.sh          # build + flash both halves
+./flash.sh --no-build   # flash using an existing go60.uf2
+```
 
-Home row mods are great for mostly keyboard workflows, where you can always press modifiers with the opposite hand to the key being modified. For workflows with significant mouse usage, HRMs don't make sense IMO.
+`flash.sh` builds the firmware, then walks you through flashing each half. Put each side into bootloader mode when prompted; the script detects the USB drive automatically. If a half is already in bootloader mode it skips the wait and flashes immediately.
 
-## Ctrl and Cmd
+### Build only
 
-I will be using Linux naming throughout the rest of this text. When I write "Ctrl" I mean the "secondary" modifier: Ctrl on Linux, Command on Mac.
+```bash
+./build.sh          # uses the main branch of moergo-sc/zmk
+./build.sh some-tag # uses a specific branch or tag
+```
 
-While making the two equivalent is not quite as simple as swapping them based on the OS, I don't want to go into too much detail on this topic here. You can check my dotfiles repo for more information here:
+The build runs inside Docker via a Nix derivation. On the first run it pulls the image and populates a build cache; subsequent builds only recompile what changed (typically just the keymap).
 
+### Build cache
+
+Build artifacts are stored in a Docker volume called `go60-nix-store`. This avoids rebuilding all 300+ objects on every keymap change. To force a fully clean build:
+
+```bash
+docker volume rm go60-nix-store
+```
+
+### Repository structure
+
+```
+config/
+  go60.keymap      # keymap definition
+  go60.conf        # kconfig options
+  default.nix      # nix build expression
+build.sh           # builds firmware inside Docker, outputs go60.uf2
+flash.sh           # builds + flashes both halves via USB bootloader
+Dockerfile         # build environment (nix + ZMK + cachix)
+```
+
+---
+
+## Layout Notes
+
+I designed this layout with a few goals in mind, in order of priority:
+
+1. Comfortable symbol layout for programming
+2. Reduce needing to move the right hand from the mouse when not typing (e.g. only to press enter)
+3. No significant departure from row staggered: switching to a laptop keyboard should be effortless
+4. Standardize hotkey muscle memory across macOS and Linux
+5. Eliminate needing to switch keyboard layouts to type non-English characters
+
+### No home row modifiers
+
+Home row mods are great for mostly-keyboard workflows where you can always press modifiers with the opposite hand. For workflows with significant mouse usage, HRMs don't make sense in my opinion.
+
+### Ctrl and Cmd
+
+I use Linux naming throughout. When I write "Ctrl" I mean the "secondary" modifier: Ctrl on Linux, Command on Mac.
+
+Making the two equivalent is not quite as simple as swapping them based on the OS. See my dotfiles for more detail:
 https://github.com/mgabor3141/dots/blob/main/.docs/keyboard-remapping.md
 
-## Left hand can hotkey (almost) everything
+### Left hand can hotkey (almost) everything
 
-With the placement of Ctrl and Shift, the most common hotkeys can all be typed with just the left hand. Alt is also on the left side, even though it is not used as frequently.
+With the placement of Ctrl and Shift, the most common hotkeys can all be typed with just the left hand. Alt is also on the left side. This complements the Nav layer, which is activated from a thumb key, making the left half a powerful hotkey system on its own.
 
-This is complements the Nav layer, which is activated from a thumb key. All this makes the left keyboard half a very powerful hotkey system.
+### Window management
 
-## The vim-shaped elephant in the room
+The window manager key (Super on Linux, Ctrl on Mac) is positioned to take maximum advantage of the left half. I use WM+ESDF for directional window switching (workspaces up/down, scrolling windows left/right). Adding the pinky Shift turns focus actions into window moves.
 
-Vim can do all this and more. This layout does have the advantage that these keybinds work in any appliation, but in truth it's just a different philosophy.
+The remaining keys are a mix of resizing, floating toggle, and direct workspace activation. I use Niri and Aerospace for window management:
+- https://github.com/mgabor3141/dots/tree/main/dot_config/aerospace
+- https://github.com/mgabor3141/dots/blob/main/dot_config/niri/config.kdl
 
-## Window management
+### Other details
 
-The window manager button (Super on Linux, Ctrl on Mac) is also positioned in a way so that it can take maximum advantage of the left half of the keyboard. I use WM+ESDF for directional window switching (workspaces up/down, scrolling windows left/right). When adding the very conveniently placed pinky Shift to any of the keybinds, the action becomes a window move instead of a focus.
-
-The remaining buttons are a mix between resizing, floating toggle, and direct workspace activation. I use Niri and Aerospace for the workspaces, see their respective configs for details:
-
-https://github.com/mgabor3141/dots/tree/main/dot_config/aerospace
-https://github.com/mgabor3141/dots/blob/main/dot_config/niri/config.kdl
-
-## More goodies
-
-- The Nav layer is so left-hand focused, the right half can fit an entire numpad. Why not.
-- Symbol layer fits locale-specific keys on the right hand side, no layout switching needed.
-- Gaming layer is pretty much stock, but the tap-holds are removed for consistent behavior. Alpha layer remains unmodified, which helps when needing to switch applications briefly or having a friendly discussion in allchat. WASD games need to be rebound to use ESDF instead.
-- Everyone should have a caps word key!
-- Semicolon and colon are swapped because I don't program in languages that mandate semi usage.
-- Switching to and from the Gaming layer gives visual feedback.
-- Mouse 4 and 5 are so useful that I added an additional pair to the out of reach keys on base layer. They get used occasionally. Comboing both is my global mic mute.
+- The Nav layer's right half fits a full numpad.
+- Symbol layer includes locale-specific keys on the right side, so no layout switching is needed.
+- Gaming layer removes tap-holds for consistent behavior. The alpha layer stays unmodified for alt-tabbing and chat. WASD games should be rebound to ESDF.
+- Caps word key, because everyone should have one.
+- Semicolon and colon are swapped; I don't program in languages that mandate semicolons.
+- Switching to/from the Gaming layer gives visual feedback.
+- Mouse 4 and 5 are mapped to the outer reach keys on the base layer. Pressing both is a global mic mute.
