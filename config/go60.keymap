@@ -164,6 +164,7 @@
 #define LAYER_Mouse 5
 #define LAYER_MouseFast 6
 #define LAYER_Magic 7
+#define LAYER_CapsWord 8
 
 /* To deal with the situation where there is no Lower layer, to keep &lower happy */
 #ifndef LAYER_Lower
@@ -333,6 +334,35 @@
 / {
     macros {
 
+        // Enter Magic layer and show BLE/battery status indicators
+        magic_layer: magic_layer {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_press>
+                , <&mo LAYER_Magic>
+                , <&macro_tap>
+                , <&rgb_ug RGB_STATUS>
+                , <&macro_pause_for_release>
+                , <&macro_release>
+                , <&mo LAYER_Magic>;
+        };
+
+        // Activate caps word layer
+        cw: cw {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&tog LAYER_CapsWord>;
+        };
+
+        // Deactivate caps word layer and send a key
+        ci_exit: ci_exit {
+            compatible = "zmk,behavior-macro-one-param";
+            #binding-cells = <1>;
+            bindings = <&tog LAYER_CapsWord>
+                , <&macro_param_1to1>
+                , <&kp MACRO_PLACEHOLDER>;
+        };
+
         // Symbol layer dot dot
         symb_dotdot_v1_TKZ: symb_dotdot_v1_TKZ {
             label = "&SYMB_DOTDOT_V1_TKZ";
@@ -443,7 +473,7 @@
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             tapping-term-ms = <200>;
-            bindings = <&mo>, <&kp>;
+            bindings = <&magic_layer>, <&kp>;
             quick-tap-ms = <300>;
         };
 
@@ -451,7 +481,7 @@
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             tapping-term-ms = <500>;
-            bindings = <&mo>, <&esc>;
+            bindings = <&magic_layer>, <&esc>;
             flavor = "tap-preferred";
             quick-tap-ms = <150>;
             require-prior-idle-ms = <200>;
@@ -536,8 +566,6 @@
  * Color shorthand: &ug COLOR sets a static color, &ug_cl OFF ON reacts to
  * CapsLock HID indicator. ___ = off. All keys default to off for battery life.
  *
- * NOTE: ZMK caps_word does NOT set the HID CapsLock flag, so &ug_cl cannot
- * indicate caps_word state. Only host-side CapsLock is reflected.
  *
  * Go60 key layout (60 positions):
  *   Row 1:  0  1  2  3  4  5       6  7  8  9 10 11
@@ -546,59 +574,43 @@
  *   Row 4: 36 37 38 39 40 41      42 43 44 45 46 47
  *   Row 5:       48 49 50               51 52 53
  *   Thumb:             54 55 56   57 58 59
+ *
+ * NOTE: RH thumb pixel-lookup is reversed in go60_rh.dts (bug).
+ * Position 59 physically lights RH T3 (inner), 57 lights RH T1 (outer).
  */
 
 #define OFF &ug 0x000000
-#define DIM_BLUE &ug 0x000040
-#define DIM_PURPLE &ug 0x200040
-#define DIM_TEAL &ug 0x004040
 #define DIM_RED &ug 0x400000
-#define DIM_GREEN &ug 0x004000
 #define DIM_AMBER &ug 0x402000
-#define DIM_WHITE &ug 0x202020
-#define CL_IND &ug_cl 0x000000 0x400000
 
 / {
     underglow-layer {
         compatible = "zmk,underglow-layer";
 
-        /* Base: everything off, capslock indicator on the caps_word key */
-        layer_Base_rgb {
+        /* CapsWord: indicator on physical RH T3 (pos 59 due to pixel-lookup bug) */
+        layer_CapsWord_rgb {
             bindings = <
                 OFF  OFF  OFF  OFF  OFF  OFF      OFF  OFF  OFF  OFF  OFF  OFF
                 OFF  OFF  OFF  OFF  OFF  OFF      OFF  OFF  OFF  OFF  OFF  OFF
                 OFF  OFF  OFF  OFF  OFF  OFF      OFF  OFF  OFF  OFF  OFF  OFF
-                OFF  OFF  OFF  OFF  OFF  OFF      OFF  OFF  OFF  OFF  OFF  CL_IND
+                OFF  OFF  OFF  OFF  OFF  OFF      OFF  OFF  OFF  OFF  OFF  DIM_RED
                           OFF  OFF  OFF                OFF  OFF  OFF
+                                    OFF  OFF  OFF  OFF  OFF  DIM_RED
+            >;
+            layer-id = <LAYER_CapsWord>;
+        };
+
+        /* Magic: right side only (left side handled by hardware status indicators) */
+        layer_Magic_rgb {
+            bindings = <
+                OFF  OFF  OFF  OFF  OFF  OFF      DIM_AMBER  DIM_AMBER  DIM_AMBER  DIM_AMBER      OFF  DIM_RED
+                OFF  OFF  OFF  OFF  OFF  OFF      DIM_AMBER  DIM_AMBER  DIM_AMBER  DIM_AMBER      OFF      OFF
+                OFF  OFF  OFF  OFF  OFF  OFF            OFF        OFF        OFF        OFF      OFF  DIM_RED
+                OFF  OFF  OFF  OFF  OFF  OFF            OFF        OFF        OFF        OFF      OFF      OFF
+                          OFF  OFF  OFF                                    OFF        OFF  DIM_RED
                                     OFF  OFF  OFF  OFF  OFF  OFF
             >;
-            layer-id = <LAYER_Base>;
-        };
-
-        /* Nav: ESDF cluster (blue) + numpad (teal) */
-        layer_Nav_rgb {
-            bindings = <
-                OFF       OFF       OFF  DIM_BLUE       OFF  OFF           OFF       OFF       OFF       OFF       OFF  OFF
-                OFF       OFF       OFF  DIM_BLUE       OFF  OFF           OFF  DIM_TEAL  DIM_TEAL  DIM_TEAL       OFF  OFF
-                OFF       OFF  DIM_BLUE  DIM_BLUE  DIM_BLUE  OFF           OFF  DIM_TEAL  DIM_TEAL  DIM_TEAL       OFF  OFF
-                OFF       OFF       OFF       OFF       OFF  OFF           OFF  DIM_TEAL  DIM_TEAL  DIM_TEAL       OFF  OFF
-                                     OFF       OFF       OFF                    DIM_TEAL  DIM_TEAL       OFF
-                                                    OFF  OFF  OFF  OFF  OFF  OFF
-            >;
-            layer-id = <LAYER_Nav>;
-        };
-
-        /* Symbol: Hungarian chars (teal), special symbols (amber) */
-        layer_Symbol_rgb {
-            bindings = <
-                OFF        OFF        OFF        OFF        OFF        OFF         DIM_AMBER  DIM_AMBER  DIM_AMBER  DIM_AMBER        OFF        OFF
-                OFF        OFF        OFF        OFF        OFF        OFF               OFF  DIM_TEAL   DIM_TEAL   DIM_TEAL   DIM_AMBER  DIM_TEAL
-                OFF        OFF        OFF        OFF        OFF        OFF               OFF        OFF        OFF        OFF   DIM_TEAL   DIM_TEAL
-                OFF        OFF        OFF        OFF        OFF        OFF               OFF        OFF        OFF  DIM_AMBER  DIM_AMBER  DIM_AMBER
-                                      OFF        OFF        OFF                                     OFF        OFF        OFF
-                                                       OFF        OFF        OFF  OFF        OFF        OFF
-            >;
-            layer-id = <LAYER_Symbol>;
+            layer-id = <LAYER_Magic>;
         };
 
         /* Gaming: subtle red accent on ESDF */
@@ -614,18 +626,7 @@
             layer-id = <LAYER_Gaming>;
         };
 
-        /* Magic: highlight function row */
-        layer_Magic_rgb {
-            bindings = <
-                DIM_AMBER  DIM_AMBER  DIM_AMBER  DIM_AMBER  DIM_AMBER  DIM_AMBER      DIM_AMBER  DIM_AMBER  DIM_AMBER       OFF       OFF  DIM_RED
-                DIM_GREEN  DIM_GREEN  DIM_GREEN  DIM_GREEN  DIM_GREEN  DIM_GREEN            OFF        OFF        OFF       OFF       OFF      OFF
-                DIM_RED    DIM_GREEN  DIM_GREEN  DIM_GREEN  DIM_GREEN  DIM_GREEN            OFF        OFF        OFF       OFF       OFF  DIM_RED
-                      OFF        OFF  DIM_WHITE  DIM_WHITE  DIM_WHITE  DIM_WHITE            OFF        OFF        OFF       OFF       OFF      OFF
-                                            OFF        OFF        OFF                                  OFF        OFF       OFF
-                                                                  OFF  OFF  OFF  OFF  OFF  OFF
-            >;
-            layer-id = <LAYER_Magic>;
-        };
+
     };
 };
 
@@ -640,7 +641,7 @@
   &TH_magic LAYER_Magic LS(TAB)  &kp N1    &kp N2   &kp N3    &kp N4  &kp N5                                                                                               &kp N6    &kp N7     &kp N8   &kp N9    &kp N0                 &kp RS(F12)
                     &kp TAB   &kp Q     &kp W    &kp E     &kp R   &kp T                                                                                                &kp Y     &kp U      &kp I    &kp O     &kp P                     &kp SQT
  &better_sticky LSHFT LSHFT   &kp A     &kp S    &kp D     &kp F   &kp G                                                                                                &kp H     &kp J      &kp K    &kp L  &kp SEMI  &better_sticky RSHFT RSHFT
-           &TH_mod LALT ESC   &kp Z     &kp X    &kp C     &kp V   &kp B                                                                                                &kp N     &kp M  &kp COMMA  &kp DOT  &kp FSLH                  &caps_word
+           &TH_mod LALT ESC   &kp Z     &kp X    &kp C     &kp V   &kp B                                                                                                &kp N     &kp M  &kp COMMA  &kp DOT  &kp FSLH              &cw
                                      &mkp MB4  &kp DEL  &kp BSPC                                                                                                               &kp LEFT  &kp RIGHT  &kp F15
                                                                           &TH_wm_layer 0 F20  &TH_mod LCTRL RET  &td_LAYER_Nav  &sl LAYER_Symbol  &kp SPACE  &kp BSPC
             >;
@@ -720,6 +721,17 @@
       &sleep            &none            &bt_0            &bt_1            &bt_2            &bt_3                                                          &none         &none         &none           &none   &none        &none
                                   &out OUT_USB            &none            &none                                                                                         &none         &none  &bt BT_CLR_ALL
                                                                                                    &trans  &trans  &trans   &none   &none   &none
+            >;
+        };
+
+        layer_CapsWord {
+            bindings = <
+ &ci_exit ESC      &trans      &trans      &trans      &trans      &trans                                                          &trans      &trans      &trans      &trans      &trans  &ci_exit ESC
+ &ci_exit TAB  &kp LS(Q)  &kp LS(W)  &kp LS(E)  &kp LS(R)  &kp LS(T)                                                      &kp LS(Y)  &kp LS(U)  &kp LS(I)  &kp LS(O)  &kp LS(P)  &ci_exit SQT
+      &trans  &kp LS(A)  &kp LS(S)  &kp LS(D)  &kp LS(F)  &kp LS(G)                                                      &kp LS(H)  &kp LS(J)  &kp LS(K)  &kp LS(L)  &ci_exit SEMI      &trans
+      &trans  &kp LS(Z)  &kp LS(X)  &kp LS(C)  &kp LS(V)  &kp LS(B)                                                      &kp LS(N)  &kp LS(M)  &ci_exit COMMA  &ci_exit DOT  &ci_exit FSLH  &tog LAYER_CapsWord
+                          &trans      &trans      &trans                                                                                    &trans      &trans      &trans
+                                                              &trans      &trans      &trans      &trans  &ci_exit SPACE      &trans
             >;
         };
 
