@@ -3,7 +3,7 @@
 set -euo pipefail
 
 IMAGE=go60-zmk-config-docker
-BRANCH="${1:-main}"
+BRANCH="${1:-rgb-layer-24.12}"
 
 docker build -t "$IMAGE" .
 docker run --rm \

@@ -20,6 +20,7 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/rgb.h>
+#include <dt-bindings/zmk/rgb_colors.h>
 
 #include <input/processors.dtsi>
 #include <dt-bindings/zmk/input_transform.h>
@@ -585,6 +586,105 @@
             key-positions = <POS_LH_C6R1 POS_LH_T2>;
             bindings = <&to_base>;
             require-prior-idle-ms = <200>;
+        };
+    };
+};
+
+/*
+ * Per-key RGB layer map (requires darknao's PR36 branch)
+ *
+ * Color shorthand: &ug COLOR sets a static color, &ug_cl OFF ON reacts to
+ * CapsLock HID indicator. ___ = off. All keys default to off for battery life.
+ *
+ * NOTE: ZMK caps_word does NOT set the HID CapsLock flag, so &ug_cl cannot
+ * indicate caps_word state. Only host-side CapsLock is reflected.
+ *
+ * Go60 key layout (60 positions):
+ *   Row 1:  0  1  2  3  4  5       6  7  8  9 10 11
+ *   Row 2: 12 13 14 15 16 17      18 19 20 21 22 23
+ *   Row 3: 24 25 26 27 28 29      30 31 32 33 34 35
+ *   Row 4: 36 37 38 39 40 41      42 43 44 45 46 47
+ *   Row 5:       48 49 50               51 52 53
+ *   Thumb:             54 55 56   57 58 59
+ */
+
+#define OFF &ug 0x000000
+#define DIM_BLUE &ug 0x000040
+#define DIM_PURPLE &ug 0x200040
+#define DIM_TEAL &ug 0x004040
+#define DIM_RED &ug 0x400000
+#define DIM_GREEN &ug 0x004000
+#define DIM_AMBER &ug 0x402000
+#define DIM_WHITE &ug 0x202020
+#define CL_IND &ug_cl 0x000000 0x400000
+
+/ {
+    underglow-layer {
+        compatible = "zmk,underglow-layer";
+
+        /* Base: everything off, capslock indicator on the caps_word key */
+        layer_Base_rgb {
+            bindings = <
+                OFF  OFF  OFF  OFF  OFF  OFF      OFF  OFF  OFF  OFF  OFF  OFF
+                OFF  OFF  OFF  OFF  OFF  OFF      OFF  OFF  OFF  OFF  OFF  OFF
+                OFF  OFF  OFF  OFF  OFF  OFF      OFF  OFF  OFF  OFF  OFF  OFF
+                OFF  OFF  OFF  OFF  OFF  OFF      OFF  OFF  OFF  OFF  OFF  CL_IND
+                          OFF  OFF  OFF                OFF  OFF  OFF
+                                    OFF  OFF  OFF  OFF  OFF  OFF
+            >;
+            layer-id = <LAYER_Base>;
+        };
+
+        /* Nav: highlight nav cluster and thumb key */
+        layer_Nav_rgb {
+            bindings = <
+                OFF       OFF       OFF       OFF       OFF       OFF            OFF       OFF       OFF       OFF       OFF       OFF
+                OFF       OFF  DIM_BLUE  DIM_BLUE  DIM_BLUE       OFF            OFF  DIM_TEAL  DIM_TEAL  DIM_TEAL       OFF       OFF
+                OFF  DIM_BLUE  DIM_BLUE  DIM_BLUE  DIM_BLUE  DIM_BLUE            OFF  DIM_TEAL  DIM_TEAL  DIM_TEAL       OFF       OFF
+                OFF       OFF       OFF       OFF       OFF       OFF            OFF  DIM_TEAL  DIM_TEAL  DIM_TEAL       OFF       OFF
+                                     OFF       OFF       OFF                               OFF       OFF       OFF
+                                                    OFF       OFF  DIM_BLUE  OFF       OFF       OFF
+            >;
+            layer-id = <LAYER_Nav>;
+        };
+
+        /* Symbol: highlight symbol keys */
+        layer_Symbol_rgb {
+            bindings = <
+                OFF         OFF         OFF         OFF         OFF         OFF                OFF         OFF         OFF         OFF         OFF         OFF
+                OFF  DIM_PURPLE  DIM_PURPLE  DIM_PURPLE  DIM_PURPLE         OFF                OFF  DIM_PURPLE  DIM_PURPLE  DIM_PURPLE  DIM_PURPLE  DIM_PURPLE
+                OFF  DIM_PURPLE  DIM_PURPLE  DIM_PURPLE  DIM_PURPLE  DIM_PURPLE         DIM_PURPLE  DIM_PURPLE  DIM_PURPLE  DIM_PURPLE  DIM_PURPLE  DIM_PURPLE
+                OFF  DIM_PURPLE  DIM_PURPLE  DIM_PURPLE  DIM_PURPLE  DIM_PURPLE         DIM_PURPLE  DIM_PURPLE  DIM_PURPLE  DIM_PURPLE  DIM_PURPLE  DIM_PURPLE
+                                        OFF         OFF         OFF                                       OFF         OFF         OFF
+                                                           OFF         OFF         OFF  OFF         OFF         OFF
+            >;
+            layer-id = <LAYER_Symbol>;
+        };
+
+        /* Gaming: subtle red accent on WASD area and thumb */
+        layer_Gaming_rgb {
+            bindings = <
+                OFF      OFF      OFF      OFF      OFF  OFF      OFF  OFF  OFF  OFF  OFF  OFF
+                OFF      OFF  DIM_RED      OFF      OFF  OFF      OFF  OFF  OFF  OFF  OFF  OFF
+                OFF  DIM_RED  DIM_RED  DIM_RED      OFF  OFF      OFF  OFF  OFF  OFF  OFF  OFF
+                OFF      OFF      OFF      OFF      OFF  OFF      OFF  OFF  OFF  OFF  OFF  OFF
+                              OFF      OFF      OFF                OFF  OFF  OFF
+                                            OFF  DIM_RED  OFF  OFF  OFF  OFF
+            >;
+            layer-id = <LAYER_Gaming>;
+        };
+
+        /* Magic: highlight function row */
+        layer_Magic_rgb {
+            bindings = <
+                DIM_AMBER  DIM_AMBER  DIM_AMBER  DIM_AMBER  DIM_AMBER  DIM_AMBER      DIM_AMBER  DIM_AMBER  DIM_AMBER       OFF       OFF  DIM_RED
+                DIM_GREEN  DIM_GREEN  DIM_GREEN  DIM_GREEN  DIM_GREEN  DIM_GREEN            OFF        OFF        OFF       OFF       OFF      OFF
+                DIM_RED    DIM_GREEN  DIM_GREEN  DIM_GREEN  DIM_GREEN  DIM_GREEN            OFF        OFF        OFF       OFF       OFF  DIM_RED
+                      OFF        OFF  DIM_WHITE  DIM_WHITE  DIM_WHITE  DIM_WHITE            OFF        OFF        OFF       OFF       OFF      OFF
+                                            OFF        OFF        OFF                                  OFF        OFF       OFF
+                                                                  OFF  OFF  OFF  OFF  OFF  OFF
+            >;
+            layer-id = <LAYER_Magic>;
         };
     };
 };
