@@ -575,41 +575,41 @@
             layer-id = <LAYER_Base>;
         };
 
-        /* Nav: highlight nav cluster and thumb key */
+        /* Nav: ESDF cluster (blue) + numpad (teal) */
         layer_Nav_rgb {
             bindings = <
-                OFF       OFF       OFF       OFF       OFF       OFF            OFF       OFF       OFF       OFF       OFF       OFF
-                OFF       OFF  DIM_BLUE  DIM_BLUE  DIM_BLUE       OFF            OFF  DIM_TEAL  DIM_TEAL  DIM_TEAL       OFF       OFF
-                OFF  DIM_BLUE  DIM_BLUE  DIM_BLUE  DIM_BLUE  DIM_BLUE            OFF  DIM_TEAL  DIM_TEAL  DIM_TEAL       OFF       OFF
-                OFF       OFF       OFF       OFF       OFF       OFF            OFF  DIM_TEAL  DIM_TEAL  DIM_TEAL       OFF       OFF
-                                     OFF       OFF       OFF                               OFF       OFF       OFF
-                                                    OFF       OFF  DIM_BLUE  OFF       OFF       OFF
+                OFF       OFF       OFF  DIM_BLUE       OFF  OFF           OFF       OFF       OFF       OFF       OFF  OFF
+                OFF       OFF       OFF  DIM_BLUE       OFF  OFF           OFF  DIM_TEAL  DIM_TEAL  DIM_TEAL       OFF  OFF
+                OFF       OFF  DIM_BLUE  DIM_BLUE  DIM_BLUE  OFF           OFF  DIM_TEAL  DIM_TEAL  DIM_TEAL       OFF  OFF
+                OFF       OFF       OFF       OFF       OFF  OFF           OFF  DIM_TEAL  DIM_TEAL  DIM_TEAL       OFF  OFF
+                                     OFF       OFF       OFF                    DIM_TEAL  DIM_TEAL       OFF
+                                                    OFF  OFF  OFF  OFF  OFF  OFF
             >;
             layer-id = <LAYER_Nav>;
         };
 
-        /* Symbol: highlight symbol keys */
+        /* Symbol: Hungarian chars (teal), special symbols (amber) */
         layer_Symbol_rgb {
             bindings = <
-                OFF         OFF         OFF         OFF         OFF         OFF                OFF         OFF         OFF         OFF         OFF         OFF
-                OFF  DIM_PURPLE  DIM_PURPLE  DIM_PURPLE  DIM_PURPLE         OFF                OFF  DIM_PURPLE  DIM_PURPLE  DIM_PURPLE  DIM_PURPLE  DIM_PURPLE
-                OFF  DIM_PURPLE  DIM_PURPLE  DIM_PURPLE  DIM_PURPLE  DIM_PURPLE         DIM_PURPLE  DIM_PURPLE  DIM_PURPLE  DIM_PURPLE  DIM_PURPLE  DIM_PURPLE
-                OFF  DIM_PURPLE  DIM_PURPLE  DIM_PURPLE  DIM_PURPLE  DIM_PURPLE         DIM_PURPLE  DIM_PURPLE  DIM_PURPLE  DIM_PURPLE  DIM_PURPLE  DIM_PURPLE
-                                        OFF         OFF         OFF                                       OFF         OFF         OFF
-                                                           OFF         OFF         OFF  OFF         OFF         OFF
+                OFF        OFF        OFF        OFF        OFF        OFF         DIM_AMBER  DIM_AMBER  DIM_AMBER  DIM_AMBER        OFF        OFF
+                OFF        OFF        OFF        OFF        OFF        OFF               OFF  DIM_TEAL   DIM_TEAL   DIM_TEAL   DIM_AMBER  DIM_TEAL
+                OFF        OFF        OFF        OFF        OFF        OFF               OFF        OFF        OFF        OFF   DIM_TEAL   DIM_TEAL
+                OFF        OFF        OFF        OFF        OFF        OFF               OFF        OFF        OFF  DIM_AMBER  DIM_AMBER  DIM_AMBER
+                                      OFF        OFF        OFF                                     OFF        OFF        OFF
+                                                       OFF        OFF        OFF  OFF        OFF        OFF
             >;
             layer-id = <LAYER_Symbol>;
         };
 
-        /* Gaming: subtle red accent on WASD area and thumb */
+        /* Gaming: subtle red accent on ESDF */
         layer_Gaming_rgb {
             bindings = <
                 OFF      OFF      OFF      OFF      OFF  OFF      OFF  OFF  OFF  OFF  OFF  OFF
-                OFF      OFF  DIM_RED      OFF      OFF  OFF      OFF  OFF  OFF  OFF  OFF  OFF
-                OFF  DIM_RED  DIM_RED  DIM_RED      OFF  OFF      OFF  OFF  OFF  OFF  OFF  OFF
+                OFF      OFF      OFF  DIM_RED      OFF  OFF      OFF  OFF  OFF  OFF  OFF  OFF
+                OFF      OFF  DIM_RED  DIM_RED  DIM_RED  OFF      OFF  OFF  OFF  OFF  OFF  OFF
                 OFF      OFF      OFF      OFF      OFF  OFF      OFF  OFF  OFF  OFF  OFF  OFF
                               OFF      OFF      OFF                OFF  OFF  OFF
-                                            OFF  DIM_RED  OFF  OFF  OFF  OFF
+                                            OFF      OFF  OFF  OFF  OFF  OFF
             >;
             layer-id = <LAYER_Gaming>;
         };
