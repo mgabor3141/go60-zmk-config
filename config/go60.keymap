@@ -211,13 +211,6 @@
 
 / {
     macros {
-        rgb_ug_status_macro: rgb_ug_status_macro {
-            label = "RGB_UG_STATUS";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings
-                = <&rgb_ug RGB_STATUS>;
-        };
     };
 };
 
@@ -327,14 +320,6 @@
 
 / {
     behaviors {
-        magic: magic {
-            compatible = "zmk,behavior-hold-tap";
-            label = "MAGIC_HOLD_TAP";
-            #binding-cells = <2>;
-            flavor = "tap-preferred";
-            tapping-term-ms = <200>;
-            bindings = <&mo>, <&rgb_ug_status_macro>;
-        };
     };
 };
 
@@ -370,51 +355,6 @@
             bindings = <&kp GRAVE>
                 , <&kp GRAVE>
                 , <&kp GRAVE>;
-        };
-
-        magic_w_rgb: magic_w_rgb {
-            label = "&MAGIC_W_RGB";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&macro_press>
-                , <&mo LAYER_Magic>
-                , <&macro_tap>
-                , <&rgb_ug_status_macro>
-                , <&macro_pause_for_release>
-                , <&macro_release>
-                , <&mo LAYER_Magic>;
-        };
-
-        to_base: to_base {
-            label = "&TO_BASE";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&to 0>
-                , <&rgb_ug RGB_COLOR_HSB(32,10,10)>
-                , <&rgb_ug RGB_ON>
-                , <&macro_wait_time 200>
-                , <&macro_pause_for_release>
-                , <&rgb_ug RGB_OFF>;
-        };
-
-        to_gaming: to_gaming {
-            label = "&TO_GAMING";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&to LAYER_Gaming>
-                , <&rgb_ug RGB_COLOR_HSB(128,100,100)>
-                , <&rgb_ug RGB_ON>
-                , <&macro_wait_time 200>
-                , <&macro_pause_for_release>
-                , <&rgb_ug RGB_OFF>;
-        };
-
-        rgb_preset: rgb_preset {
-            label = "&RGB_PRESET";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&rgb_ug RGB_COLOR_HSB(128,75,100)>
-                , <&rgb_ug RGB_TOG>;
         };
 
         wm_layer: wm_layer {
@@ -503,7 +443,7 @@
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             tapping-term-ms = <200>;
-            bindings = <&magic_w_rgb>, <&kp>;
+            bindings = <&mo>, <&kp>;
             quick-tap-ms = <300>;
         };
 
@@ -511,7 +451,7 @@
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             tapping-term-ms = <500>;
-            bindings = <&magic_w_rgb>, <&esc>;
+            bindings = <&mo>, <&esc>;
             flavor = "tap-preferred";
             quick-tap-ms = <150>;
             require-prior-idle-ms = <200>;
@@ -576,7 +516,7 @@
         combo_to_gaming {
             timeout-ms = <50>;
             key-positions = <POS_LH_C6R1 POS_LH_T3>;
-            bindings = <&to_gaming>;
+            bindings = <&to LAYER_Gaming>;
             layers = <LAYER_Base LAYER_Mouse LAYER_MouseFast LAYER_Magic LAYER_Gaming>;
         };
 
@@ -584,7 +524,7 @@
         combo_to_base {
             timeout-ms = <50>;
             key-positions = <POS_LH_C6R1 POS_LH_T2>;
-            bindings = <&to_base>;
+            bindings = <&to 0>;
             require-prior-idle-ms = <200>;
         };
     };
@@ -697,7 +637,7 @@
 
         layer_Base {
             bindings = <
-        &TH_magic 0 LS(TAB)  &kp N1    &kp N2   &kp N3    &kp N4  &kp N5                                                                                               &kp N6    &kp N7     &kp N8   &kp N9    &kp N0                 &kp RS(F12)
+  &TH_magic LAYER_Magic LS(TAB)  &kp N1    &kp N2   &kp N3    &kp N4  &kp N5                                                                                               &kp N6    &kp N7     &kp N8   &kp N9    &kp N0                 &kp RS(F12)
                     &kp TAB   &kp Q     &kp W    &kp E     &kp R   &kp T                                                                                                &kp Y     &kp U      &kp I    &kp O     &kp P                     &kp SQT
  &better_sticky LSHFT LSHFT   &kp A     &kp S    &kp D     &kp F   &kp G                                                                                                &kp H     &kp J      &kp K    &kp L  &kp SEMI  &better_sticky RSHFT RSHFT
            &TH_mod LALT ESC   &kp Z     &kp X    &kp C     &kp V   &kp B                                                                                                &kp N     &kp M  &kp COMMA  &kp DOT  &kp FSLH                  &caps_word
@@ -741,7 +681,7 @@
 
         layer_Gaming {
             bindings = <
- &TH_magic_long 0 0  &trans    &trans   &trans            &trans  &trans                                                        &trans  &trans  &trans  &trans  &trans  &trans
+ &TH_magic_long LAYER_Magic 0  &trans    &trans   &trans            &trans  &trans                                                        &trans  &trans  &trans  &trans  &trans  &trans
             &kp TAB  &trans    &trans   &trans            &trans  &trans                                                        &trans  &trans  &trans  &trans  &trans  &trans
           &kp LSHFT  &trans    &trans   &trans            &trans  &trans                                                        &trans  &trans  &trans  &trans  &trans  &trans
           &kp LCTRL  &trans    &trans   &trans            &trans  &trans                                                        &trans  &trans  &trans  &trans  &trans  &trans
@@ -775,7 +715,7 @@
         layer_Magic {
             bindings = <
        &none     &kp C_BRI_DN     &kp C_BRI_UP       &kp C_PREV         &kp C_PP       &kp C_NEXT                                                     &kp C_MUTE  &kp C_VOL_DN  &kp C_VOL_UP       &kp GLOBE   &none   &bt BT_CLR
-       &none  &rgb_ug RGB_SPI  &rgb_ug RGB_SAI  &rgb_ug RGB_HUI  &rgb_ug RGB_BRI      &rgb_preset                                                  &kp C_BRI_MIN  &kp C_BRI_DN  &kp C_BRI_UP  &kp C_BRI_AUTO   &none        &none
+       &none  &rgb_ug RGB_SPI  &rgb_ug RGB_SAI  &rgb_ug RGB_HUI  &rgb_ug RGB_BRI  &rgb_ug RGB_TOG                                                  &kp C_BRI_MIN  &kp C_BRI_DN  &kp C_BRI_UP  &kp C_BRI_AUTO   &none        &none
  &bootloader  &rgb_ug RGB_SPD  &rgb_ug RGB_SAD  &rgb_ug RGB_HUD  &rgb_ug RGB_BRD  &rgb_ug RGB_EFF                                                          &none         &none         &none           &none   &none  &bootloader
       &sleep            &none            &bt_0            &bt_1            &bt_2            &bt_3                                                          &none         &none         &none           &none   &none        &none
                                   &out OUT_USB            &none            &none                                                                                         &none         &none  &bt BT_CLR_ALL
