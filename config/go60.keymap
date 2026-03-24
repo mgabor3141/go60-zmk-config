@@ -579,33 +579,12 @@
 
 #define OFF &ug 0x000000
 #define DIM_RED &ug 0x400000
+#define RED &ug 0xff0000
 #define DIM_AMBER &ug 0x402000
-
-/* Test: 6 distinct colors, assigned round-robin to all 60 keys */
-#define C1 &ug 0x400000  /* red */
-#define C2 &ug 0x402000  /* amber */
-#define C3 &ug 0x004000  /* green */
-#define C4 &ug 0x004040  /* teal */
-#define C5 &ug 0x000040  /* blue */
-#define C6 &ug 0x400040  /* purple */
 
 / {
     underglow-layer {
         compatible = "zmk,underglow-layer";
-
-        /* Base: test pattern, 6 colors round-robin across all 60 keys */
-        /*        pos: 0   1   2   3   4   5        6   7   8   9  10  11  */
-        layer_Base_rgb {
-            bindings = <
-                 C1   C2   C3   C4   C5   C6       C1   C2   C3   C4   C5   C6
-                 C1   C2   C3   C4   C5   C6       C1   C2   C3   C4   C5   C6
-                 C1   C2   C3   C4   C5   C6       C1   C2   C3   C4   C5   C6
-                 C1   C2   C3   C4   C5   C6       C1   C2   C3   C4   C5   C6
-                            C1   C2   C3                 C1   C2   C3
-                                      C1   C2   C3   C4   C5   C6
-            >;
-            layer-id = <LAYER_Base>;
-        };
 
         /* CapsWord: indicator on RH T3 (pos 57) */
         layer_CapsWord_rgb {
@@ -613,9 +592,9 @@
                 OFF  OFF  OFF  OFF  OFF  OFF      OFF  OFF  OFF  OFF  OFF  OFF
                 OFF  OFF  OFF  OFF  OFF  OFF      OFF  OFF  OFF  OFF  OFF  OFF
                 OFF  OFF  OFF  OFF  OFF  OFF      OFF  OFF  OFF  OFF  OFF  OFF
-                OFF  OFF  OFF  OFF  OFF  OFF      OFF  OFF  OFF  OFF  OFF  DIM_RED
+                OFF  OFF  OFF  OFF  OFF  OFF      OFF  OFF  OFF  OFF  OFF  RED
                           OFF  OFF  OFF                OFF  OFF  OFF
-                                    OFF  OFF  OFF  DIM_RED  OFF  OFF
+                                    OFF  OFF  OFF  RED  OFF  OFF
             >;
             layer-id = <LAYER_CapsWord>;
         };
