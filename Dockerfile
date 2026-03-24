@@ -8,7 +8,7 @@ RUN <<EOF
     cachix use moergo-glove80-zmk-dev
     mkdir /config
     # Mirror ZMK repository (darknao fork for per-key RGB support)
-    git clone --mirror https://github.com/darknao/zmk /zmk
+    git clone --mirror https://github.com/mgabor3141/zmk /zmk
     GIT_DIR=/zmk git worktree add --detach /src
 EOF
 
@@ -27,7 +27,7 @@ COPY --chmod=755 <<EOF /bin/entrypoint.sh
     set -euo pipefail
     : "\${BRANCH:=rgb-layer-24.12}"
 
-    echo "Checking out \$BRANCH from darknao/zmk" >&2
+    echo "Checking out \$BRANCH from mgabor3141/zmk" >&2
     cd /src
     git fetch origin
     git checkout -q --detach "\$BRANCH"

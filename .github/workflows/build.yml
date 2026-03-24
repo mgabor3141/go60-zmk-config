@@ -11,7 +11,7 @@ jobs:
           submodules: recursive
       - uses: actions/checkout@v4
         with:
-          repository: darknao/zmk
+          repository: mgabor3141/zmk
           ref: rgb-layer-24.12
           path: src
       - uses: cachix/install-nix-action@v25

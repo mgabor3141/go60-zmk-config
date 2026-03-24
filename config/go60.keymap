@@ -574,20 +574,40 @@
  *   Row 4: 36 37 38 39 40 41      42 43 44 45 46 47
  *   Row 5:       48 49 50               51 52 53
  *   Thumb:             54 55 56   57 58 59
- *
- * NOTE: RH thumb pixel-lookup is reversed in go60_rh.dts (bug).
- * Position 59 physically lights RH T3 (inner), 57 lights RH T1 (outer).
+
  */
 
 #define OFF &ug 0x000000
 #define DIM_RED &ug 0x400000
 #define DIM_AMBER &ug 0x402000
 
+/* Test: 6 distinct colors, assigned round-robin to all 60 keys */
+#define C1 &ug 0x400000  /* red */
+#define C2 &ug 0x402000  /* amber */
+#define C3 &ug 0x004000  /* green */
+#define C4 &ug 0x004040  /* teal */
+#define C5 &ug 0x000040  /* blue */
+#define C6 &ug 0x400040  /* purple */
+
 / {
     underglow-layer {
         compatible = "zmk,underglow-layer";
 
-        /* CapsWord: indicator on physical RH T3 (pos 59 due to pixel-lookup bug) */
+        /* Base: test pattern, 6 colors round-robin across all 60 keys */
+        /*        pos: 0   1   2   3   4   5        6   7   8   9  10  11  */
+        layer_Base_rgb {
+            bindings = <
+                 C1   C2   C3   C4   C5   C6       C1   C2   C3   C4   C5   C6
+                 C1   C2   C3   C4   C5   C6       C1   C2   C3   C4   C5   C6
+                 C1   C2   C3   C4   C5   C6       C1   C2   C3   C4   C5   C6
+                 C1   C2   C3   C4   C5   C6       C1   C2   C3   C4   C5   C6
+                            C1   C2   C3                 C1   C2   C3
+                                      C1   C2   C3   C4   C5   C6
+            >;
+            layer-id = <LAYER_Base>;
+        };
+
+        /* CapsWord: indicator on RH T3 (pos 57) */
         layer_CapsWord_rgb {
             bindings = <
                 OFF  OFF  OFF  OFF  OFF  OFF      OFF  OFF  OFF  OFF  OFF  OFF
@@ -595,7 +615,7 @@
                 OFF  OFF  OFF  OFF  OFF  OFF      OFF  OFF  OFF  OFF  OFF  OFF
                 OFF  OFF  OFF  OFF  OFF  OFF      OFF  OFF  OFF  OFF  OFF  DIM_RED
                           OFF  OFF  OFF                OFF  OFF  OFF
-                                    OFF  OFF  OFF  OFF  OFF  DIM_RED
+                                    OFF  OFF  OFF  DIM_RED  OFF  OFF
             >;
             layer-id = <LAYER_CapsWord>;
         };
