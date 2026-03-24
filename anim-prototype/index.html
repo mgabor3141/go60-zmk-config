@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body { background: #1a1a1a; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; flex-direction: column; font-family: monospace; color: #888; }
+  canvas { border: 1px solid #333; }
+  .controls { margin-top: 16px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; justify-content: center; }
+  button { background: #333; color: #ccc; border: 1px solid #555; padding: 8px 16px; cursor: pointer; font-family: monospace; }
+  button:hover { background: #444; }
+  label { font-size: 12px; white-space: nowrap; }
+  input[type=range] { width: 80px; vertical-align: middle; }
+  .row2 { margin-top: 4px; display: flex; gap: 15px; align-items: center; justify-content: center; }
+</style>
+</head>
+<body>
+<canvas id="c" width="900" height="420"></canvas>
+<div class="controls">
+  <button onclick="restart()">Restart</button>
+
+</div>
+<div class="row2">
+  <span id="phase">Ready</span>
+  <span id="stats"></span>
+</div>
+<script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+const phaseEl = document.getElementById('phase');
+const statsEl = document.getElementById('stats');
+
+
+
+const KEY = 48, GAP = 4, HALF_GAP = 60;
+
+/*
+ * Physical layout per half (left to right on the PCB):
+ *
+ * LH columns: C6 C5 C4 C3 C2 C1  → grid cols 0,1,2,3,4,5
+ * RH columns: C1 C2 C3 C4 C5 C6  → grid cols 0,1,2,3,4,5
+ *
+ * R5 keys are at C4, C3, C2:
+ *   LH: cols 2, 3, 4
+ *   RH: cols 1, 2, 3  (mirrored)
+ *
+ * T1 is under C1:
+ *   LH: col 5 (rightmost)
+ *   RH: col 0 (leftmost)
+ */
+
+const HALF_KEYS = {
+  L: {
+    // {col, row, y} - row for buffer indexing, y for physics
+    main: [],
+    r5: [{col:2, row:4, y:4}, {col:3, row:4, y:4}, {col:4, row:4, y:4}],
+    t1: {col:5, row:5, y:4},
+  },
+  R: {
+    main: [],
+    r5: [{col:1, row:4, y:4}, {col:2, row:4, y:4}, {col:3, row:4, y:4}],
+    t1: {col:0, row:5, y:4},
+  },
+};
+// Build main grid keys
+for (const half of ['L','R']) {
+  for (let r = 0; r < 4; r++)
+    for (let c = 0; c < 6; c++)
+      HALF_KEYS[half].main.push({col:c, row:r, y:r});
+}
+
+// All rain-targetable keys per half
+function allKeys(half) {
+  return [...HALF_KEYS[half].main, ...HALF_KEYS[half].r5, HALF_KEYS[half].t1];
+}
+
+// Which columns have keys at y=4 (for particle maxFall)?
+function colHasRow4(half, col) {
+  return allKeys(half).some(k => k.y === 4 && k.col === col);
+}
+
+function keyXY(half, row, col) {
+  const ho = half === 'L' ? 0 : 6 * (KEY + GAP) + HALF_GAP;
+  if (row <= 3) {
+    return { x: 20 + ho + col * (KEY + GAP), y: 20 + row * (KEY + GAP) };
+  }
+  if (row === 4) { // R5
+    return { x: 20 + ho + col * (KEY + GAP), y: 20 + 4 * (KEY + GAP) };
+  }
+  // T1 (row 5): slightly offset inward
+  const xOff = half === 'L' ? 10 : -10;
+  return { x: 20 + ho + col * (KEY + GAP) + xOff, y: 20 + 4 * (KEY + GAP) + 8 };
+}
+
+// Per-key color buffer: {r, g, b} per key
+let keys = {};
+function clearKeys() {
+  keys = {
+    L: Array.from({length:7}, () => Array.from({length:6}, () => ({r:0,g:0,b:0}))),
+    R: Array.from({length:7}, () => Array.from({length:6}, () => ({r:0,g:0,b:0}))),
+  };
+}
+function setKey(half, row, col, r, g, b) {
+  const k = keys[half][row][col];
+  k.r = Math.min(255, r);
+  k.g = Math.min(255, g);
+  k.b = Math.min(255, b);
+}
+function addKey(half, row, col, r, g, b) {
+  const k = keys[half][row][col];
+  k.r = Math.min(255, k.r + r);
+  k.g = Math.min(255, k.g + g);
+  k.b = Math.min(255, k.b + b);
+}
+function decayKeys(half, factor) {
+  for (let r = 0; r < 7; r++)
+    for (let c = 0; c < 6; c++) {
+      const k = keys[half][r][c];
+      k.r *= factor; k.g *= factor; k.b *= factor;
+    }
+}
+
+// Black keycaps: RH C4 (col 3) at rows 0, 1, 3
+function isBlackKeycap(half, row, col) {
+  return half === 'R' && col === 3 && (row === 0 || row === 1 || row === 3);
+}
+
+function drawKey(half, row, col) {
+  const {x, y} = keyXY(half, row, col);
+  const k = keys[half][row][col];
+  const kr = Math.min(255, Math.max(0, k.r | 0));
+  const kg = Math.min(255, Math.max(0, k.g | 0));
+  const kb = Math.min(255, Math.max(0, k.b | 0));
+  const brightness = Math.max(kr, kg, kb);
+  const base = isBlackKeycap(half, row, col) ? 20 : 140;
+  // Blend: LED color + remaining keycap base (dimmed by LED brightness)
+  // This way white LEDs stay white, cyan stays cyan, and off keys show keycap gray
+  const baseDim = Math.max(0, base - brightness);
+  const dr = kr + baseDim;
+  const dg = kg + baseDim;
+  const db = kb + baseDim;
+  ctx.fillStyle = `rgb(${dr},${dg},${db})`;
+  ctx.fillRect(x, y, KEY, KEY);
+  ctx.strokeStyle = '#444';
+  ctx.strokeRect(x, y, KEY, KEY);
+}
+
+function draw() {
+  ctx.fillStyle = '#1a1a1a';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  for (const half of ['L', 'R']) {
+    for (let r = 0; r < 4; r++)
+      for (let c = 0; c < 6; c++)
+        drawKey(half, r, c);
+    for (const k of HALF_KEYS[half].r5)
+      drawKey(half, k.row, k.col);
+    drawKey(half, HALF_KEYS[half].t1.row, HALF_KEYS[half].t1.col);
+  }
+  ctx.fillStyle = '#555';
+  ctx.font = '14px monospace';
+  ctx.fillText('Left Half', 150, canvas.height - 10);
+  ctx.fillText('Right Half', 550, canvas.height - 10);
+}
+
+let animRunning = false;
+async function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+let rngState;
+function rand() {
+  rngState ^= rngState << 13;
+  rngState ^= rngState >>> 17;
+  rngState ^= rngState << 5;
+  return rngState >>> 0;
+}
+function randf() { return (rand() & 0xFFFF) / 0x10000; }
+
+// Columns eligible for rain per half
+const RAIN_COLS = {
+  L: [0,1,2,3,4,5],
+  R: [0,1,2,4,5],  // exclude col 3 (C4 - black keycap column)
+};
+
+/*
+ * Per-half rain simulation. Each half runs independently with its own
+ * RNG state, heat map, spawn accumulator, and particles, just like
+ * the real firmware where each half runs its own animation.
+ */
+const HEAT_SELF = 1.0;
+const HEAT_NEIGHBOR = 0.5;
+const HEAT_DECAY = 0.90;
+
+class HalfSim {
+  constructor(half) {
+    this.half = half;
+    this.cols = RAIN_COLS[half];
+    this.heat = Array(6).fill(0);
+    this.particles = [];
+    this.spawnAccum = 0;
+    this.rng = (Date.now() ^ (half === 'L' ? 0xFA4CE : 0xBEEF1)) >>> 0;
+    this.layerIter = 0;
+
+    // Build adjacency: for each eligible column, its eligible neighbors
+    const colSet = new Set(this.cols);
+    this.neighbors = {};
+    for (const c of this.cols) {
+      this.neighbors[c] = [];
+      if (colSet.has(c - 1)) this.neighbors[c].push(c - 1);
+      if (colSet.has(c + 1)) this.neighbors[c].push(c + 1);
+    }
+  }
+
+  rand() {
+    this.rng ^= this.rng << 13;
+    this.rng ^= this.rng >>> 17;
+    this.rng ^= this.rng << 5;
+    return this.rng >>> 0;
+  }
+
+  randf() { return (this.rand() & 0xFFFF) / 0x10000; }
+
+  nextLayer() {
+    const layer = LAYERS[LAYER_PATTERN[this.layerIter % LAYER_PATTERN.length]];
+    this.layerIter++;
+    return layer;
+  }
+
+  decayHeat() {
+    for (let c = 0; c < 6; c++)
+      this.heat[c] *= HEAT_DECAY;
+  }
+
+  pickCol() {
+    let weights = this.cols.map(c => 1 / (1 + this.heat[c] * 3));
+    let total = weights.reduce((a, b) => a + b, 0);
+    let r = this.randf() * total;
+    for (let i = 0; i < this.cols.length; i++) {
+      r -= weights[i];
+      if (r <= 0) {
+        const col = this.cols[i];
+        this.heat[col] += HEAT_SELF;
+        for (const n of this.neighbors[col])
+          this.heat[n] += HEAT_NEIGHBOR;
+        return col;
+      }
+    }
+    return this.cols[this.cols.length - 1];
+  }
+
+  spawnParticle(minZ, excludeCols) {
+    const col = this.pickCol();
+    if (excludeCols && excludeCols.has(col)) return; // skip excluded columns
+    // Pick a layer that meets the minimum z (speed) requirement
+    let layer;
+    for (let attempts = 0; attempts < 20; attempts++) {
+      layer = this.nextLayer();
+      if (layer.z >= minZ) break;
+    }
+    if (layer.z < minZ) return; // no eligible layer
+    const p = {
+      half: this.half,
+      z: layer.z,
+      y: -this.randf() * 1.5 - 0.5,
+      vy: 0.01 + layer.z * 0.02,
+      maxBright: layer.bright,
+      alive: true,
+      col,
+      maxFall: colHasRow4(this.half, col) ? 4 : 3,
+      keys: allKeys(this.half).filter(k => k.col === col),
+    };
+    this.particles.push(p);
+  }
+
+  update(spawnRate, gravity, proximity, decay, spawning, minZ = 0, excludeCols = null) {
+    // Decay heat
+    this.decayHeat();
+
+    // Decay key brightness
+    decayKeys(this.half, decay);
+
+    // Spawn with jitter; rate scaled by column count so density matches
+    if (spawning) {
+      const adjustedRate = spawnRate * this.cols.length / 6;
+      const jitter = (this.randf() - 0.5) * adjustedRate * 0.6;
+      this.spawnAccum += adjustedRate + jitter;
+      while (this.spawnAccum >= 1) {
+        this.spawnParticle(minZ, excludeCols);
+        this.spawnAccum -= 1;
+      }
+    }
+
+    // Update particles
+    for (let i = this.particles.length - 1; i >= 0; i--) {
+      const p = this.particles[i];
+      p.vy += gravity * p.z;
+      p.y += p.vy;
+      if (p.y > p.maxFall + 1.5) {
+        this.particles.splice(i, 1);
+        continue;
+      }
+      for (const k of p.keys) {
+        const dist = Math.abs(p.y - k.y);
+        if (dist < proximity) {
+          const intensity = p.maxBright * (1 - dist / proximity);
+          addKey(this.half, k.row, k.col, 0, intensity, intensity);
+        }
+      }
+    }
+  }
+
+  alive() { return this.particles.length > 0; }
+}
+
+/*
+ * Depth layers (distributed via round-robin pattern):
+ *   Front: z=1.0, full brightness, full speed
+ *   Mid:   z=0.55, moderate brightness, proportionally slower
+ *   Back:  z=0.25, dim, slow
+ *
+ * Pattern repeats every 8 particles: F F F F F F M B
+ * = 75% front, 12.5% mid, 12.5% back
+ */
+const LAYERS = [
+  { z: 1.0, bright: 255 },
+  { z: 0.55, bright: 160 },
+  { z: 0.25, bright: 90  },
+];
+const LAYER_PATTERN = [0, 0, 0, 0, 0, 0, 1, 2];
+let layerIter = 0;
+
+function nextLayer() {
+  const layer = LAYERS[LAYER_PATTERN[layerIter % LAYER_PATTERN.length]];
+  layerIter++;
+  return layer;
+}
+
+/* Particle class removed; particles are now plain objects managed by HalfSim */
+
+async function runAnimation() {
+  animRunning = true;
+  clearKeys();
+
+  const simL = new HalfSim('L');
+  const simR = new HalfSim('R');
+
+  /*
+   * Journey pixel: two phases.
+   *
+   * Phase A: Physics-driven. Falls down C1, swings around the bottom,
+   * rises up C3. Force-based: gravity accelerates downward segments,
+   * decelerates upward. Ends when it reaches R1C3 (apex).
+   *
+   * Phase B: Keyframe-driven. Manual timing for R1C3 -> R1C2 -> R2C2.
+   */
+  const PHYS_PATH = [
+    {col:0, row:0, y:0},  // R1C1 - entry
+    {col:0, row:1, y:1},  // R2C1
+    {col:0, row:2, y:2},  // R3C1
+    {col:0, row:3, y:3},  // R4C1
+    {col:0, row:5, y:4},  // T1 (under C1)
+    {col:1, row:4, y:4},  // R5C2 - bottom
+    {col:2, row:4, y:4},  // R5C3 - bottom
+    {col:2, row:3, y:3},  // R4C3 - rising
+    {col:2, row:2, y:2},  // R3C3
+    {col:2, row:1, y:1},  // R2C3
+    {col:2, row:0, y:0},  // R1C3 - apex (end of physics)
+  ];
+
+  const J_GRAV = 0.025;
+  const J_BRIGHT = 255;
+  const J_TRAIL_DECAY = 0.55;
+  let jv = 0.04;              // initial velocity
+  let js = 0;                 // position along physics path
+  let journeyStarted = false;
+  let journeyPhysDone = false;
+
+  function journeyTick() {
+    // Current segment
+    const seg = Math.min(Math.floor(js), PHYS_PATH.length - 2);
+    const dy = PHYS_PATH[seg + 1].y - PHYS_PATH[seg].y;
+
+    // Force-based physics
+    if (dy > 0) jv += J_GRAV;       // falling: gravity accelerates
+    else if (dy < 0) jv -= J_GRAV;  // rising: gravity decelerates
+    // horizontal: maintain speed
+
+    // If velocity hits zero, physics is done; snap to apex
+    if (jv <= 0) {
+      journeyPhysDone = true;
+      return;
+    }
+
+    js += jv;
+    if (js >= PHYS_PATH.length - 1) {
+      js = PHYS_PATH.length - 1;
+      journeyPhysDone = true;
+    }
+
+    // Fade trail on RH
+    decayKeys('R', J_TRAIL_DECAY);
+
+    // Light nearest key at full brightness
+    const si = Math.min(Math.round(js), PHYS_PATH.length - 1);
+    const wp = PHYS_PATH[si];
+    setKey('R', wp.row, wp.col, 0, J_BRIGHT, J_BRIGHT);
+
+    statsEl.textContent = `journey: s=${js.toFixed(2)} v=${jv.toFixed(3)} dy=${dy}`;
+  }
+
+  phaseEl.textContent = 'Phase 1: Matrix rain';
+
+  /*
+   * Timeline (frames at 25ms):
+   *   0-10:   ramp up spawn rate from 0 to full
+   *   10-60:  full spawn rate, all layers
+   *   60-70:  stop spawning back layer (z < 0.3)
+   *   70-80:  stop spawning mid layer (z < 0.6)
+   *   80+:    stop spawning entirely, drain remaining particles
+   */
+  const RAMP_END = 10;
+  const FULL_END = 60;
+  const STOP_BACK = 70;
+  const STOP_MID = 80;
+  let frame = 0;
+
+  while (true) {
+    const BASE_SPAWN = 0.13;
+    const GRAV = 0.020;
+    const PROX = 0.60;
+    const DECAY = 0.67;
+
+    let spawning, spawnRate, minZ;
+    if (frame < RAMP_END) {
+      // Ramp up
+      spawning = true;
+      spawnRate = BASE_SPAWN * (frame / RAMP_END);
+      minZ = 0;
+    } else if (frame < FULL_END) {
+      // Full rate, all layers
+      spawning = true;
+      spawnRate = BASE_SPAWN;
+      minZ = 0;
+    } else if (frame < STOP_BACK) {
+      // No more back layer
+      spawning = true;
+      spawnRate = BASE_SPAWN;
+      minZ = LAYERS[1].z; // only mid + front
+    } else if (frame < STOP_MID) {
+      // No more mid layer
+      spawning = true;
+      spawnRate = BASE_SPAWN;
+      minZ = LAYERS[0].z; // only front
+    } else {
+      spawning = false;
+      spawnRate = 0;
+      minZ = 999;
+    }
+
+    // Clear RH cols 0-2 (C1-C3) before the journey pixel enters
+    const rhExclude = frame >= STOP_BACK ? new Set([0, 1, 2]) : null;
+    simL.update(spawnRate, GRAV, PROX, DECAY, spawning, minZ);
+    simR.update(spawnRate, GRAV, PROX, DECAY, spawning, minZ, rhExclude);
+
+    statsEl.textContent = `particles: L=${simL.particles.length} R=${simR.particles.length}  frame: ${frame}`;
+    draw();
+    await sleep(25);
+    frame++;
+    if (!animRunning) return;
+
+    // Once rain spawning is done, start the journey pixel while
+    // remaining rain particles are still falling
+    if (frame === STOP_MID + 15 && !journeyStarted) {
+      journeyStarted = true;
+    }
+
+    // Run journey physics alongside rain drain
+    if (journeyStarted && !journeyPhysDone) {
+      journeyTick();
+    }
+
+    // Exit main loop once rain is drained and physics phase is done
+    if (!spawning && !simL.alive() && !simR.alive() && journeyPhysDone) break;
+  }
+
+  /*
+   * Phase B: Keyframe-driven landing.
+   * Same per-frame trail decay as physics phase. Each keyframe just
+   * holds a position for N frames. The trail length naturally reflects
+   * how long the pixel sits (short hold = motion blur, long hold = focused).
+   */
+  phaseEl.textContent = 'Phase 2b: Keyframe landing';
+
+  const LANDING = [
+    {col:2, row:0, frames: 8},   // R1C3 - pause at apex
+    {col:1, row:0, frames: 6},   // R1C2 - drifting over
+    {col:1, row:1, frames: 1},   // R2C2 - drop into eye
+  ];
+
+  for (const {col, row, frames: holdFrames} of LANDING) {
+    for (let f = 0; f < holdFrames; f++) {
+      decayKeys('R', J_TRAIL_DECAY);
+      setKey('R', row, col, 0, J_BRIGHT, J_BRIGHT);
+      draw();
+      await sleep(25);
+      if (!animRunning) return;
+    }
+  }
+
+  // Settle: flash the eye
+  for (let f = 0; f < 3; f++) {
+    setKey('R', 1, 1, 0, 255, 255); draw(); await sleep(40);
+    setKey('R', 1, 1, 0, 180, 180); draw(); await sleep(40);
+  }
+
+  phaseEl.textContent = 'Phase 3: Logo fade-in';
+  const logoWhite = [[0,0],[0,1],[0,2],[1,0],[1,2],[2,0],[2,1],[2,2],[2,3],[3,0],[3,1],[3,2]];
+  for (let f = 1; f <= 20; f++) {
+    const w = (f * 180 / 20) | 0;
+    for (const [r, c] of logoWhite) setKey('R', r, c, w, w, w);  // white
+    setKey('R', 1, 1, 0, 255, 255);  // eye stays bright cyan
+    draw(); await sleep(30);
+    if (!animRunning) return;
+  }
+
+  phaseEl.textContent = 'Hold';
+  await sleep(800);
+
+  for (let f = 0; f < 25; f++) {
+    for (const half of ['L','R'])
+      for (let r = 0; r < 7; r++)
+        for (let c = 0; c < 6; c++) {
+          const k = keys[half][r][c];
+          k.r = Math.max(0, k.r - 10);
+          k.g = Math.max(0, k.g - 10);
+          k.b = Math.max(0, k.b - 10);
+        }
+    draw(); await sleep(25);
+    if (!animRunning) return;
+  }
+
+  clearKeys(); draw();
+  phaseEl.textContent = 'Done';
+  statsEl.textContent = '';
+  animRunning = false;
+}
+
+function restart() {
+  animRunning = false;
+  setTimeout(() => runAnimation(), 50);
+}
+
+clearKeys(); draw();
+runAnimation();
+</script>
+</body>
+</html>
