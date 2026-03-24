@@ -6,7 +6,7 @@ set IMAGE=go60-zmk-config-docker
 
 :: Set branch name from first parameter, default to main if not provided
 if "%~1"=="" (
-	set BRANCH=main
+	set BRANCH=rgb-layer-24.12
 ) else (
 	set BRANCH=%~1
 )

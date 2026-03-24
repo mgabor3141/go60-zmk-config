@@ -577,9 +577,9 @@
 
  */
 
-#define OFF &ug 0x000000
-#define DIM_RED &ug 0x400000
-#define RED &ug 0xff0000
+#define OFF       &ug 0x000000
+#define DIM_RED   &ug 0x400000
+#define BRIGHT_RED &ug 0xff0000
 #define DIM_AMBER &ug 0x402000
 
 / {
@@ -592,9 +592,9 @@
                 OFF  OFF  OFF  OFF  OFF  OFF      OFF  OFF  OFF  OFF  OFF  OFF
                 OFF  OFF  OFF  OFF  OFF  OFF      OFF  OFF  OFF  OFF  OFF  OFF
                 OFF  OFF  OFF  OFF  OFF  OFF      OFF  OFF  OFF  OFF  OFF  OFF
-                OFF  OFF  OFF  OFF  OFF  OFF      OFF  OFF  OFF  OFF  OFF  RED
+                OFF  OFF  OFF  OFF  OFF  OFF      OFF  OFF  OFF  OFF  OFF  BRIGHT_RED
                           OFF  OFF  OFF                OFF  OFF  OFF
-                                    OFF  OFF  OFF  RED  OFF  OFF
+                                    OFF  OFF  OFF  BRIGHT_RED  OFF  OFF
             >;
             layer-id = <LAYER_CapsWord>;
         };
