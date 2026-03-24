@@ -34,14 +34,13 @@ echo 'Building Go60 firmware' >&2
 # Use nix-shell for the toolchain, but cmake directly for incremental builds.
 # Build dirs persist via Docker volume mount at /build.
 nix-shell --run '
-set -euo pipefail
+set -eo pipefail
 
 ZEPHYR_BASE=$(echo /nix/store/*-zephyr/zephyr | head -1)
 TOOLCHAIN=$(echo /nix/store/*-gcc-arm-embedded-*/bin/arm-none-eabi-gcc | head -1)
 TOOLCHAIN=${TOOLCHAIN%/bin/arm-none-eabi-gcc}
-MODULES=$(find /nix/store -maxdepth 2 -name zephyr -type d 2>/dev/null | \
-  grep -v "^${ZEPHYR_BASE}$" | \
-  sed "s|/zephyr$||" | sort -u | tr "\n" ";" | sed "s/;$//" )
+# Extract ZEPHYR_MODULES from the nix derivation cmake flags (set by nix-shell)
+MODULES=$(echo "$cmakeFlags" | grep -oP "(?<=-DZEPHYR_MODULES=)[^ ]+")
 
 CMAKE_COMMON=(
   -GNinja
@@ -60,14 +59,14 @@ CMAKE_COMMON=(
 )
 
 build_half() {
-  local board=$1 build_dir=/build/$board
-  echo "=== Building $board ===" >&2
+  local brd=$1 build_dir=/build/$1
+  echo "=== Building $brd ===" >&2
   mkdir -p "$build_dir"
   if [ ! -f "$build_dir/build.ninja" ]; then
-    cmake -S /src/app -B "$build_dir" "${CMAKE_COMMON[@]}" -DBOARD="$board"
+    cmake -S /src/app -B "$build_dir" "${CMAKE_COMMON[@]}" -DBOARD="$brd"
   else
     # Re-run cmake to pick up config changes
-    cmake -B "$build_dir"
+    cmake -S /src/app -B "$build_dir"
   fi
   ninja -C "$build_dir" -j2
 }
