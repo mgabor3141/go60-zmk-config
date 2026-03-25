@@ -354,6 +354,13 @@
             bindings = <&tog LAYER_CapsWord>;
         };
 
+        // Deactivate caps word and activate sticky symbol layer
+        cw_symbol: cw_symbol {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&tog LAYER_CapsWord>, <&sl LAYER_Symbol>;
+        };
+
         // Deactivate caps word layer and send a key
         ci_exit: ci_exit {
             compatible = "zmk,behavior-macro-one-param";
@@ -730,7 +737,7 @@
       &trans  &kp LS(A)  &kp LS(S)  &kp LS(D)  &kp LS(F)  &kp LS(G)                                                      &kp LS(H)  &kp LS(J)  &kp LS(K)  &kp LS(L)  &ci_exit SEMI      &trans
       &trans  &kp LS(Z)  &kp LS(X)  &kp LS(C)  &kp LS(V)  &kp LS(B)                                                      &kp LS(N)  &kp LS(M)  &ci_exit COMMA  &ci_exit DOT  &ci_exit FSLH  &tog LAYER_CapsWord
                           &trans      &trans      &trans                                                                                    &trans      &trans      &trans
-                                                              &trans      &trans      &trans      &trans  &ci_exit SPACE      &trans
+                                                              &trans      &trans      &trans      &cw_symbol  &ci_exit SPACE      &trans
             >;
         };
 
