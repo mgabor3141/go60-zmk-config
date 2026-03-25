@@ -509,28 +509,57 @@ async function runAnimation() {
     setKey('R', 1, 1, 0, 180, 180); draw(); await sleep(40);
   }
 
-  phaseEl.textContent = 'Phase 3: Logo fade-in';
-  const logoWhite = [[0,0],[0,1],[0,2],[1,0],[1,2],[2,0],[2,1],[2,2],[2,3],[3,0],[3,1],[3,2]];
-  for (let f = 1; f <= 20; f++) {
-    const w = (f * 180 / 20) | 0;
-    for (const [r, c] of logoWhite) setKey('R', r, c, w, w, w);  // white
-    setKey('R', 1, 1, 0, 255, 255);  // eye stays bright cyan
-    draw(); await sleep(30);
+  // Phase 3: White ripple outward from eye within 4x4 face area
+  phaseEl.textContent = 'Phase 3: Ripple';
+
+  const rings = [
+    [[1,1]],                                                          // dist 0: eye
+    [[0,0],[0,1],[0,2],[1,0],[1,2],[2,0],[2,1],[2,2]],               // dist 1
+    [[0,3],[1,3],[2,3],[3,0],[3,1],[3,2],[3,3]],                     // dist 2: outer edge
+  ];
+
+  for (let ring = 1; ring < rings.length; ring++) {
+    for (let f = 0; f < 4; f++) {
+      decayKeys('R', 0.7);
+      const bright = (f + 1) * 48;  // up to 192 (75%)
+      for (const [r, c] of rings[ring]) {
+        const k = keys['R'][r][c];
+        k.r = Math.min(192, k.r + bright);
+        k.g = Math.min(192, k.g + bright);
+        k.b = Math.min(192, k.b + bright);
+      }
+      setKey('R', 1, 1, 0, 255, 255);
+      draw(); await sleep(25);
+      if (!animRunning) return;
+    }
+    for (let f = 0; f < 3; f++) {
+      decayKeys('R', 0.6);
+      setKey('R', 1, 1, 0, 255, 255);
+      draw(); await sleep(25);
+      if (!animRunning) return;
+    }
+  }
+
+  // Hold eye as ripple fades
+  for (let f = 0; f < 15; f++) {
+    decayKeys('R', 0.7);
+    setKey('R', 1, 1, 0, 255, 255);
+    draw(); await sleep(25);
     if (!animRunning) return;
   }
 
-  phaseEl.textContent = 'Hold';
+  // Hold eye alone
+  clearKeys();
+  setKey('R', 1, 1, 0, 255, 255);
+  draw();
   await sleep(800);
+  if (!animRunning) return;
 
-  for (let f = 0; f < 25; f++) {
-    for (const half of ['L','R'])
-      for (let r = 0; r < 7; r++)
-        for (let c = 0; c < 6; c++) {
-          const k = keys[half][r][c];
-          k.r = Math.max(0, k.r - 10);
-          k.g = Math.max(0, k.g - 10);
-          k.b = Math.max(0, k.b - 10);
-        }
+  // Fade out eye
+  for (let f = 0; f < 20; f++) {
+    const k = keys['R'][1][1];
+    k.g = Math.max(0, k.g - 14);
+    k.b = Math.max(0, k.b - 14);
     draw(); await sleep(25);
     if (!animRunning) return;
   }
