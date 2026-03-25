@@ -157,14 +157,14 @@
 
 /* Automatically generated layer name defines */
 #define LAYER_Base 0
-#define LAYER_Nav 1
-#define LAYER_Symbol 2
-#define LAYER_WM 3
-#define LAYER_Gaming 4
-#define LAYER_Mouse 5
-#define LAYER_MouseFast 6
-#define LAYER_Magic 7
-#define LAYER_CapsWord 8
+#define LAYER_CapsWord 1
+#define LAYER_Nav 2
+#define LAYER_Symbol 3
+#define LAYER_WM 4
+#define LAYER_Gaming 5
+#define LAYER_Mouse 6
+#define LAYER_MouseFast 7
+#define LAYER_Magic 8
 
 /* To deal with the situation where there is no Lower layer, to keep &lower happy */
 #ifndef LAYER_Lower
@@ -354,13 +354,6 @@
             bindings = <&tog LAYER_CapsWord>;
         };
 
-        // Deactivate caps word and activate sticky symbol layer
-        cw_symbol: cw_symbol {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&tog LAYER_CapsWord>, <&sl LAYER_Symbol>;
-        };
-
         // Deactivate caps word layer and send a key
         ci_exit: ci_exit {
             compatible = "zmk,behavior-macro-one-param";
@@ -466,7 +459,7 @@
 
         // Layer tap dance behaviors
 
-        ZMK_TD_LAYER(td_LAYER_Nav, 1)
+        ZMK_TD_LAYER(td_LAYER_Nav, LAYER_Nav)
 
         TH_layer_click: TH_layer_click {
             compatible = "zmk,behavior-hold-tap";
@@ -653,6 +646,17 @@
             >;
         };
 
+        layer_CapsWord {
+            bindings = <
+ &ci_exit ESC      &trans      &trans      &trans      &trans      &trans                                                          &trans      &trans      &trans      &trans      &trans  &ci_exit ESC
+ &ci_exit TAB  &kp LS(Q)  &kp LS(W)  &kp LS(E)  &kp LS(R)  &kp LS(T)                                                      &kp LS(Y)  &kp LS(U)  &kp LS(I)  &kp LS(O)  &kp LS(P)  &ci_exit SQT
+      &trans  &kp LS(A)  &kp LS(S)  &kp LS(D)  &kp LS(F)  &kp LS(G)                                                      &kp LS(H)  &kp LS(J)  &kp LS(K)  &kp LS(L)  &ci_exit SEMI      &trans
+      &trans  &kp LS(Z)  &kp LS(X)  &kp LS(C)  &kp LS(V)  &kp LS(B)                                                      &kp LS(N)  &kp LS(M)  &ci_exit COMMA  &ci_exit DOT  &ci_exit FSLH  &tog LAYER_CapsWord
+                          &trans      &trans      &trans                                                                                    &trans      &trans      &trans
+                                                              &trans      &trans      &trans      &trans  &ci_exit SPACE      &trans
+            >;
+        };
+
         layer_Nav {
             bindings = <
           &kp LS(TAB)  &surround LBKT RBKT     &kp GRAVE  &surround LS(N9) LS(N0)          &kp COMMA                 &kp DOT                                                          &surround LS(SQT) LS(SQT)  &surround SQT SQT            &kp F8            &kp F9       &kp F10  &kp F11
@@ -727,17 +731,6 @@
       &sleep            &none            &bt_0            &bt_1            &bt_2            &bt_3                                                          &none         &none         &none           &none   &none        &none
                                   &out OUT_USB            &none            &none                                                                                         &none         &none  &bt BT_CLR_ALL
                                                                                                    &trans  &trans  &trans   &none   &none   &none
-            >;
-        };
-
-        layer_CapsWord {
-            bindings = <
- &ci_exit ESC      &trans      &trans      &trans      &trans      &trans                                                          &trans      &trans      &trans      &trans      &trans  &ci_exit ESC
- &ci_exit TAB  &kp LS(Q)  &kp LS(W)  &kp LS(E)  &kp LS(R)  &kp LS(T)                                                      &kp LS(Y)  &kp LS(U)  &kp LS(I)  &kp LS(O)  &kp LS(P)  &ci_exit SQT
-      &trans  &kp LS(A)  &kp LS(S)  &kp LS(D)  &kp LS(F)  &kp LS(G)                                                      &kp LS(H)  &kp LS(J)  &kp LS(K)  &kp LS(L)  &ci_exit SEMI      &trans
-      &trans  &kp LS(Z)  &kp LS(X)  &kp LS(C)  &kp LS(V)  &kp LS(B)                                                      &kp LS(N)  &kp LS(M)  &ci_exit COMMA  &ci_exit DOT  &ci_exit FSLH  &tog LAYER_CapsWord
-                          &trans      &trans      &trans                                                                                    &trans      &trans      &trans
-                                                              &trans      &trans      &trans      &cw_symbol  &ci_exit SPACE      &trans
             >;
         };
 
