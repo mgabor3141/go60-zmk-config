@@ -402,14 +402,6 @@
                 , <&kp RGUI>;
         };
 
-        esc: esc {
-            label = "&ESC";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            tap-ms = <30>;
-            bindings = <&kp ESC>;
-        };
-
         back_to_desktop: back_to_desktop {
             label = "&BACK_TO_DESKTOP";
             compatible = "zmk,behavior-macro";
@@ -481,7 +473,7 @@
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             tapping-term-ms = <500>;
-            bindings = <&magic_layer>, <&esc>;
+            bindings = <&magic_layer>, <&kp ESC>;
             flavor = "tap-preferred";
             quick-tap-ms = <150>;
             require-prior-idle-ms = <200>;
