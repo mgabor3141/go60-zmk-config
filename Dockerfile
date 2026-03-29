@@ -1,26 +1,38 @@
 FROM docker.io/zmkfirmware/zmk-build-arm:4.1
 
-WORKDIR /zmk
-
-# Clone our fork and set up west workspace
 SHELL ["/bin/bash", "-euo", "pipefail", "-c"]
-
-RUN git clone --depth 5 -b go60-main https://github.com/mgabor3141/zmk.git /zmk && \
-    west init -l app && \
-    west update --fetch-opt=--filter=tree:0 && \
-    west zephyr-export
 
 COPY --chmod=755 <<'ENTRYPOINT' /bin/entrypoint.sh
 #!/bin/bash
 set -euo pipefail
 : "${BRANCH:=go60-main}"
 
-echo "Updating to $BRANCH" >&2
 cd /zmk
-git fetch origin "$BRANCH" --depth 5
-git checkout -q FETCH_HEAD
 
-west update --fetch-opt=--filter=tree:0 2>&1 | tail -3
+if [ ! -d ".git" ]; then
+  echo "Cloning mgabor3141/zmk ($BRANCH)..." >&2
+  git clone --depth 5 -b "$BRANCH" https://github.com/mgabor3141/zmk.git /zmk
+else
+  echo "Updating to $BRANCH..." >&2
+  git fetch origin "$BRANCH" --depth 5
+  git checkout -q FETCH_HEAD
+fi
+
+if [ ! -d "zephyr" ]; then
+  echo "Initializing west workspace..." >&2
+  west init -l app
+fi
+
+echo "Running west update..." >&2
+west update --fetch-opt=--filter=tree:0 2>&1 | tail -5
+west zephyr-export 2>&1 | tail -2
+
+# Remove Zephyr's built-in cirque pinnacle driver to avoid conflict
+# with petejohanson's cirque-input-module (which has z-min filtering)
+rm -f /zmk/zephyr/dts/bindings/input/cirque,pinnacle-*.yaml
+rm -f /zmk/zephyr/drivers/input/input_pinnacle.c
+sed -i '/Kconfig.pinnacle/d' /zmk/zephyr/drivers/input/Kconfig
+sed -i '/input_pinnacle/d' /zmk/zephyr/drivers/input/CMakeLists.txt
 
 build_half() {
   local board=$1

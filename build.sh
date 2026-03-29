@@ -8,6 +8,7 @@ BRANCH="${1:-go60-main}"
 docker build -t "$IMAGE" .
 docker run --rm \
   -v "$PWD:/config" \
+  -v go60-zmk-src:/zmk \
   -v go60-build-cache:/build \
   -e UID="$(id -u)" -e GID="$(id -g)" -e BRANCH="$BRANCH" \
   "$IMAGE"
