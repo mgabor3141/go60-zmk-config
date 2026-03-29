@@ -4,6 +4,10 @@
     "command": "./build.sh",
   },
   {
+    "label": "flash",
+    "command": "./flash.sh --no-build",
+  },
+  {
     "label": "build and flash",
     "command": "./flash.sh",
   },
