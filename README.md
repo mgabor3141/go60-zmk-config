@@ -16,19 +16,27 @@ ZMK firmware configuration for the MoErgo Go60 split keyboard.
 ### Build only
 
 ```bash
-./build.sh          # uses the main branch of moergo-sc/zmk
+./build.sh          # uses go60-main branch of mgabor3141/zmk
 ./build.sh some-tag # uses a specific branch or tag
 ```
 
-The build runs inside Docker via a Nix derivation. On the first run it pulls the image and populates a build cache; subsequent builds only recompile what changed (typically just the keymap).
+The build runs inside Docker using the official `zmkfirmware/zmk-build-arm:4.1` image. The ZMK source and west modules are stored in the `go60-zmk-src` Docker volume; build artifacts go in `go60-build-cache`. First build fetches everything (~5 min); subsequent builds recompile only what changed.
 
 ### Build cache
 
-Build artifacts are stored in a Docker volume called `go60-nix-store`. This avoids rebuilding all 300+ objects on every keymap change. To force a fully clean build:
+To force a fully clean build:
 
 ```bash
-docker volume rm go60-nix-store
+docker volume rm go60-zmk-src go60-build-cache
 ```
+
+### Firmware fork
+
+This config builds against [mgabor3141/zmk:go60-main](https://github.com/mgabor3141/zmk/tree/go60-main), a minimal fork of upstream `zmkfirmware/zmk:main` (Zephyr 4.1) that adds:
+
+- Go60 board definition (ported to Zephyr 4.1 board structure)
+- RH thumb pixel-lookup fix
+- petejohanson's [cirque-input-module](https://github.com/petejohanson/cirque-input-module) for trackpad z-min filtering (Zephyr 4.1's built-in driver lacks this, causing phantom touch events)
 
 ### Repository structure
 
@@ -36,10 +44,9 @@ docker volume rm go60-nix-store
 config/
   go60.keymap      # keymap definition
   go60.conf        # kconfig options
-  default.nix      # nix build expression
 build.sh           # builds firmware inside Docker, outputs go60.uf2
 flash.sh           # builds + flashes both halves via USB bootloader
-Dockerfile         # build environment (nix + ZMK + cachix)
+Dockerfile         # build environment
 ```
 
 ---
@@ -84,5 +91,4 @@ The remaining keys are a mix of resizing, floating toggle, and direct workspace 
 - Gaming layer removes tap-holds for consistent behavior. The alpha layer stays unmodified for alt-tabbing and chat. WASD games should be rebound to ESDF.
 - Caps word key, because everyone should have one.
 - Semicolon and colon are swapped; I don't program in languages that mandate semicolons.
-- Switching to/from the Gaming layer gives visual feedback.
 - Mouse 4 and 5 are mapped to the outer reach keys on the base layer. Pressing both is a global mic mute.
