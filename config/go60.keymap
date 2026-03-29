@@ -20,8 +20,6 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/rgb.h>
-#include <dt-bindings/zmk/rgb_colors.h>
-
 #include <input/processors.dtsi>
 #include <dt-bindings/zmk/input_transform.h>
 #include <zephyr/dt-bindings/input/input-event-codes.h>
@@ -334,14 +332,12 @@
 / {
     macros {
 
-        // Enter Magic layer and show BLE/battery status indicators
+        // Enter Magic layer
         magic_layer: magic_layer {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&macro_press>
                 , <&mo LAYER_Magic>
-                , <&macro_tap>
-                , <&rgb_ug RGB_STATUS>
                 , <&macro_pause_for_release>
                 , <&macro_release>
                 , <&mo LAYER_Magic>;
@@ -473,7 +469,7 @@
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             tapping-term-ms = <500>;
-            bindings = <&magic_layer>, <&kp ESC>;
+            bindings = <&magic_layer>, <&kp>;
             flavor = "tap-preferred";
             quick-tap-ms = <150>;
             require-prior-idle-ms = <200>;
@@ -552,75 +548,6 @@
     };
 };
 
-/*
- * Per-key RGB layer map (requires darknao's PR36 branch)
- *
- * Color shorthand: &ug COLOR sets a static color, &ug_cl OFF ON reacts to
- * CapsLock HID indicator. ___ = off. All keys default to off for battery life.
- *
- *
- * Go60 key layout (60 positions):
- *   Row 1:  0  1  2  3  4  5       6  7  8  9 10 11
- *   Row 2: 12 13 14 15 16 17      18 19 20 21 22 23
- *   Row 3: 24 25 26 27 28 29      30 31 32 33 34 35
- *   Row 4: 36 37 38 39 40 41      42 43 44 45 46 47
- *   Row 5:       48 49 50               51 52 53
- *   Thumb:             54 55 56   57 58 59
-
- */
-
-#define OFF       &ug 0x000000
-#define DIM_RED   &ug 0x400000
-#define BRIGHT_RED &ug 0xff0000
-#define DIM_AMBER &ug 0x402000
-
-/ {
-    underglow-layer {
-        compatible = "zmk,underglow-layer";
-
-        /* CapsWord: indicator on RH T3 (pos 57) */
-        layer_CapsWord_rgb {
-            bindings = <
-                OFF  OFF  OFF  OFF  OFF  OFF      OFF  OFF  OFF  OFF  OFF  OFF
-                OFF  OFF  OFF  OFF  OFF  OFF      OFF  OFF  OFF  OFF  OFF  OFF
-                OFF  OFF  OFF  OFF  OFF  OFF      OFF  OFF  OFF  OFF  OFF  OFF
-                OFF  OFF  OFF  OFF  OFF  OFF      OFF  OFF  OFF  OFF  OFF  BRIGHT_RED
-                          OFF  OFF  OFF                OFF  OFF  OFF
-                                    OFF  OFF  OFF  BRIGHT_RED  OFF  OFF
-            >;
-            layer-id = <LAYER_CapsWord>;
-        };
-
-        /* Magic: right side only (left side handled by hardware status indicators) */
-        layer_Magic_rgb {
-            bindings = <
-                OFF  OFF  OFF  OFF  OFF  OFF      DIM_AMBER  DIM_AMBER  DIM_AMBER  DIM_AMBER      OFF  DIM_RED
-                OFF  OFF  OFF  OFF  OFF  OFF      DIM_AMBER  DIM_AMBER  DIM_AMBER  DIM_AMBER      OFF      OFF
-                OFF  OFF  OFF  OFF  OFF  OFF            OFF        OFF        OFF        OFF      OFF  DIM_RED
-                OFF  OFF  OFF  OFF  OFF  OFF            OFF        OFF        OFF        OFF      OFF      OFF
-                          OFF  OFF  OFF                                    OFF        OFF  DIM_RED
-                                    OFF  OFF  OFF  OFF  OFF  OFF
-            >;
-            layer-id = <LAYER_Magic>;
-        };
-
-        /* Gaming: subtle red accent on ESDF */
-        layer_Gaming_rgb {
-            bindings = <
-                OFF      OFF      OFF      OFF      OFF  OFF      OFF  OFF  OFF  OFF  OFF  OFF
-                OFF      OFF      OFF  DIM_RED      OFF  OFF      OFF  OFF  OFF  OFF  OFF  OFF
-                OFF      OFF  DIM_RED  DIM_RED  DIM_RED  OFF      OFF  OFF  OFF  OFF  OFF  OFF
-                OFF      OFF      OFF      OFF      OFF  OFF      OFF  OFF  OFF  OFF  OFF  OFF
-                              OFF      OFF      OFF                OFF  OFF  OFF
-                                            OFF      OFF  OFF  OFF  OFF  OFF
-            >;
-            layer-id = <LAYER_Gaming>;
-        };
-
-
-    };
-};
-
 /* Automatically generated keymap */
 / {
     keymap {
@@ -684,7 +611,7 @@
 
         layer_Gaming {
             bindings = <
- &TH_magic_long LAYER_Magic 0  &trans    &trans   &trans            &trans  &trans                                                        &trans  &trans  &trans  &trans  &trans  &trans
+ &TH_magic_long LAYER_Magic ESC  &trans    &trans   &trans            &trans  &trans                                                        &trans  &trans  &trans  &trans  &trans  &trans
             &kp TAB  &trans    &trans   &trans            &trans  &trans                                                        &trans  &trans  &trans  &trans  &trans  &trans
           &kp LSHFT  &trans    &trans   &trans            &trans  &trans                                                        &trans  &trans  &trans  &trans  &trans  &trans
           &kp LCTRL  &trans    &trans   &trans            &trans  &trans                                                        &trans  &trans  &trans  &trans  &trans  &trans

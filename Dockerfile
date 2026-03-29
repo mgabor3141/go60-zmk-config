@@ -1,74 +1,33 @@
-FROM nixpkgs/nix:nixos-23.11
+FROM docker.io/zmkfirmware/zmk-build-arm:4.1
 
-ENV PATH=/root/.nix-profile/bin:/usr/bin:/bin
+WORKDIR /zmk
 
-RUN <<EOF
-    set -euo pipefail
-    nix-env -iA cachix -f https://cachix.org/api/v1/install
-    cachix use moergo-glove80-zmk-dev
-    mkdir /config
-    # Mirror ZMK repository (mgabor3141 fork with per-key RGB + fixes)
-    git clone --mirror https://github.com/mgabor3141/zmk /zmk
-    GIT_DIR=/zmk git worktree add --detach /src
-EOF
+# Clone our fork and set up west workspace
+SHELL ["/bin/bash", "-euo", "pipefail", "-c"]
 
-# Prepopulate the nix store with build dependencies
-RUN <<EOF
-    cd /src
-    git checkout -q --detach rgb-layer-24.12
-    nix-shell --run true -A zmk ./default.nix
-EOF
+RUN git clone --depth 5 -b go60-main https://github.com/mgabor3141/zmk.git /zmk && \
+    west init -l app && \
+    west update --fetch-opt=--filter=tree:0 && \
+    west zephyr-export
 
 COPY --chmod=755 <<'ENTRYPOINT' /bin/entrypoint.sh
-#!/usr/bin/env bash
+#!/bin/bash
 set -euo pipefail
-: "${BRANCH:=rgb-layer-24.12}"
+: "${BRANCH:=go60-main}"
 
-echo "Checking out $BRANCH from mgabor3141/zmk" >&2
-cd /src
-git fetch origin
-git checkout -q --detach "$BRANCH"
+echo "Updating to $BRANCH" >&2
+cd /zmk
+git fetch origin "$BRANCH" --depth 5
+git checkout -q FETCH_HEAD
 
-echo 'Building Go60 firmware' >&2
-
-# Use nix-shell for the toolchain, but cmake directly for incremental builds.
-# Build dirs persist via Docker volume mount at /build.
-nix-shell --run '
-set -eo pipefail
-
-ZEPHYR_BASE=$(echo /nix/store/*-zephyr/zephyr | head -1)
-TOOLCHAIN=$(echo /nix/store/*-gcc-arm-embedded-*/bin/arm-none-eabi-gcc | head -1)
-TOOLCHAIN=${TOOLCHAIN%/bin/arm-none-eabi-gcc}
-# Extract ZEPHYR_MODULES from the nix derivation cmake flags (set by nix-shell)
-MODULES=$(echo "$cmakeFlags" | grep -oP "(?<=-DZEPHYR_MODULES=)[^ ]+")
-
-CMAKE_COMMON=(
-  -GNinja
-  -DZEPHYR_BASE="$ZEPHYR_BASE"
-  -DBOARD_ROOT=/src/app
-  -DZEPHYR_TOOLCHAIN_VARIANT=gnuarmemb
-  -DGNUARMEMB_TOOLCHAIN_PATH="$TOOLCHAIN"
-  -DCMAKE_C_COMPILER="$TOOLCHAIN/bin/arm-none-eabi-gcc"
-  -DCMAKE_CXX_COMPILER="$TOOLCHAIN/bin/arm-none-eabi-g++"
-  -DCMAKE_AR="$TOOLCHAIN/bin/arm-none-eabi-ar"
-  -DCMAKE_RANLIB="$TOOLCHAIN/bin/arm-none-eabi-ranlib"
-  -DZEPHYR_MODULES="$MODULES"
-  -DKEYMAP_FILE=/config/config/go60.keymap
-  -DEXTRA_CONF_FILE=/config/config/go60.conf
-  -DUSER_CACHE_DIR=/build/.cache
-)
+west update --fetch-opt=--filter=tree:0 2>&1 | tail -3
 
 build_half() {
-  local brd=$1 build_dir=/build/$1
-  echo "=== Building $brd ===" >&2
-  mkdir -p "$build_dir"
-  if [ ! -f "$build_dir/build.ninja" ]; then
-    cmake -S /src/app -B "$build_dir" "${CMAKE_COMMON[@]}" -DBOARD="$brd"
-  else
-    # Re-run cmake to pick up config changes
-    cmake -S /src/app -B "$build_dir"
-  fi
-  ninja -C "$build_dir" -j2
+  local board=$1
+  echo "=== Building $board ===" >&2
+  west build -p -s app -b "$board" -d "/build/$board" -- \
+    -DKEYMAP_FILE=/config/config/go60.keymap \
+    -DEXTRA_CONF_FILE=/config/config/go60.conf
 }
 
 build_half go60_lh
@@ -76,12 +35,8 @@ build_half go60_rh
 
 mkdir -p /tmp/combined
 cat /build/go60_lh/zephyr/zmk.uf2 /build/go60_rh/zephyr/zmk.uf2 > /tmp/combined/go60.uf2
-' -A zmk /src/default.nix
-
 install -o "$UID" -g "$GID" /tmp/combined/go60.uf2 /config/go60.uf2
 echo "Done: go60.uf2" >&2
 ENTRYPOINT
 
 ENTRYPOINT ["/bin/entrypoint.sh"]
-
-# Run build.sh to use this file
