@@ -15,6 +15,6 @@ if "%~1"=="" (
 docker build -t "%IMAGE%" .
 
 :: Run Docker container
-docker run --rm -v "%cd%:/config" -e UID=0 -e GID=0 -e BRANCH="%BRANCH%" "%IMAGE%"
+docker run --rm -v "%cd%:/config" -v go60-zmk-src:/zmk -v go60-build-cache:/build -e UID=0 -e GID=0 -e BRANCH="%BRANCH%" "%IMAGE%"
 
 endlocal
