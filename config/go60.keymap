@@ -96,14 +96,14 @@
 
 /* Layer defines */
 #define LAYER_Base 0
-#define LAYER_Nav 1
-#define LAYER_Symbol 2
-#define LAYER_WM 3
-#define LAYER_Gaming 4
-#define LAYER_Mouse 5
-#define LAYER_MouseFast 6
-#define LAYER_Magic 7
-#define LAYER_MacBase 8
+#define LAYER_MacBase 1
+#define LAYER_Nav 2
+#define LAYER_Symbol 3
+#define LAYER_WM 4
+#define LAYER_Gaming 5
+#define LAYER_Mouse 6
+#define LAYER_MouseFast 7
+#define LAYER_Magic 8
 
 /* Generated input processors */
 / {
@@ -353,6 +353,17 @@
             >;
         };
 
+        layer_MacBase {
+            bindings = <
+  &TH_magic LAYER_Magic LS(TAB)  &kp N1    &kp N2   &kp N3    &kp N4  &kp N5                                                                                               &kp N6    &kp N7     &kp N8   &kp N9    &kp N0                 &kp GRAVE
+                    &kp TAB   &kp Q     &kp W    &kp E     &kp R   &kp T                                                                                                &kp Y     &kp U      &kp I    &kp O     &kp P                     &kp SQT
+ &better_sticky LSHFT LSHFT   &kp A     &kp S    &kp D     &kp F   &kp G                                                                                                &kp H     &kp J      &kp K    &kp L  &kp SEMI  &better_sticky RSHFT RSHFT
+           &TH_mod LALT ESC   &kp Z     &kp X    &kp C     &kp V   &kp B                                                                                                &kp N     &kp M  &kp COMMA  &kp DOT  &kp FSLH              &caps_word_custom
+                                     &mkp MB4  &kp DEL  &kp BSPC                                                                                                               &kp LEFT  &kp RIGHT  &kp F15
+                                                                          &TH_wm_layer 0 F20  &TH_mod LCTRL RET  &td_LAYER_Nav  &sl LAYER_Symbol  &kp SPACE  &kp BSPC
+            >;
+        };
+
         layer_Nav {
             bindings = <
           &kp LS(TAB)  &surround LBKT RBKT     &kp GRAVE  &surround LS(N9) LS(N0)          &kp COMMA                 &kp DOT                                                          &surround LS(SQT) LS(SQT)  &surround SQT SQT            &kp F8            &kp F9       &kp F10  &kp F11
@@ -427,17 +438,6 @@
       &sleep            &none            &bt_0            &bt_1            &bt_2            &bt_3                                                          &none         &none         &none           &none   &none        &none
                                   &out OUT_USB            &none            &none                                                                                         &none         &none  &bt BT_CLR_ALL
                                                                                                    &trans  &trans  &trans   &none   &none   &none
-            >;
-        };
-
-        layer_MacBase {
-            bindings = <
-  &TH_magic LAYER_Magic LS(TAB)  &kp N1    &kp N2   &kp N3    &kp N4  &kp N5                                                                                               &kp N6    &kp N7     &kp N8   &kp N9    &kp N0                 &kp GRAVE
-                    &kp TAB   &kp Q     &kp W    &kp E     &kp R   &kp T                                                                                                &kp Y     &kp U      &kp I    &kp O     &kp P                     &kp SQT
- &better_sticky LSHFT LSHFT   &kp A     &kp S    &kp D     &kp F   &kp G                                                                                                &kp H     &kp J      &kp K    &kp L  &kp SEMI  &better_sticky RSHFT RSHFT
-           &TH_mod LALT ESC   &kp Z     &kp X    &kp C     &kp V   &kp B                                                                                                &kp N     &kp M  &kp COMMA  &kp DOT  &kp FSLH              &caps_word_custom
-                                     &mkp MB4  &kp DEL  &kp BSPC                                                                                                               &kp LEFT  &kp RIGHT  &kp F15
-                                                                          &TH_wm_layer 0 F20  &TH_mod LCTRL RET  &td_LAYER_Nav  &sl LAYER_Symbol  &kp SPACE  &kp BSPC
             >;
         };
 
