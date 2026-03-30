@@ -570,9 +570,9 @@
  &TH_magic_long LAYER_Magic ESC  &trans    &trans   &trans            &trans  &trans                                                        &trans  &trans  &trans  &trans  &trans  &trans
             &kp TAB  &trans    &trans   &trans            &trans  &trans                                                        &trans  &trans  &trans  &trans  &trans  &trans
           &kp LSHFT  &trans    &trans   &trans            &trans  &trans                                                        &trans  &trans  &trans  &trans  &trans  &trans
-          &kp LCTRL  &trans    &trans   &trans            &trans  &trans                                                        &trans  &trans  &trans  &trans  &trans  &trans
+            &kp ESC  &trans    &trans   &trans            &trans  &trans                                                        &trans  &trans  &trans  &trans  &trans  &trans
                              &kp LALT  &kp RET  &back_to_desktop                                                                        &trans  &trans  &trans
-                                                                          &kp SEMI  &kp SPACE  &kp DOT  &trans  &trans  &trans
+                                                                          &kp LCTRL  &kp SPACE  &kp LALT  &trans  &trans  &trans
             >;
         };
 
