@@ -508,17 +508,10 @@
         combo_to_gaming {
             timeout-ms = <50>;
             key-positions = <POS_LH_C6R1 POS_LH_T3>;
-            bindings = <&to LAYER_Gaming>;
-            layers = <LAYER_Base LAYER_Mouse LAYER_MouseFast LAYER_Magic LAYER_Gaming>;
+            bindings = <&tog LAYER_Gaming>;
         };
 
-        // Activate base layer
-        combo_to_base {
-            timeout-ms = <50>;
-            key-positions = <POS_LH_C6R1 POS_LH_T2>;
-            bindings = <&to 0>;
-            require-prior-idle-ms = <200>;
-        };
+
     };
 };
 
