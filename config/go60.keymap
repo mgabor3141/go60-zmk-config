@@ -155,14 +155,13 @@
 
 /* Automatically generated layer name defines */
 #define LAYER_Base 0
-#define LAYER_CapsWord 1
-#define LAYER_Nav 2
-#define LAYER_Symbol 3
-#define LAYER_WM 4
-#define LAYER_Gaming 5
-#define LAYER_Mouse 6
-#define LAYER_MouseFast 7
-#define LAYER_Magic 8
+#define LAYER_Nav 1
+#define LAYER_Symbol 2
+#define LAYER_WM 3
+#define LAYER_Gaming 4
+#define LAYER_Mouse 5
+#define LAYER_MouseFast 6
+#define LAYER_Magic 7
 
 /* To deal with the situation where there is no Lower layer, to keep &lower happy */
 #ifndef LAYER_Lower
@@ -333,21 +332,7 @@
                 , <&mo LAYER_Magic>;
         };
 
-        // Activate caps word layer
-        cw: cw {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&tog LAYER_CapsWord>;
-        };
 
-        // Deactivate caps word layer and send a key
-        ci_exit: ci_exit {
-            compatible = "zmk,behavior-macro-one-param";
-            #binding-cells = <1>;
-            bindings = <&tog LAYER_CapsWord>
-                , <&macro_param_1to1>
-                , <&kp MACRO_PLACEHOLDER>;
-        };
 
         // Symbol layer dot dot
         symb_dotdot_v1_TKZ: symb_dotdot_v1_TKZ {
@@ -427,6 +412,12 @@
 /* Automatically generated behavior definitions */
 / {
     behaviors {
+
+        caps_word_custom: caps_word_custom {
+            compatible = "zmk,behavior-caps-word";
+            #binding-cells = <0>;
+            continue-list = <UNDERSCORE BACKSPACE DELETE SQT>;
+        };
 
         // Layer tap dance behaviors
 
@@ -542,20 +533,9 @@
   &TH_magic LAYER_Magic LS(TAB)  &kp N1    &kp N2   &kp N3    &kp N4  &kp N5                                                                                               &kp N6    &kp N7     &kp N8   &kp N9    &kp N0                 &kp RS(F12)
                     &kp TAB   &kp Q     &kp W    &kp E     &kp R   &kp T                                                                                                &kp Y     &kp U      &kp I    &kp O     &kp P                     &kp SQT
  &better_sticky LSHFT LSHFT   &kp A     &kp S    &kp D     &kp F   &kp G                                                                                                &kp H     &kp J      &kp K    &kp L  &kp SEMI  &better_sticky RSHFT RSHFT
-           &TH_mod LALT ESC   &kp Z     &kp X    &kp C     &kp V   &kp B                                                                                                &kp N     &kp M  &kp COMMA  &kp DOT  &kp FSLH              &cw
+           &TH_mod LALT ESC   &kp Z     &kp X    &kp C     &kp V   &kp B                                                                                                &kp N     &kp M  &kp COMMA  &kp DOT  &kp FSLH              &caps_word_custom
                                      &mkp MB4  &kp DEL  &kp BSPC                                                                                                               &kp LEFT  &kp RIGHT  &kp F15
                                                                           &TH_wm_layer 0 F20  &TH_mod LCTRL RET  &td_LAYER_Nav  &sl LAYER_Symbol  &kp SPACE  &kp BSPC
-            >;
-        };
-
-        layer_CapsWord {
-            bindings = <
- &ci_exit ESC      &trans      &trans      &trans      &trans      &trans                                                          &trans      &trans      &trans      &trans      &trans  &ci_exit ESC
- &ci_exit TAB  &kp LS(Q)  &kp LS(W)  &kp LS(E)  &kp LS(R)  &kp LS(T)                                                      &kp LS(Y)  &kp LS(U)  &kp LS(I)  &kp LS(O)  &kp LS(P)  &ci_exit SQT
-      &trans  &kp LS(A)  &kp LS(S)  &kp LS(D)  &kp LS(F)  &kp LS(G)                                                      &kp LS(H)  &kp LS(J)  &kp LS(K)  &kp LS(L)  &ci_exit SEMI      &trans
-      &trans  &kp LS(Z)  &kp LS(X)  &kp LS(C)  &kp LS(V)  &kp LS(B)                                                      &kp LS(N)  &kp LS(M)  &ci_exit COMMA  &ci_exit DOT  &ci_exit FSLH  &tog LAYER_CapsWord
-                          &trans      &trans      &trans                                                                                    &trans      &trans      &trans
-                                                              &trans      &trans      &trans      &trans  &ci_exit SPACE      &trans
             >;
         };
 
