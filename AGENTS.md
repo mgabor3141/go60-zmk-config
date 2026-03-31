@@ -20,3 +20,15 @@ Hardcoded in `~/dev/go60-zmk/app/src/rgb_underglow.c`. Layer numbers in indicato
 ## Per-endpoint default layer
 
 `&default_layer N` persists layer N for the current endpoint (USB/BLE profile) to flash. Auto-restores on boot and endpoint change. Config: `CONFIG_ZMK_DEFAULT_LAYER_ENDPOINT=y`.
+
+## HID remap (macOS support)
+
+`&endpoint_os N` sets OS type per endpoint (0=Linux, 1=macOS). Persists to flash, auto-applies on endpoint change. Config: `CONFIG_ZMK_HID_REMAP=y`.
+
+When macOS is active, the HID report is rewritten before sending:
+- Phase 1: modifier bit swap (LCTRL<->LGUI, RGUI->LCTRL)
+- Phase 2: key-specific overrides (word nav, Tab un-swap, Home/End, F13/F21)
+
+This means ALL layers work correctly on macOS without duplication. The remap operates on a temporary copy of the report; ZMK's internal state is unaffected.
+
+The remap replaces kanata's go60.kbd config entirely. kanata is no longer needed for the Go60 on macOS.

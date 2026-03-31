@@ -96,14 +96,13 @@
 
 /* Layer defines */
 #define LAYER_Base 0
-#define LAYER_MacBase 1
-#define LAYER_Nav 2
-#define LAYER_Symbol 3
-#define LAYER_WM 4
-#define LAYER_Gaming 5
-#define LAYER_Mouse 6
-#define LAYER_MouseFast 7
-#define LAYER_Magic 8
+#define LAYER_Nav 1
+#define LAYER_Symbol 2
+#define LAYER_WM 3
+#define LAYER_Gaming 4
+#define LAYER_Mouse 5
+#define LAYER_MouseFast 6
+#define LAYER_Magic 7
 
 /* Generated input processors */
 / {
@@ -134,28 +133,28 @@
     };
 };
 
-/* BT profile macros: select profile, switch to BLE, set default layer */
+/* BT profile macros: select profile, switch to BLE, set OS type */
 / {
     macros {
         bt_0: bt_0 {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&out OUT_BLE>, <&bt BT_SEL 0>, <&default_layer LAYER_Base>;
+            bindings = <&out OUT_BLE>, <&bt BT_SEL 0>, <&endpoint_os 0>;
         };
         bt_1: bt_1 {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&out OUT_BLE>, <&bt BT_SEL 1>, <&default_layer LAYER_MacBase>;
+            bindings = <&out OUT_BLE>, <&bt BT_SEL 1>, <&endpoint_os 1>;
         };
         bt_2: bt_2 {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&out OUT_BLE>, <&bt BT_SEL 2>, <&default_layer LAYER_Base>;
+            bindings = <&out OUT_BLE>, <&bt BT_SEL 2>, <&endpoint_os 0>;
         };
         bt_3: bt_3 {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&out OUT_BLE>, <&bt BT_SEL 3>, <&default_layer LAYER_Base>;
+            bindings = <&out OUT_BLE>, <&bt BT_SEL 3>, <&endpoint_os 0>;
         };
     };
 };
@@ -345,17 +344,6 @@
         layer_Base {
             bindings = <
   &TH_magic LAYER_Magic LS(TAB)  &kp N1    &kp N2   &kp N3    &kp N4  &kp N5                                                                                               &kp N6    &kp N7     &kp N8   &kp N9    &kp N0                 &kp RS(F12)
-                    &kp TAB   &kp Q     &kp W    &kp E     &kp R   &kp T                                                                                                &kp Y     &kp U      &kp I    &kp O     &kp P                     &kp SQT
- &better_sticky LSHFT LSHFT   &kp A     &kp S    &kp D     &kp F   &kp G                                                                                                &kp H     &kp J      &kp K    &kp L  &kp SEMI  &better_sticky RSHFT RSHFT
-           &TH_mod LALT ESC   &kp Z     &kp X    &kp C     &kp V   &kp B                                                                                                &kp N     &kp M  &kp COMMA  &kp DOT  &kp FSLH              &caps_word_custom
-                                     &mkp MB4  &kp DEL  &kp BSPC                                                                                                               &kp LEFT  &kp RIGHT  &kp F15
-                                                                          &TH_wm_layer 0 F20  &TH_mod LCTRL RET  &td_LAYER_Nav  &sl LAYER_Symbol  &kp SPACE  &kp BSPC
-            >;
-        };
-
-        layer_MacBase {
-            bindings = <
-  &TH_magic LAYER_Magic LS(TAB)  &kp N1    &kp N2   &kp N3    &kp N4  &kp N5                                                                                               &kp N6    &kp N7     &kp N8   &kp N9    &kp N0                 &kp GRAVE
                     &kp TAB   &kp Q     &kp W    &kp E     &kp R   &kp T                                                                                                &kp Y     &kp U      &kp I    &kp O     &kp P                     &kp SQT
  &better_sticky LSHFT LSHFT   &kp A     &kp S    &kp D     &kp F   &kp G                                                                                                &kp H     &kp J      &kp K    &kp L  &kp SEMI  &better_sticky RSHFT RSHFT
            &TH_mod LALT ESC   &kp Z     &kp X    &kp C     &kp V   &kp B                                                                                                &kp N     &kp M  &kp COMMA  &kp DOT  &kp FSLH              &caps_word_custom
