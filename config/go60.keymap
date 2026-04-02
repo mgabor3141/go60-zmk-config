@@ -370,7 +370,7 @@
  &kp LS(TAB)  &trans  &trans  &trans  &trans  &trans                                                   &trans  &trans  &trans  &trans  &trans  &trans
       &trans  &trans  &trans  &trans  &trans  &trans                                                   &trans  &trans  &trans  &trans  &trans  &trans
       &trans  &trans  &trans  &trans  &trans  &kp SPACE                                                &trans  &trans  &trans  &trans  &trans  &trans
-      &trans  &trans  &trans  &trans  &trans  &kp SPACE                                                &trans  &trans  &trans  &trans  &trans  &trans
+      &trans  &trans  &trans  &trans  &trans  &trans                                                &trans  &trans  &trans  &trans  &trans  &trans
                       &trans  &trans  &trans                                                                   &trans  &trans  &trans
                                                       &trans  &trans  &kp F14  &trans  &trans  &trans
             >;
