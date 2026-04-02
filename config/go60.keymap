@@ -117,14 +117,13 @@
 
 /* Input Listeners */
 &cirque_lh_listener {
-    input-processors = <&zip_xy_to_scroll_mapper>, <&zip_click_to_right_click_mapper>, <&zip_temp_layer LAYER_Mouse 500>;
+    input-processors = <&zip_xy_to_scroll_mapper>, <&zip_click_to_right_click_mapper>;
 };
 
 &cirque_rh_listener {
-    input-processors = <&zip_temp_layer LAYER_Mouse 500>;
     layer_Symbol {
         layers = <LAYER_Symbol>;
-        input-processors = <&zip_click_to_right_click_mapper>, <&zip_temp_layer LAYER_Mouse 500>;
+        input-processors = <&zip_click_to_right_click_mapper>;
     };
 };
 
@@ -394,7 +393,7 @@
  &trans  &trans  &trans  &trans  &trans  &trans                                                                                              &trans  &trans  &trans  &trans  &trans  &trans
  &trans  &trans  &trans  &trans  &trans  &trans                                                                                              &trans  &trans  &trans  &trans  &trans  &trans
                  &trans  &trans  &trans                                                                                                              &trans  &trans  &trans
-                                                 &trans  &ctrl_click  &mkp LCLK  &mkp RCLK  &mkp MCLK  &mkp RCLK
+                                                 &trans  &trans  &trans  &trans  &trans  &trans
             >;
         };
 
