@@ -1,6 +1,5 @@
 #!/bin/bash
-trap 'echo "Error on line $LINENO: $BASH_COMMAND" >&2' ERR
-set -Eeuo pipefail
+set -euo pipefail
 
 FIRMWARE="go60.uf2"
 TIMEOUT=120
@@ -16,9 +15,7 @@ echo
 # Find UF2 bootloader volume by name, returns mount point or empty
 find_bootloader() {
   local label="$1"
-  local mountpoint
-  mountpoint=$(mount | grep "/Volumes/$label" | awk '{print $3}')
-  echo "$mountpoint"
+  mount | grep "/Volumes/$label" | awk '{print $3}' || true
 }
 
 wait_and_flash() {
