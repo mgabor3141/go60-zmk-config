@@ -34,6 +34,9 @@ rm -f /zmk/zephyr/drivers/input/input_pinnacle.c
 sed -i '/Kconfig.pinnacle/d' /zmk/zephyr/drivers/input/Kconfig
 sed -i '/input_pinnacle/d' /zmk/zephyr/drivers/input/CMakeLists.txt
 
+# Disable GlideExtend (tap-and-drag) on Cirque trackpads
+sed -i 's/PINNACLE_FEED_CFG2_EN_BTN_SCRL/PINNACLE_FEED_CFG2_EN_BTN_SCRL | PINNACLE_FEED_CFG2_DIS_GE/' modules/cirque-input-module/drivers/input/input_pinnacle.c
+
 build_half() {
   local board=$1
   echo "=== Building $board ===" >&2
