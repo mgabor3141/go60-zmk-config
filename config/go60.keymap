@@ -189,12 +189,16 @@
             tap-ms = <0>;
             wait-ms = <0>;
             bindings = <&macro_press>
-                , <&kp RGUI>
+                , <&kp LCTRL>
+                , <&kp LGUI>
+                , <&kp LALT>
                 , <&mo LAYER_WM>
                 , <&macro_pause_for_release>
                 , <&macro_release>
                 , <&mo LAYER_WM>
-                , <&kp RGUI>;
+                , <&kp LALT>
+                , <&kp LGUI>
+                , <&kp LCTRL>;
         };
 
         back_to_desktop: back_to_desktop {
