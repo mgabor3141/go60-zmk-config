@@ -101,8 +101,7 @@
 #define LAYER_WM 3
 #define LAYER_Gaming 4
 #define LAYER_Mouse 5
-#define LAYER_MouseFast 6
-#define LAYER_Magic 7
+#define LAYER_Magic 6
 
 /* Generated input processors */
 / {
@@ -119,17 +118,13 @@
 /* Input Listeners */
 &cirque_lh_listener {
     input-processors = <&zip_xy_to_scroll_mapper>, <&zip_click_to_right_click_mapper>, <&zip_temp_layer LAYER_Mouse 500>;
-    layer_MouseFast {
-        layers = <LAYER_MouseFast>;
-        input-processors = <&zip_xy_scaler 2 1>, <&zip_xy_to_scroll_mapper>, <&zip_click_to_right_click_mapper>, <&zip_temp_layer LAYER_MouseFast 500>;
-    };
 };
 
 &cirque_rh_listener {
     input-processors = <&zip_temp_layer LAYER_Mouse 500>;
-    layer_MouseFast {
-        layers = <LAYER_MouseFast>;
-        input-processors = <&zip_xy_scaler 3 1>, <&zip_temp_layer LAYER_MouseFast 500>;
+    layer_Symbol {
+        layers = <LAYER_Symbol>;
+        input-processors = <&zip_click_to_right_click_mapper>, <&zip_temp_layer LAYER_Mouse 500>;
     };
 };
 
@@ -253,14 +248,6 @@
         // Layer tap dance behaviors
 
         ZMK_TD_LAYER(td_LAYER_Nav, LAYER_Nav)
-
-        TH_layer_click: TH_layer_click {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            tapping-term-ms = <300>;
-            bindings = <&mo>, <&mkp>;
-            hold-while-undecided;
-        };
 
         TH_magic: TH_magic {
             compatible = "zmk,behavior-hold-tap";
@@ -403,18 +390,7 @@
  &trans  &trans  &trans  &trans  &trans  &trans                                                                                              &trans  &trans  &trans  &trans  &trans  &trans
  &trans  &trans  &trans  &trans  &trans  &trans                                                                                              &trans  &trans  &trans  &trans  &trans  &trans
                  &trans  &trans  &trans                                                                                                              &trans  &trans  &trans
-                                                 &trans  &ctrl_click  &mkp LCLK  &TH_layer_click LAYER_MouseFast LCLK  &mkp MCLK  &mkp RCLK
-            >;
-        };
-
-        layer_MouseFast {
-            bindings = <
- &trans  &trans  &trans  &trans  &trans  &trans                                                                &trans  &trans  &trans  &trans  &trans  &trans
- &trans  &trans  &trans  &trans  &trans  &trans                                                                &trans  &trans  &trans  &trans  &trans  &trans
- &trans  &trans  &trans  &trans  &trans  &trans                                                                &trans  &trans  &trans  &trans  &trans  &trans
- &trans  &trans  &trans  &trans  &trans  &trans                                                                &trans  &trans  &trans  &trans  &trans  &trans
-                 &trans  &trans  &trans                                                                                &trans  &trans  &trans
-                                                 &trans  &ctrl_click  &mkp LCLK   &none  &mkp MCLK  &mkp RCLK
+                                                 &trans  &ctrl_click  &mkp LCLK  &mkp RCLK  &mkp MCLK  &mkp RCLK
             >;
         };
 
