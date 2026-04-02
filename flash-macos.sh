@@ -63,7 +63,7 @@ wait_and_flash() {
 
   echo "   Found $expected_label at $mountpoint"
   echo "   Copying $FIRMWARE → $mountpoint/"
-  cp "$FIRMWARE" "$mountpoint/"
+  cp -X "$FIRMWARE" "$mountpoint/"
   sync
 
   echo "✅ $name half flashed!"
