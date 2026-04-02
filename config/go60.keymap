@@ -148,7 +148,7 @@
         bt_3: bt_3 {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&out OUT_BLE>, <&bt BT_SEL 3>, <&endpoint_os 0>;
+            bindings = <&out OUT_BLE>, <&bt BT_SEL 3>, <&endpoint_os 1>;
         };
     };
 };
