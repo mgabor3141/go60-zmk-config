@@ -28,8 +28,6 @@
         bindings = <&mo layer>, <&to layer>; \
     };
 
-
-
 /* Key positions */
 
 #define POS_LH_C6R1 0
@@ -92,7 +90,6 @@
 #define POS_RH_T3 57
 #define POS_RH_T2 58
 #define POS_RH_T1 59
-
 
 /* Layer defines */
 #define LAYER_Base 0
@@ -168,8 +165,6 @@
                 , <&macro_release>
                 , <&mo LAYER_Magic>;
         };
-
-
 
         // ```
         triple_backtick: triple_backtick {
@@ -319,15 +314,12 @@
             key-positions = <POS_LH_C6R1 POS_LH_T3>;
             bindings = <&tog LAYER_Gaming>;
         };
-
-
     };
 };
 
 / {
     keymap {
         compatible = "zmk,keymap";
-
 
         layer_Base {
             bindings = <
