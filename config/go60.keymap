@@ -206,8 +206,10 @@
         sleep: sleep {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
+            tap-ms = <0>;
+            wait-ms = <0>;
             bindings = <&kp C_SLEEP>
-                , <&kp F21>;
+                , <&kp LC(LS(LA(LG(Y))))>;
         };
 
         ctrl_click: ctrl_click {
