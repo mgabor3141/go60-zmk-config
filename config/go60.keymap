@@ -19,13 +19,13 @@
 
 #include <dt-bindings/zmk/pointing.h>
 
-/* Tap-dance: tap = momentary layer, double-tap = toggle layer */
+/* Tap-dance: tap = momentary layer, double-tap = toggle layer (locking) */
 #define ZMK_TD_LAYER(name, layer) \
     name: name { \
         compatible = "zmk,behavior-tap-dance"; \
         #binding-cells = <0>; \
         tapping-term-ms = <200>; \
-        bindings = <&mo layer>, <&to layer>; \
+        bindings = <&mo layer>, <&tog layer>; \
     };
 
 /* Key positions */
