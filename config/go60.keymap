@@ -19,13 +19,25 @@
 
 #include <dt-bindings/zmk/pointing.h>
 
-/* Tap-dance: tap = momentary layer, double-tap = toggle layer (locking) */
+/* Locking momentary layer: release can deactivate a locked layer */
+/ {
+    behaviors {
+        mo_lock: mo_lock {
+            compatible = "zmk,behavior-momentary-layer";
+            #binding-cells = <1>;
+            locking;
+        };
+    };
+};
+
+/* Tap-dance: tap/hold = momentary layer, double-tap = toggle lock.
+ * Single tap also unlocks because mo_lock is a locking behavior. */
 #define ZMK_TD_LAYER(name, layer) \
     name: name { \
         compatible = "zmk,behavior-tap-dance"; \
         #binding-cells = <0>; \
         tapping-term-ms = <200>; \
-        bindings = <&mo layer>, <&tog layer>; \
+        bindings = <&mo_lock layer>, <&tog layer>; \
     };
 
 /* Key positions */
