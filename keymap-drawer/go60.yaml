@@ -125,8 +125,8 @@ layers:
   Symbol:
   - ''
   - /
-  - Sft+9
-  - Sft+0
+  - (
+  - )
   - \
   - '&triple_backtick'
   - AltGr+\
@@ -137,10 +137,10 @@ layers:
   - ''
   - '`'
   - '['
-  - Sft+[
-  - Sft+]
+  - '{'
+  - '}'
   - ']'
-  - Sft+1
+  - '!'
   - ''''
   - AltGr+U
   - AltGr+I
@@ -148,26 +148,26 @@ layers:
   - AltGr+4
   - AltGr+D
   - {t: ▽, type: trans}
-  - Sft+6
+  - ^
   - '='
   - '-'
-  - Sft+4
-  - Sft+/
-  - Sft+'
-  - Sft+9
-  - Sft+0
-  - Sft+3
+  - $
+  - '?'
+  - '"'
+  - (
+  - )
+  - '#'
   - AltGr+E
   - AltGr+A
-  - Sft+`
-  - Sft+,
-  - Sft+\
-  - Sft+-
-  - Sft+.
-  - Sft+8
-  - Sft+7
-  - Sft+=
-  - Sft+5
+  - '~'
+  - <
+  - '|'
+  - _
+  - '>'
+  - '*'
+  - '&'
+  - +
+  - '%'
   - AltGr+.
   - AltGr+T
   - AltGr+M
@@ -177,9 +177,9 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - Sft+;
+  - ':'
   - {t: ▽, type: trans}
-  - Sft+2
+  - '@'
   - {type: held}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
