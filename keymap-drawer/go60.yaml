@@ -1,7 +1,7 @@
 layout: {zmk_keyboard: go60}
 layers:
   Base:
-  - {t: Sft+TAB, h: '&magic_layer 6'}
+  - {t: Sft+TAB, h: '&magic_layer 7'}
   - '1'
   - '2'
   - '3'
@@ -12,7 +12,7 @@ layers:
   - '8'
   - '9'
   - '0'
-  - Sft+F12
+  - Function
   - TAB
   - Q
   - W
@@ -49,9 +49,9 @@ layers:
   - .
   - /
   - '&caps_word_custom'
-  - '&mkp MB4'
-  - DEL
+  - SPACE
   - BSPC
+  - DEL
   - LEFT
   - RIGHT
   - F15
@@ -75,15 +75,15 @@ layers:
   - F10
   - F11
   - Ctl+`
-  - Ctl+P
+  - Ctl+Sft+P
   - Ctl+LEFT
   - UP
   - Ctl+RIGHT
   - {t: PG UP, h: Ctl+HOME}
   - KP MULTIPLY
-  - {t: KP 7, h: F7}
-  - {t: KP 8, h: F8}
-  - {t: KP 9, h: F9}
+  - KP 7
+  - KP 8
+  - KP 9
   - KP MINUS
   - F12
   - {t: ▽, type: trans}
@@ -93,26 +93,26 @@ layers:
   - RIGHT
   - END
   - KP SLASH
-  - {t: KP 4, h: F4}
-  - {t: KP 5, h: F5}
-  - {t: KP 6, h: F6}
+  - KP 4
+  - KP 5
+  - KP 6
   - KP PLUS
   - {t: ▽, type: trans}
   - {t: Sft+ESC, h: LALT}
   - Ctl+Sft+Z
-  - SPACE
+  - Ctl+RET
   - Meh+C
   - Meh+V
   - {t: PG DN, h: Ctl+END}
   - TAB
-  - {t: KP 1, h: F1}
-  - {t: KP 2, h: F2}
-  - {t: KP 3, h: F3}
+  - KP 1
+  - KP 2
+  - KP 3
   - KP ENTER
   - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - '&mkp MB4'
   - '&mkp MB5'
-  - Ctl+BSPC
-  - Ctl+DEL
   - KP 0
   - KP 0
   - KP DOT
@@ -171,7 +171,7 @@ layers:
   - AltGr+.
   - AltGr+T
   - AltGr+M
-  - Ctl+RET
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -181,6 +181,67 @@ layers:
   - {t: ▽, type: trans}
   - '@'
   - {type: held}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  Function:
+  - {t: ▽, type: trans}
+  - F16
+  - F17
+  - F18
+  - F19
+  - F20
+  - {t: ▽, type: trans}
+  - F10
+  - F11
+  - F12
+  - Sft+F12
+  - {type: held}
+  - {t: ▽, type: trans}
+  - F21
+  - F22
+  - F23
+  - F24
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - F7
+  - F8
+  - F9
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - F4
+  - F5
+  - F6
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - F1
+  - F2
+  - F3
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   WM:
@@ -220,7 +281,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - LALT
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -245,7 +306,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   Gaming:
-  - {t: ESC, h: '&magic_layer 6'}
+  - ESC
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -293,14 +354,14 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - M
-  - RET
   - LALT
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - SPACE
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - RET
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
