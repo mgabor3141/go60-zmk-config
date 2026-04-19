@@ -394,7 +394,7 @@
                 &kp LS(TAB)  &trans  &trans  &trans  &trans     &trans        &trans  &trans  &trans  &trans  &trans  &trans
                      &trans  &trans  &trans  &trans  &trans     &trans        &trans  &trans  &trans  &trans  &trans  &trans
                      &trans  &trans  &trans  &trans  &trans  &kp SPACE        &trans  &trans  &trans  &trans  &trans  &trans
-                     &trans  &trans  &trans  &trans  &trans     &trans        &trans  &trans  &trans  &trans  &trans  &trans
+                   &kp LALT  &trans  &trans  &trans  &trans     &trans        &trans  &trans  &trans  &trans  &trans  &trans
                                      &trans  &trans  &trans                           &trans  &trans  &trans
                                                &trans  &trans  &kp F14        &trans  &trans  &trans
             >;
@@ -402,8 +402,8 @@
 
         layer_Gaming {
             bindings = <
-                           &kp TAB  &trans    &trans     &trans    &trans  &trans            &trans  &trans  &trans  &trans  &trans  &trans
                            &kp ESC  &trans    &trans     &trans    &trans  &trans            &trans  &trans  &trans  &trans  &trans  &trans
+                           &kp TAB  &trans    &trans     &trans    &trans  &trans            &trans  &trans  &trans  &trans  &trans  &trans
                          &kp LSHFT  &trans    &trans     &trans    &trans  &trans            &trans  &trans  &trans  &trans  &trans  &trans
                          &kp LCTRL  &trans    &trans     &trans    &trans  &trans            &trans  &trans  &trans  &trans  &trans  &trans
                                               &kp LALT   &trans    &trans                            &trans  &trans  &trans
