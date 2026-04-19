@@ -1,0 +1,26 @@
+name: Draw keymap
+
+on:
+  push:
+    paths:
+      - config/*.keymap
+      - config/info.json
+      - keymap_drawer.config.yaml
+      - .github/workflows/draw-keymap.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  draw:
+    uses: caksoylar/keymap-drawer/.github/workflows/draw-zmk.yml@main
+    with:
+      # Explicit -j points at our info.json (reusable workflow would otherwise
+      # auto-detect config/go60.json, which we don't have).
+      draw_args: "go60:'-j config/info.json'"
+      # Layer node names are layer_Base / layer_Nav / ...; relabel cleanly.
+      parse_args: "go60:'--layer-names Base Nav Symbol WM Gaming Mouse Magic'"
+      # Skip west-module fetch; we don't need ZMK modules to render this keymap.
+      west_config_path: ""
+      commit_message: "keymap-drawer: render"

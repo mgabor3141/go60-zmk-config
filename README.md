@@ -51,6 +51,12 @@ Dockerfile         # build environment
 
 ---
 
+## Layout
+
+![Keymap](keymap-drawer/go60.svg)
+
+The diagram above is regenerated on every push by the `Draw keymap` workflow using [keymap-drawer](https://github.com/caksoylar/keymap-drawer).
+
 ## Layout Notes
 
 I designed this layout with a few goals in mind, in order of priority:
