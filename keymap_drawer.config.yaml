@@ -1,0 +1,26 @@
+parse_config:
+  # Render shifted number/symbol keys as their actual glyph on US QWERTY,
+  # instead of the raw LS(Nx) / LS(key) form that keymap-drawer produces by default.
+  raw_binding_map:
+    "&kp LS(N1)": "!"
+    "&kp LS(N2)": "@"
+    "&kp LS(N3)": "#"
+    "&kp LS(N4)": "$"
+    "&kp LS(N5)": "%"
+    "&kp LS(N6)": "^"
+    "&kp LS(N7)": "&"
+    "&kp LS(N8)": "*"
+    "&kp LS(N9)": "("
+    "&kp LS(N0)": ")"
+    "&kp LS(LBKT)": "{"
+    "&kp LS(RBKT)": "}"
+    "&kp LS(MINUS)": "_"
+    "&kp LS(EQUAL)": "+"
+    "&kp LS(BSLH)": "|"
+    "&kp LS(SEMI)": ":"
+    "&kp LS(SQT)": '"'
+    "&kp LS(SINGLE_QUOTE)": '"'
+    "&kp LS(COMMA)": "<"
+    "&kp LS(DOT)": ">"
+    "&kp LS(FSLH)": "?"
+    "&kp LS(GRAVE)": "~"
