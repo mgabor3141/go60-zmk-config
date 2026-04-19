@@ -130,7 +130,7 @@
 };
 
 &cirque_rh_listener {
-    input-processors = <&zip_temp_layer LAYER_Mouse 50>;
+    input-processors = <&zip_temp_layer LAYER_Mouse 150>;
     layer_Symbol {
         layers = <LAYER_Symbol>;
         input-processors = <&zip_click_to_right_click_mapper>, <&zip_temp_layer LAYER_Mouse 50>;
