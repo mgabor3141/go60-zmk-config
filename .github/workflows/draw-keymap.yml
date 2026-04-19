@@ -20,7 +20,7 @@ jobs:
       # auto-detect config/go60.json, which we don't have).
       draw_args: "go60:'-j config/info.json'"
       # Layer node names are layer_Base / layer_Nav / ...; relabel cleanly.
-      parse_args: "go60:'--layer-names Base Nav Symbol WM Gaming Mouse Magic'"
+      parse_args: "go60:'--layer-names Base Nav Symbol Function WM Gaming Mouse Magic'"
       # Skip west-module fetch; we don't need ZMK modules to render this keymap.
       west_config_path: ""
       commit_message: "keymap-drawer: render"

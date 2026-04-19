@@ -107,10 +107,11 @@
 #define LAYER_Base 0
 #define LAYER_Nav 1
 #define LAYER_Symbol 2
-#define LAYER_WM 3
-#define LAYER_Gaming 4
-#define LAYER_Mouse 5
-#define LAYER_Magic 6
+#define LAYER_Function 3
+#define LAYER_WM 4
+#define LAYER_Gaming 5
+#define LAYER_Mouse 6
+#define LAYER_Magic 7
 
 /* Generated input processors */
 / {
@@ -346,7 +347,7 @@
 
         layer_Base {
             bindings = <
-    &TH_magic LAYER_Magic LS(TAB)   &kp N1   &kp N2      &kp N3     &kp N4    &kp N5        &kp N6    &kp N7     &kp N8     &kp N9    &kp N0      &kp RS(F12)
+    &TH_magic LAYER_Magic LS(TAB)   &kp N1   &kp N2      &kp N3     &kp N4    &kp N5        &kp N6    &kp N7     &kp N8     &kp N9    &kp N0      &mo LAYER_Function
                           &kp TAB   &kp Q    &kp W       &kp E      &kp R     &kp T         &kp Y     &kp U      &kp I      &kp O     &kp P       &kp SQT
        &better_sticky LSHFT LSHFT   &kp A    &kp S       &kp D      &kp F     &kp G         &kp H     &kp J      &kp K      &kp L     &kp SEMI    &better_sticky RSHFT RSHFT
                  &TH_mod LALT ESC   &kp Z    &kp X       &kp C      &kp V     &kp B         &kp N     &kp M      &kp COMMA  &kp DOT   &kp FSLH    &caps_word_custom
@@ -357,11 +358,11 @@
 
         layer_Nav {
             bindings = <
-             &kp LS(TAB)   &sur LBKT RBKT   &kp GRAVE      &sur LS(N9) LS(N0)   &kp COMMA           &kp DOT                       &sur LS(SQT) LS(SQT)   &sur SQT SQT       &kp F8             &kp F9             &kp F10        &kp F11
-           &kp LC(GRAVE)   &kp LC(LS(P))    &kp LC(LEFT)   &kp UP               &kp LC(RIGHT)       &TH_key LC(HOME) PG_UP        &kp KP_MULTIPLY        &TH_key F7 KP_N7   &TH_key F8 KP_N8   &TH_key F9 KP_N9   &kp KP_MINUS   &kp F12
-                  &trans   &kp HOME         &kp LEFT       &kp DOWN             &kp RIGHT           &kp END                       &kp KP_SLASH           &TH_key F4 KP_N4   &TH_key F5 KP_N5   &TH_key F6 KP_N6   &kp KP_PLUS    &trans
-    &TH_mod LALT LS(ESC)   &kp LC(LS(Z))    &kp LC(RET)    &kp LC(LS(LA(C)))    &kp LS(LC(LA(V)))   &TH_key LC(END) PG_DN         &kp TAB                &TH_key F1 KP_N1   &TH_key F2 KP_N2   &TH_key F3 KP_N3   &kp KP_ENTER   &trans
-                                            &trans         &mkp MB4             &mkp MB5                                                                 &kp KP_N0          &kp KP_N0          &kp KP_DOT
+             &kp LS(TAB)   &sur LBKT RBKT   &kp GRAVE      &sur LS(N9) LS(N0)   &kp COMMA           &kp DOT                       &sur LS(SQT) LS(SQT)   &sur SQT SQT   &kp F8      &kp F9      &kp F10        &kp F11
+           &kp LC(GRAVE)   &kp LC(LS(P))    &kp LC(LEFT)   &kp UP               &kp LC(RIGHT)       &TH_key LC(HOME) PG_UP        &kp KP_MULTIPLY        &kp KP_N7      &kp KP_N8   &kp KP_N9   &kp KP_MINUS   &kp F12
+                  &trans   &kp HOME         &kp LEFT       &kp DOWN             &kp RIGHT           &kp END                       &kp KP_SLASH           &kp KP_N4      &kp KP_N5   &kp KP_N6   &kp KP_PLUS    &trans
+    &TH_mod LALT LS(ESC)   &kp LC(LS(Z))    &kp LC(RET)    &kp LC(LS(LA(C)))    &kp LS(LC(LA(V)))   &TH_key LC(END) PG_DN         &kp TAB                &kp KP_N1      &kp KP_N2   &kp KP_N3   &kp KP_ENTER   &trans
+                                            &trans         &mkp MB4             &mkp MB5                                                                 &kp KP_N0      &kp KP_N0   &kp KP_DOT
                                                                                                    &kp F14  &trans  &trans        &trans  &trans   &trans
             >;
         };
@@ -374,6 +375,17 @@
     &kp LS(GRAVE)   &kp LS(COMMA)   &kp LS(BSLH)   &kp LS(MINUS)   &kp LS(DOT)   &kp LS(N8)            &kp LS(N7)             &kp LS(EQUAL)   &kp LS(N5)     &kp RA(DOT)   &kp RA(T)    &kp RA(M)
                                     &trans         &trans          &trans                                                     &trans          &trans         &trans
                                                                  &kp LS(SEMI)  &trans  &kp LS(N2)      &trans  &trans  &trans
+            >;
+        };
+
+        layer_Function {
+            bindings = <
+                &trans  &kp F16  &kp F17  &kp F18  &kp F19  &kp F20      &trans   &kp F10   &kp F11   &kp F12   &kp RS(F12)   &trans
+                &trans  &kp F21  &kp F22  &kp F23  &kp F24  &trans       &trans   &kp F7    &kp F8    &kp F9    &trans        &trans
+                &trans  &trans   &trans   &trans   &trans   &trans       &trans   &kp F4    &kp F5    &kp F6    &trans        &trans
+                &trans  &trans   &trans   &trans   &trans   &trans       &trans   &kp F1    &kp F2    &kp F3    &trans        &trans
+                                 &trans   &trans   &trans                         &trans    &trans    &trans
+                                          &trans   &trans   &trans       &trans   &trans    &trans
             >;
         };
 
