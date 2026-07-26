@@ -8,7 +8,7 @@ Rule: Base=0, alt-bases=1..N, then Nav, Symbol, Gaming, ..., Magic at the top.
 
 ## Build
 
-Docker-based. `bash build.sh` clones/updates `mgabor3141/zmk:go60-main`, runs west build.
+Docker-based. `bash build.sh` fetches the pinned, reviewed `mgabor3141/zmk` revision (or an explicit revision argument), then runs west build.
 Firmware repo: `~/dev/go60-zmk`. Config repo: `~/dev/go60-zmk-config`.
 Clearing build cache: `docker volume rm go60-build-cache go60-zmk-src`.
 After firmware changes, clear both volumes. Config-only changes use incremental builds (~45s).

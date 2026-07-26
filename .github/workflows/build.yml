@@ -11,8 +11,12 @@ jobs:
       - uses: actions/checkout@v5
         with:
           path: config
-      - name: Clone ZMK fork
-        run: git clone --depth 5 -b go60-main https://github.com/mgabor3141/zmk.git /zmk
+      - name: Clone pinned ZMK fork revision
+        run: |
+          git init -q /zmk
+          git -C /zmk remote add origin https://github.com/mgabor3141/zmk.git
+          git -C /zmk fetch origin 5b071c50500ecbf45545516789160e21c83ce190 --depth 5
+          git -C /zmk checkout -q FETCH_HEAD
       - name: Initialize west workspace
         working-directory: /zmk
         run: west init -l app

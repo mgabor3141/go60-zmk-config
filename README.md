@@ -16,8 +16,8 @@ ZMK firmware configuration for the MoErgo Go60 split keyboard.
 ### Build only
 
 ```bash
-./build.sh          # uses go60-main branch of mgabor3141/zmk
-./build.sh some-tag # uses a specific branch or tag
+./build.sh              # uses the pinned, reviewed mgabor3141/zmk revision
+./build.sh some-revision # overrides it with a commit, branch, or tag
 ```
 
 The build runs inside Docker using the official `zmkfirmware/zmk-build-arm:4.1` image. The ZMK source and west modules are stored in the `go60-zmk-src` Docker volume; build artifacts go in `go60-build-cache`. First build fetches everything (~5 min); subsequent builds recompile only what changed. Each build restores and deterministically prepares the conflicting Zephyr and external Cirque driver files, so reusing the source volume does not accumulate patches.
@@ -32,7 +32,7 @@ docker volume rm go60-zmk-src go60-build-cache
 
 ### Firmware fork
 
-This config builds against [mgabor3141/zmk:go60-main](https://github.com/mgabor3141/zmk/tree/go60-main), a minimal fork of upstream `zmkfirmware/zmk:main` (Zephyr 4.1) that adds:
+This config pins reviewed commit [`5b071c50500e`](https://github.com/mgabor3141/zmk/commit/5b071c50500ecbf45545516789160e21c83ce190) from [mgabor3141/zmk:go60-main](https://github.com/mgabor3141/zmk/tree/go60-main), a minimal fork of upstream `zmkfirmware/zmk:main` (Zephyr 4.1) that adds:
 
 - Go60 board definition (ported to Zephyr 4.1 board structure)
 - RH thumb pixel-lookup fix

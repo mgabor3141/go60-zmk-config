@@ -5,18 +5,19 @@ SHELL ["/bin/bash", "-euo", "pipefail", "-c"]
 COPY --chmod=755 <<'ENTRYPOINT' /bin/entrypoint.sh
 #!/bin/bash
 set -euo pipefail
-: "${BRANCH:=go60-main}"
+: "${REVISION:=5b071c50500ecbf45545516789160e21c83ce190}"
 
 cd /zmk
 
 if [ ! -d ".git" ]; then
-  echo "Cloning mgabor3141/zmk ($BRANCH)..." >&2
-  git clone --depth 5 -b "$BRANCH" https://github.com/mgabor3141/zmk.git /zmk
+  echo "Cloning mgabor3141/zmk ($REVISION)..." >&2
+  git init -q
+  git remote add origin https://github.com/mgabor3141/zmk.git
 else
-  echo "Updating to $BRANCH..." >&2
-  git fetch origin "$BRANCH" --depth 5
-  git checkout -q FETCH_HEAD
+  echo "Updating to $REVISION..." >&2
 fi
+git fetch origin "$REVISION" --depth 5
+git checkout --detach --force -q FETCH_HEAD
 
 if [ ! -d "zephyr" ]; then
   echo "Initializing west workspace..." >&2
