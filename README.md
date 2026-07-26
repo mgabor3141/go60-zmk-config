@@ -20,7 +20,7 @@ ZMK firmware configuration for the MoErgo Go60 split keyboard.
 ./build.sh some-tag # uses a specific branch or tag
 ```
 
-The build runs inside Docker using the official `zmkfirmware/zmk-build-arm:4.1` image. The ZMK source and west modules are stored in the `go60-zmk-src` Docker volume; build artifacts go in `go60-build-cache`. First build fetches everything (~5 min); subsequent builds recompile only what changed.
+The build runs inside Docker using the official `zmkfirmware/zmk-build-arm:4.1` image. The ZMK source and west modules are stored in the `go60-zmk-src` Docker volume; build artifacts go in `go60-build-cache`. First build fetches everything (~5 min); subsequent builds recompile only what changed. Each build restores and deterministically prepares the conflicting Zephyr and external Cirque driver files, so reusing the source volume does not accumulate patches.
 
 ### Build cache
 
@@ -47,6 +47,7 @@ config/
 build.sh           # builds firmware inside Docker, outputs go60.uf2
 flash.sh           # builds + flashes both halves via USB bootloader
 Dockerfile         # build environment
+scripts/prepare-west-tree.sh # deterministic shared source preparation
 ```
 
 ---

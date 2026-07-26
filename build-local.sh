@@ -35,15 +35,9 @@ echo "Running west update..." >&2
 west update --fetch-opt=--filter=tree:0 2>&1 | tail -5
 west zephyr-export 2>&1 | tail -2
 
-# Remove Zephyr's built-in cirque pinnacle driver to avoid conflict
-# with petejohanson's cirque-input-module (which has z-min filtering)
-rm -f /zmk/zephyr/dts/bindings/input/cirque,pinnacle-*.yaml
-rm -f /zmk/zephyr/drivers/input/input_pinnacle.c
-sed -i '/Kconfig.pinnacle/d' /zmk/zephyr/drivers/input/Kconfig
-sed -i '/input_pinnacle/d' /zmk/zephyr/drivers/input/CMakeLists.txt
-
-# Disable GlideExtend (tap-and-drag) on Cirque trackpads
-sed -i 's/PINNACLE_FEED_CFG2_EN_BTN_SCRL/PINNACLE_FEED_CFG2_EN_BTN_SCRL | PINNACLE_FEED_CFG2_DIS_GE/' /zmk/cirque-input-module/drivers/input/input_pinnacle.c
+# Resolve the in-tree/external Pinnacle collision and disable GlideExtend.
+# The helper restores the affected files first, so persistent trees are safe.
+/config/scripts/prepare-west-tree.sh /zmk
 
 build_half() {
   local board=$1
