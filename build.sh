@@ -3,7 +3,7 @@
 set -euo pipefail
 
 IMAGE=go60-zmk-config-docker
-REVISION="${1:-278302d9c2610a6982aede0a20f78150b16915d1}"
+REVISION="${1:-eca8146653f9c8075b20e4b570e1bbae10151368}"
 
 docker build -t "$IMAGE" .
 docker run --rm \

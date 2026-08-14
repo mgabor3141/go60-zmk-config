@@ -6,7 +6,7 @@ set IMAGE=go60-zmk-config-docker
 
 :: Set revision from first parameter, default to the reviewed pin if not provided
 if "%~1"=="" (
-	set REVISION=278302d9c2610a6982aede0a20f78150b16915d1
+	set REVISION=eca8146653f9c8075b20e4b570e1bbae10151368
 ) else (
 	set REVISION=%~1
 )
