@@ -197,7 +197,6 @@
                 , <&kp LS(RET)>
                 , <&kp UP>
                 , <&kp UP>
-                , <&kp UP>
                 , <&kp END>;
         };
 
@@ -391,12 +390,12 @@
 
         layer_WM {
             bindings = <
-                &kp LS(TAB)  &trans  &trans  &trans  &trans     &trans        &trans  &trans  &trans  &trans  &trans  &trans
-                     &trans  &trans  &trans  &trans  &trans     &trans        &trans  &trans  &trans  &trans  &trans  &trans
-                     &trans  &trans  &trans  &trans  &trans  &kp SPACE        &trans  &trans  &trans  &trans  &trans  &trans
-                   &kp LALT  &trans  &trans  &trans  &trans     &trans        &trans  &trans  &trans  &trans  &trans  &trans
-                                     &trans  &trans  &trans                           &trans  &trans  &trans
-                                               &trans  &trans  &kp F14        &trans  &trans  &trans
+                &kp LS(TAB)  &trans  &trans  &trans  &trans    &trans        &trans  &trans  &trans  &trans  &trans  &trans
+                     &trans  &trans  &trans  &trans  &trans    &trans        &trans  &trans  &trans  &trans  &trans  &trans
+                     &trans  &trans  &trans  &trans  &trans    &trans        &trans  &trans  &trans  &trans  &trans  &trans
+                   &kp LALT  &trans  &trans  &trans  &trans    &trans        &trans  &trans  &trans  &trans  &trans  &trans
+                                     &trans  &trans  &trans                          &trans  &trans  &trans
+                                               &trans  &trans  &kp F14       &trans  &trans  &trans
             >;
         };
 
