@@ -1,5 +1,9 @@
 [
   {
+    "label": "draw keymap",
+    "command": "./scripts/draw-keymap.sh",
+  },
+  {
     "label": "build",
     "command": "./build.sh",
   },

@@ -2,28 +2,35 @@
 
 A custom ZMK keymap and firmware configuration for the MoErgo Go60 split keyboard.
 
-## TL;DR
+## Overview
 
-- The layout prioritizes programming symbols, one-handed shortcuts while using a mouse, and consistent macOS/Linux muscle memory.
-- See the rendered keymap below; edit `config/go60.keymap` to customize it.
-- Run `./flash.sh` to build and flash both halves.
-- Builds use Docker and a pinned, reviewed Go60 ZMK fork.
+This is a programming-focused layout for a mixed keyboard-and-mouse workflow. It keeps familiar row-staggered conventions, avoids home-row modifiers, and makes most shortcuts and window-management actions available to the left hand while the right stays on the mouse. Layers provide comfortable symbols, navigation, a numpad, and locale-specific characters without sacrificing easy transitions to a laptop keyboard. Firmware-level remapping keeps the same physical shortcut muscle memory on Linux and macOS.
 
-## Keymap
+The thumb keys provide the main layer access:
+
+- **Nav** puts arrows, Home/End, page movement, and common navigation shortcuts under the left hand, with a complete numpad on the right.
+- **Symbol** arranges programming punctuation across both halves and adds locale-specific AltGr characters on the right.
+- **Function** exposes F1–F24 in rows.
+- **Gaming** replaces tap-hold and sticky behavior with plain modifiers and keys for predictable game input; games using WASD need to be rebound to ESDF.
+- **Magic** contains media and display controls, RGB settings, Bluetooth profiles, USB output selection, sleep, reset, and bootloader controls.
+
+WM and Mouse are utility layers for few-key remapping and are not rendered.
+
+## Keymap diagram
 
 ![Keymap](keymap-drawer/go60.svg)
 
-The diagram is regenerated on every push by the `Draw keymap` workflow using [keymap-drawer](https://github.com/caksoylar/keymap-drawer). The source of truth is [`config/go60.keymap`](config/go60.keymap).
+## Layout philosophy
 
 ### Design goals
 
 I designed this layout with a few goals in mind, in order of priority:
 
 1. Comfortable symbol layout for programming
-2. Reduce needing to move the right hand from the mouse when not typing, for example only to press Enter
+2. Reduce needing to move the right hand from the mouse when not typing, for example to only press Enter
 3. No significant departure from row staggered, so switching to a laptop keyboard remains effortless
 4. Standardize hotkey muscle memory across macOS and Linux
-5. Eliminate needing to switch keyboard layouts to type non-English characters
+5. Eliminate needing to switch keyboard layouts to type international characters
 
 ### No home row modifiers
 
@@ -41,7 +48,7 @@ The placement of Ctrl and Shift allows the most common shortcuts to be typed wit
 
 ### Window management
 
-The window-manager key—Super on Linux and Ctrl on macOS—is positioned to take maximum advantage of the left half. I use WM+ESDF for directional window switching: workspaces up/down and scrolling windows left/right. Adding the pinky Shift turns focus actions into window moves.
+The window-manager key—Super on Linux and Meh (Cmd+Ctrl+Option) on macOS—is positioned to take maximum advantage of the left half. I use WM+ESDF for directional window switching: workspaces up/down and scrolling windows left/right. Adding the pinky Shift turns focus actions into window moves.
 
 The remaining keys cover resizing, floating toggle, and direct workspace activation. I use:
 
@@ -108,3 +115,9 @@ flash.sh           # build and flash both halves via the USB bootloader
 Dockerfile         # build environment
 scripts/prepare-west-tree.sh # deterministic shared source preparation
 ```
+
+## Keymap diagram generation
+
+The diagram is regenerated on every push by the `Draw keymap` workflow using [keymap-drawer](https://github.com/caksoylar/keymap-drawer). The source of truth is [`config/go60.keymap`](config/go60.keymap).
+
+To regenerate the YAML and SVG locally, run `./scripts/draw-keymap.sh` or select the **draw keymap** Zed task. The script uses [`uvx`](https://docs.astral.sh/uv/guides/tools/) to download and cache keymap-drawer, so no project-local Python environment is required.

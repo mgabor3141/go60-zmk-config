@@ -1,3 +1,7 @@
+draw_config:
+  dark_mode: auto
+  separate_combo_diagrams: true
+
 parse_config:
   # Render shifted number/symbol keys as their actual glyph on US QWERTY,
   # instead of the raw LS(Nx) / LS(key) form that keymap-drawer produces by default.
