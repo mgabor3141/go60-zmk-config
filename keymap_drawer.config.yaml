@@ -1,6 +1,9 @@
 draw_config:
+  key_h: 64
   dark_mode: auto
   separate_combo_diagrams: true
+  shrink_wide_legends: 6
+  glyph_tap_size: 20
 
 parse_config:
   # Render shifted number/symbol keys as their actual glyph on US QWERTY,
@@ -28,3 +31,69 @@ parse_config:
     "&kp LS(DOT)": ">"
     "&kp LS(FSLH)": "?"
     "&kp LS(GRAVE)": "~"
+
+    # Hungarian level-3 characters from the mysymbols XKB layout.
+    "&kp RA(A)": "Á"
+    "&kp RA(E)": "É"
+    "&kp RA(I)": "Í"
+    "&kp RA(O)": "Ó"
+    "&kp RA(U)": "Ú"
+    "&kp RA(N0)": "Ö"
+    "&kp RA(MINUS)": "Ü"
+    "&kp RA(LBKT)": "Ő"
+    "&kp RA(BSLH)": "Ű"
+
+    # Other level-3 characters from the same XKB layout.
+    "&kp RA(N4)": "€"
+    "&kp RA(D)": "°"
+    "&kp RA(DOT)": "…"
+    "&kp RA(T)": "™"
+    "&kp RA(M)": "µ"
+
+    # Standard keyboard symbols reduce noise without hiding meaning.
+    "&kp TAB": "⇥"
+    "&kp RET": "↵"
+    "&kp SPACE": "␣"
+    "&kp BSPC": "$$mdi:backspace-outline$$"
+    "&kp DEL": "$$mdi:delete-outline$$"
+    "&kp LEFT": "←"
+    "&kp RIGHT": "→"
+    "&kp UP": "↑"
+    "&kp DOWN": "↓"
+    "&kp PG_UP": "Pg↑"
+    "&kp PG_DN": "Pg↓"
+    "&kp KP_MULTIPLY": "KP ×"
+    "&kp KP_SLASH": "KP ÷"
+    "&kp KP_MINUS": "KP −"
+    "&kp KP_PLUS": "KP +"
+    "&kp KP_ENTER": "KP ↵"
+
+    # Name custom macros and actions by what they do.
+    "&td_LAYER_Nav": "NAV"
+    "&TH_magic LAYER_Magic LS(TAB)": {t: "Shift ⇥", h: "MAGIC"}
+    "&TH_wm_layer 0 F20": {t: "F20", h: "WM"}
+    "&triple_backtick": "```"
+    "&sur LBKT RBKT": "Wrap []"
+    "&sur LS(N9) LS(N0)": "Wrap ()"
+    "&sur LS(SQT) LS(SQT)": 'Wrap ""'
+    "&sur SQT SQT": "Wrap ''"
+    "&caps_word_custom": "Caps Word"
+    "&mkp MB4": "Mouse 4"
+    "&mkp MB5": "Mouse 5"
+    "&bt_0": "BT 0"
+    "&bt_1": "BT 1"
+    "&bt_2": "BT 2"
+    "&bt_3": "BT 3"
+
+    # Keep icons for controls whose symbols are unambiguous.
+    "&kp C_PREV": "$$mdi:skip-previous$$"
+    "&kp C_PP": "$$mdi:play-pause$$"
+    "&kp C_NEXT": "$$mdi:skip-next$$"
+    "&kp C_MUTE": "$$mdi:volume-mute$$"
+    "&kp C_VOL_DN": "$$mdi:volume-minus$$"
+    "&kp C_VOL_UP": "$$mdi:volume-plus$$"
+    "&sleep": "$$mdi:power-sleep$$"
+    "&out OUT_USB": "$$mdi:usb$$"
+
+    # Prefer explicit labels where an icon would be ambiguous.
+    "&bootloader": "BOOT"

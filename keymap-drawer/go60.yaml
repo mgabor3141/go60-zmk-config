@@ -1,7 +1,7 @@
 layout: {zmk_keyboard: go60}
 layers:
   Base:
-  - {t: Sft+TAB, h: '&magic_layer 7'}
+  - {t: Shift ⇥, h: MAGIC}
   - '1'
   - '2'
   - '3'
@@ -13,7 +13,7 @@ layers:
   - '9'
   - '0'
   - Function
-  - TAB
+  - ⇥
   - Q
   - W
   - E
@@ -48,28 +48,28 @@ layers:
   - ','
   - .
   - /
-  - '&caps_word_custom'
-  - SPACE
-  - BSPC
-  - DEL
-  - LEFT
-  - RIGHT
+  - Caps Word
+  - ␣
+  - $$mdi:backspace-outline$$
+  - $$mdi:delete-outline$$
+  - ←
+  - →
   - F15
-  - {t: F20, h: '&wm_layer'}
-  - {t: RET, h: LCTRL}
-  - '&td_LAYER_Nav'
+  - {t: F20, h: WM}
+  - {t: ↵, h: LCTRL}
+  - NAV
   - {t: Symbol, h: sticky}
-  - SPACE
-  - BSPC
+  - ␣
+  - $$mdi:backspace-outline$$
   Nav:
   - Sft+TAB
-  - '&sur LBKT RBKT'
+  - Wrap []
   - '`'
-  - '&sur LS(N9) LS(N0)'
+  - Wrap ()
   - ','
   - .
-  - '&sur LS(SQT) LS(SQT)'
-  - '&sur SQT SQT'
+  - Wrap ""
+  - Wrap ''
   - F8
   - F9
   - F10
@@ -77,42 +77,42 @@ layers:
   - Ctl+`
   - Ctl+Sft+P
   - Ctl+LEFT
-  - UP
+  - ↑
   - Ctl+RIGHT
-  - {t: PG UP, h: Ctl+HOME}
-  - KP MULTIPLY
+  - {t: Pg↑, h: Ctl+HOME}
+  - KP ×
   - KP 7
   - KP 8
   - KP 9
-  - KP MINUS
+  - KP −
   - F12
   - {t: ▽, type: trans}
   - HOME
-  - LEFT
-  - DOWN
-  - RIGHT
+  - ←
+  - ↓
+  - →
   - END
-  - KP SLASH
+  - KP ÷
   - KP 4
   - KP 5
   - KP 6
-  - KP PLUS
+  - KP +
   - {t: ▽, type: trans}
   - {t: Sft+ESC, h: LALT}
   - Ctl+Sft+Z
   - Ctl+RET
   - Meh+C
   - Meh+V
-  - {t: PG DN, h: Ctl+END}
-  - TAB
+  - {t: Pg↓, h: Ctl+END}
+  - ⇥
   - KP 1
   - KP 2
   - KP 3
-  - KP ENTER
+  - KP ↵
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - '&mkp MB4'
-  - '&mkp MB5'
+  - Mouse 4
+  - Mouse 5
   - KP 0
   - KP 0
   - KP DOT
@@ -128,11 +128,11 @@ layers:
   - (
   - )
   - \
-  - '&triple_backtick'
-  - AltGr+\
-  - AltGr+-
-  - AltGr+[
-  - AltGr+0
+  - '```'
+  - Ű
+  - Ü
+  - Ő
+  - Ö
   - ''
   - ''
   - '`'
@@ -142,11 +142,11 @@ layers:
   - ']'
   - '!'
   - ''''
-  - AltGr+U
-  - AltGr+I
-  - AltGr+O
-  - AltGr+4
-  - AltGr+D
+  - Ú
+  - Í
+  - Ó
+  - €
+  - °
   - {t: ▽, type: trans}
   - ^
   - '='
@@ -157,8 +157,8 @@ layers:
   - (
   - )
   - '#'
-  - AltGr+E
-  - AltGr+A
+  - É
+  - Á
   - '~'
   - <
   - '|'
@@ -168,9 +168,9 @@ layers:
   - '&'
   - +
   - '%'
-  - AltGr+.
-  - AltGr+T
-  - AltGr+M
+  - …
+  - ™
+  - µ
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -318,7 +318,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - TAB
+  - ⇥
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -361,7 +361,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - RET
+  - ↵
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -431,12 +431,12 @@ layers:
   - ''
   - BRI DN
   - BRI UP
-  - PREV
-  - PP
-  - NEXT
-  - MUTE
-  - VOL DN
-  - VOL UP
+  - $$mdi:skip-previous$$
+  - $$mdi:play-pause$$
+  - $$mdi:skip-next$$
+  - $$mdi:volume-mute$$
+  - $$mdi:volume-minus$$
+  - $$mdi:volume-plus$$
   - GLOBE
   - ''
   - BT CLR
@@ -452,7 +452,7 @@ layers:
   - BRI AUTO
   - ''
   - ''
-  - '&bootloader'
+  - BOOT
   - RGB SPD
   - RGB SAD
   - RGB HUD
@@ -463,20 +463,20 @@ layers:
   - ''
   - ''
   - ''
-  - '&bootloader'
-  - '&sleep'
+  - BOOT
+  - $$mdi:power-sleep$$
   - ''
-  - '&bt_0'
-  - '&bt_1'
-  - '&bt_2'
-  - '&bt_3'
-  - ''
-  - ''
+  - BT 0
+  - BT 1
+  - BT 2
+  - BT 3
   - ''
   - ''
   - ''
   - ''
-  - OUT USB
+  - ''
+  - ''
+  - $$mdi:usb$$
   - ''
   - ''
   - ''
