@@ -15,7 +15,7 @@ jobs:
         run: |
           git init -q /zmk
           git -C /zmk remote add origin https://github.com/mgabor3141/zmk.git
-          git -C /zmk fetch origin 5b071c50500ecbf45545516789160e21c83ce190 --depth 5
+          git -C /zmk fetch origin 278302d9c2610a6982aede0a20f78150b16915d1 --depth 5
           git -C /zmk checkout -q FETCH_HEAD
       - name: Initialize west workspace
         working-directory: /zmk

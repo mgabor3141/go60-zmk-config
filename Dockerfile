@@ -5,7 +5,7 @@ SHELL ["/bin/bash", "-euo", "pipefail", "-c"]
 COPY --chmod=755 <<'ENTRYPOINT' /bin/entrypoint.sh
 #!/bin/bash
 set -euo pipefail
-: "${REVISION:=5b071c50500ecbf45545516789160e21c83ce190}"
+: "${REVISION:=278302d9c2610a6982aede0a20f78150b16915d1}"
 
 cd /zmk
 

@@ -32,7 +32,7 @@ docker volume rm go60-zmk-src go60-build-cache
 
 ### Firmware fork
 
-This config pins reviewed commit [`5b071c50500e`](https://github.com/mgabor3141/zmk/commit/5b071c50500ecbf45545516789160e21c83ce190) from [mgabor3141/zmk:go60-main](https://github.com/mgabor3141/zmk/tree/go60-main), a minimal fork of upstream `zmkfirmware/zmk:main` (Zephyr 4.1) that adds:
+This config pins reviewed commit [`278302d9c261`](https://github.com/mgabor3141/zmk/commit/278302d9c2610a6982aede0a20f78150b16915d1) from [mgabor3141/zmk:go60-main](https://github.com/mgabor3141/zmk/tree/go60-main), a minimal fork of upstream `zmkfirmware/zmk:main` (Zephyr 4.1) that adds:
 
 - Go60 board definition (ported to Zephyr 4.1 board structure)
 - RH thumb pixel-lookup fix
