@@ -171,6 +171,8 @@
         magic_layer: magic_layer {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
+            tap-ms = <0>;
+            wait-ms = <0>;
             bindings = <&macro_tap>
                 , <&kp K_CANCEL>
                 , <&macro_press>
@@ -249,6 +251,8 @@
         nav_momentary: nav_momentary {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
+            tap-ms = <0>;
+            wait-ms = <0>;
             bindings = <&macro_tap>
                 , <&kp K_CANCEL>
                 , <&macro_press>
@@ -261,6 +265,8 @@
         nav_toggle: nav_toggle {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
+            tap-ms = <0>;
+            wait-ms = <0>;
             bindings = <&kp K_CANCEL>
                 , <&tog LAYER_Nav>;
         };
@@ -268,6 +274,8 @@
         function_layer: function_layer {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
+            tap-ms = <0>;
+            wait-ms = <0>;
             bindings = <&macro_tap>
                 , <&kp K_CANCEL>
                 , <&macro_press>
@@ -280,6 +288,8 @@
         gaming_toggle: gaming_toggle {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
+            tap-ms = <0>;
+            wait-ms = <0>;
             bindings = <&kp K_CANCEL>
                 , <&tog LAYER_Gaming>;
         };
