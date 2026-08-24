@@ -322,6 +322,16 @@
                 , <&kp LCTRL>;
         };
 
+        cancel_sticky_shift: cancel_sticky_shift {
+            compatible = "zmk,behavior-macro-one-param";
+            #binding-cells = <1>;
+            tap-ms = <0>;
+            wait-ms = <0>;
+            bindings = <&kp K_CANCEL>
+                , <&macro_param_1to1>
+                , <&sk MACRO_PLACEHOLDER>;
+        };
+
         sur: sur {
             compatible = "zmk,behavior-macro-two-param";
             #binding-cells = <2>;
@@ -404,7 +414,7 @@
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             tapping-term-ms = <250>;
-            bindings = <&kp>, <&sk>;
+            bindings = <&kp>, <&cancel_sticky_shift>;
             hold-while-undecided;
         };
     };
