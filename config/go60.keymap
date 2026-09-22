@@ -424,10 +424,10 @@
 
         layer_Base {
             bindings = <
-    &TH_magic LAYER_Magic LS(TAB)   &kp N1   &kp N2      &kp N3     &kp N4    &kp N5        &kp N6    &kp N7     &kp N8     &kp N9    &kp N0      &function_layer
-                          &kp TAB   &kp Q    &kp W       &kp E      &kp R     &kp T         &kp Y     &kp U      &kp I      &kp O     &kp P       &kp SQT
-       &bsk LSHFT LSHFT   &kp A    &kp S       &kp D      &kp F     &kp G         &kp H     &kp J      &kp K      &kp L     &kp SEMI    &bsk RSHFT RSHFT
-                 &TH_mod LALT ESC   &kp Z    &kp X       &kp C      &kp V     &kp B         &kp N     &kp M      &kp COMMA  &kp DOT   &kp FSLH    &caps_word_custom
+    &TH_magic LAYER_Magic ESC   &kp N1   &kp N2      &kp N3     &kp N4    &kp N5        &kp N6    &kp N7     &kp N8     &kp N9    &kp N0      &function_layer
+                      &kp TAB   &kp Q    &kp W       &kp E      &kp R     &kp T         &kp Y     &kp U      &kp I      &kp O     &kp P       &kp SQT
+             &bsk LSHFT LSHFT   &kp A    &kp S       &kp D      &kp F     &kp G         &kp H     &kp J      &kp K      &kp L     &kp SEMI    &bsk RSHFT RSHFT
+         &TH_mod LALT LS(TAB)   &kp Z    &kp X       &kp C      &kp V     &kp B         &kp N     &kp M      &kp COMMA  &kp DOT   &kp FSLH    &caps_word_custom
                                              &kp SPACE   &kp BSPC   &kp DEL                           &kp LEFT   &kp RIGHT  &kp F15
                              &TH_wm_layer 0 F20    &TH_mod LCTRL RET   &td_LAYER_Nav        &sl LAYER_Symbol   &kp SPACE  &kp BSPC
             >;
@@ -435,10 +435,10 @@
 
         layer_Nav {
             bindings = <
-             &kp LS(TAB)   &sur LBKT RBKT   &kp GRAVE      &sur LS(N9) LS(N0)   &kp COMMA           &kp DOT                       &sur LS(SQT) LS(SQT)   &sur SQT SQT   &kp F8      &kp F9      &kp F10        &kp F11
+             &kp LS(ESC)   &sur LBKT RBKT   &kp GRAVE      &sur LS(N9) LS(N0)   &kp COMMA           &kp DOT                       &sur LS(SQT) LS(SQT)   &sur SQT SQT   &kp F8      &kp F9      &kp F10        &kp F11
            &kp LC(GRAVE)   &kp LC(LS(P))    &kp LC(LEFT)   &kp UP               &kp LC(RIGHT)       &TH_key LC(HOME) PG_UP        &kp KP_MULTIPLY        &kp KP_N7      &kp KP_N8   &kp KP_N9   &kp KP_MINUS   &kp F12
                   &trans   &kp HOME         &kp LEFT       &kp DOWN             &kp RIGHT           &kp END                       &kp KP_SLASH           &kp KP_N4      &kp KP_N5   &kp KP_N6   &kp KP_PLUS    &trans
-    &TH_mod LALT LS(ESC)   &kp LC(LS(Z))    &kp LC(RET)    &kp LC(LS(LA(C)))    &kp LS(LC(LA(V)))   &TH_key LC(END) PG_DN         &kp TAB                &kp KP_N1      &kp KP_N2   &kp KP_N3   &kp KP_ENTER   &trans
+    &TH_mod LALT LA(TAB)   &kp LC(LS(Z))    &kp LC(RET)    &kp LC(LS(LA(C)))    &kp LS(LC(LA(V)))   &TH_key LC(END) PG_DN         &kp TAB                &kp KP_N1      &kp KP_N2   &kp KP_N3   &kp KP_ENTER   &trans
                                             &trans         &mkp MB4             &mkp MB5                                                                 &kp KP_N0      &kp KP_N0   &kp KP_DOT
                                                                                                    &kp F14  &trans  &trans        &trans  &trans   &trans
             >;
@@ -482,8 +482,8 @@
                            &kp ESC  &trans    &trans     &trans    &trans  &trans            &trans  &trans  &trans  &trans  &trans  &trans
                            &kp TAB  &trans    &trans     &trans    &trans  &trans            &trans  &trans  &trans  &trans  &trans  &trans
                          &kp LSHFT  &trans    &trans     &trans    &trans  &trans            &trans  &trans  &trans  &trans  &trans  &trans
-                         &kp LCTRL  &trans    &trans     &trans    &trans  &trans            &trans  &trans  &trans  &trans  &trans  &trans
-                                              &kp LALT   &trans    &trans                            &trans  &trans  &trans
+                          &kp LALT  &trans    &trans     &trans    &trans  &trans            &trans  &trans  &trans  &trans  &trans  &trans
+                                              &kp LCTRL  &trans    &trans                            &trans  &trans  &trans
                                                        &kp SEMI   &kp RET   &kp SQT           &trans  &trans  &trans
             >;
         };
