@@ -310,16 +310,6 @@
                 , <&kp LCTRL>;
         };
 
-        cancel_sticky_shift: cancel_sticky_shift {
-            compatible = "zmk,behavior-macro-one-param";
-            #binding-cells = <1>;
-            tap-ms = <0>;
-            wait-ms = <0>;
-            bindings = <&kp K_CANCEL>
-                , <&macro_param_1to1>
-                , <&sk MACRO_PLACEHOLDER>;
-        };
-
         sur: sur {
             compatible = "zmk,behavior-macro-two-param";
             #binding-cells = <2>;
@@ -390,11 +380,21 @@
             quick-tap-ms = <300>;
         };
 
-        better_sticky: better_sticky {
+        skq: sticky_key_quick_release {
+            compatible = "zmk,behavior-sticky-key";
+            #binding-cells = <1>;
+            bindings = <&kp>;
+            release-after-ms = <200>;
+            quick-release;
+            ignore-modifiers;
+        };
+
+        bsk: better_sticky {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
-            tapping-term-ms = <250>;
-            bindings = <&cancel_held_key>, <&cancel_sticky_shift>;
+            flavor = "balanced";
+            tapping-term-ms = <200>;
+            bindings = <&kp>, <&skq>;
             hold-while-undecided;
         };
     };
@@ -426,7 +426,7 @@
             bindings = <
     &TH_magic LAYER_Magic LS(TAB)   &kp N1   &kp N2      &kp N3     &kp N4    &kp N5        &kp N6    &kp N7     &kp N8     &kp N9    &kp N0      &function_layer
                           &kp TAB   &kp Q    &kp W       &kp E      &kp R     &kp T         &kp Y     &kp U      &kp I      &kp O     &kp P       &kp SQT
-       &better_sticky LSHFT LSHFT   &kp A    &kp S       &kp D      &kp F     &kp G         &kp H     &kp J      &kp K      &kp L     &kp SEMI    &better_sticky RSHFT RSHFT
+       &bsk LSHFT LSHFT   &kp A    &kp S       &kp D      &kp F     &kp G         &kp H     &kp J      &kp K      &kp L     &kp SEMI    &bsk RSHFT RSHFT
                  &TH_mod LALT ESC   &kp Z    &kp X       &kp C      &kp V     &kp B         &kp N     &kp M      &kp COMMA  &kp DOT   &kp FSLH    &caps_word_custom
                                              &kp SPACE   &kp BSPC   &kp DEL                           &kp LEFT   &kp RIGHT  &kp F15
                              &TH_wm_layer 0 F20    &TH_mod LCTRL RET   &td_LAYER_Nav        &sl LAYER_Symbol   &kp SPACE  &kp BSPC
