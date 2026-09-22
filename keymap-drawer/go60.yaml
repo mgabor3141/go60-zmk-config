@@ -1,7 +1,7 @@
 layout: {zmk_keyboard: go60}
 layers:
   Base:
-  - {t: Shift ⇥, h: MAGIC}
+  - {t: ESC, h: '&magic_layer 7'}
   - '1'
   - '2'
   - '3'
@@ -12,7 +12,7 @@ layers:
   - '8'
   - '9'
   - '0'
-  - Function
+  - '&function_layer'
   - ⇥
   - Q
   - W
@@ -37,7 +37,7 @@ layers:
   - L
   - ;
   - {t: RSHFT, h: RSHFT}
-  - {t: ESC, h: LALT}
+  - {t: Sft+TAB, h: '&cancel_held_key LALT'}
   - Z
   - X
   - C
@@ -56,13 +56,13 @@ layers:
   - →
   - F15
   - {t: F20, h: WM}
-  - {t: ↵, h: LCTRL}
+  - {t: ↵, h: '&cancel_held_key LCTRL'}
   - NAV
   - {t: Symbol, h: sticky}
   - ␣
   - $$mdi:backspace-outline$$
   Nav:
-  - Sft+TAB
+  - Sft+ESC
   - Wrap []
   - '`'
   - Wrap ()
@@ -98,7 +98,7 @@ layers:
   - KP 6
   - KP +
   - {t: ▽, type: trans}
-  - {t: Sft+ESC, h: LALT}
+  - {t: Alt+TAB, h: '&cancel_held_key LALT'}
   - Ctl+Sft+Z
   - Ctl+RET
   - Meh+C
@@ -195,7 +195,7 @@ layers:
   - F8
   - F9
   - F10
-  - {type: held}
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - F11
   - F12
@@ -342,18 +342,6 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - LCTRL
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
   - LALT
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -361,8 +349,20 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - ↵
   - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - LCTRL
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - ;
+  - ↵
+  - ''''
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -492,4 +492,4 @@ combos:
 - p: [48, 49]
   k: F13
 - p: [0, 56]
-  k: {t: Gaming, h: toggle}
+  k: '&gaming_toggle'
